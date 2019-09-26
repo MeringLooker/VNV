@@ -267,6 +267,28 @@ view: vnv_sem_gdn_view {
     sql: ${vnv_ga_adwords_view.sessions} ;;
   }
 
+  measure: avg_time_on_site {
+    label: "Avg. TOS - Unformatted"
+    hidden: yes
+    type: number
+    sql: ${vnv_ga_adwords_view.total_session_duration}/nullif(${vnv_ga_adwords_view.total_sessions}, 0);;
+    value_format: "0.##"
+  }
+
+  measure: formatted_tos {
+    label: "Avg. TOS - Formatted"
+    type: number
+    sql:  ${avg_time_on_site}::float/86400 ;;
+    value_format: "m:ss"
+  }
+
+  measure: percent_new_users {
+    label: "% New Users"
+    type: number
+    sql: ${vnv_ga_adwords_view.new_users}/nullif(${vnv_ga_adwords_view.total_users}, 0) ;;
+    value_format_name: percent_0
+}
+
   measure: cost_per_session {
     label: "CPS"
     type: number

@@ -13,7 +13,7 @@ label: "Visit Napa Valley"
 persist_with: vnv_default_datagroup
 
 explore: vnv_sem_gdn_view {
-  label: "AdWords Display/Search"
+  label: "AdWords"
   view_label: "AdWords"
 
 join: vnv_ga_adwords_view {
