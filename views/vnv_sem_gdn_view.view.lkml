@@ -276,7 +276,7 @@ view: vnv_sem_gdn_view {
   }
 
   measure: formatted_tos {
-    label: "Avg. TOS - Formatted"
+    label: "Avg. TOS"
     type: number
     sql:  ${avg_time_on_site}::float/86400 ;;
     value_format: "m:ss"
