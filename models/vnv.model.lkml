@@ -1,7 +1,11 @@
 connection: "mc_panoply"
 
 # include all the views
-include: "/views/**/*.view"
+include: "/AdWords/**/*.view"
+include: "/DCM/**/*.view"
+include: "/Facebook/**/*.view"
+include: "/Google_Analytics/**/*.view"
+
 
 datagroup: vnv_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
@@ -12,6 +16,9 @@ label: "Visit Napa Valley"
 
 persist_with: vnv_default_datagroup
 
+
+#### Exploring AdWords Data #####
+
 explore: vnv_sem_gdn_view {
   label: "AdWords"
   view_label: "AdWords"
@@ -21,7 +28,51 @@ join: vnv_ga_adwords_view {
   type: left_outer
   sql_on: ${vnv_sem_gdn_view.comp_key} = ${vnv_ga_adwords_view.comp_key} ;;
   relationship: many_to_one
+  }
 }
+
+#### Exploring DCM Data #####
+
+explore: vnv_dcm_view {
+  label: "DoubleClick"
+  view_label: "DoubleClick"
+  group_label: "Visit Napa Valley"
+
+  join: vnv_mc_ga_view {
+    view_label: "Google Analytics"
+    type: left_outer
+    sql_on: ${vnv_dcm_view.comp_key} = ${vnv_mc_ga_view.comp_key} ;;
+    relationship: many_to_one
+  }
+}
+
+#### Exploring Facebook Data #####
+
+explore: vnv_fb_view {
+  label: "Facebook"
+  view_label: "Facebook"
+  group_label: "Visit Napa Valley"
+
+  join: facebookads__visit_napa_valley_actions {
+    view_label: "Facebook Actions"
+    type: left_outer
+    sql_on: ${facebookads__visit_napa_valley_actions.facebookads__visit_napa_valley_id} = ${vnv_fb_view.id} ;;
+    relationship: many_to_one
+  }
+
+  join: facebookads__visit_napa_valley_video_p100_watched_actions {
+    view_label: "Vid Completes"
+    type: left_outer
+    sql_on: ${facebookads__visit_napa_valley_video_p100_watched_actions.facebookads__visit_napa_valley_id} = ${vnv_fb_view.id} ;;
+    relationship: many_to_one
+  }
+
+  join: vnv_mc_ga_view {
+    view_label: "Google Analytics"
+    type: left_outer
+    sql_on: ${vnv_fb_view.comp_key} = ${vnv_mc_ga_view.comp_key} ;;
+    relationship: many_to_one
+  }
 }
 
 # explore: adwords_ad_performance_report {}
