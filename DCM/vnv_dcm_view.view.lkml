@@ -351,14 +351,14 @@ view: vnv_dcm_view {
     value_format: "m:ss"
   }
 
-  measure: total_users {
+  measure: ga_total_users {
     group_label: "GA Reporting"
     label: "Users"
     type: sum
     sql: ${vnv_mc_ga_view.users} ;;
   }
 
-  measure: new_users {
+  measure: ga_new_users {
     group_label: "GA Reporting"
     label: "New Users"
     type: sum
@@ -373,7 +373,7 @@ view: vnv_dcm_view {
     value_format_name: percent_0
   }
 
-  measure: total_pageviews {
+  measure: ga_total_pageviews {
     group_label: "GA Reporting"
     label: "Pageviews"
     type: sum

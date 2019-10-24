@@ -372,7 +372,7 @@ view: vnv_fb_view {
     value_format_name: usd
   }
 
-  measure: click_to_session_ratio {
+  measure: click_to_session {
     type: number
     label: "CTS"
     group_label: "GA Reporting"
@@ -392,20 +392,11 @@ view: vnv_fb_view {
   }
 
   measure: avg_time_on_site {
-    label: "Avg. TOS - Unformatted"
-    hidden: yes
-    group_label: "GA Reporting"
-    type: number
-    sql: ${vnv_mc_ga_view.total_session_duration}/nullif(${vnv_mc_ga_view.total_sessions}, 0);;
-    value_format: "0.##"
-  }
-
-  measure: formatted_tos {
     label: "Avg. TOS"
-    type: number
     group_label: "GA Reporting"
-    sql:  ${avg_time_on_site}::float/86400 ;;
-    value_format: "m:ss"
+    type: number
+    sql: (${vnv_mc_ga_view.total_session_duration}/nullif(${vnv_mc_ga_view.total_sessions}, 0))::float/86400 ;;
+    value_format: "0.##"
   }
 
   measure: ga_total_users {
@@ -432,7 +423,7 @@ view: vnv_fb_view {
     value_format_name: percent_0
   }
 
-  measure: total_pageviews {
+  measure: ga_total_pageviews {
     group_label: "GA Reporting"
     label: "Pageviews"
     type: sum
@@ -443,7 +434,7 @@ view: vnv_fb_view {
     group_label: "GA Reporting"
     label: "Pgs/Session"
     type: number
-    sql: ${total_pageviews}/nullif(${ga_sessions}, 0) ;;
+    sql: ${ga_total_pageviews}/nullif(${ga_sessions}, 0) ;;
     value_format: "#.0"
   }
 
