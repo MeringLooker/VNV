@@ -121,11 +121,12 @@ view: vnv_fb_view {
     type: string
     sql:
       CASE
-       when ${campaign_name} ilike '%FY18%' then 'FY 17/18'
-       when ${campaign_name} ilike '%FY19%' then 'FY 18/19'
-       when ${campaign_name} ilike '%FY20%' then 'FY 19/20'
-       ELSE 'Uncategorized'
-      END;;
+        WHEN ${date_start_date} BETWEEN '2017-07-01' AND '2018-06-30' THEN 'FY 17/18'
+        WHEN ${date_start_date} BETWEEN '2018-07-01' AND '2019-06-30' THEN 'FY 18/19'
+        WHEN ${date_start_date} BETWEEN '2019-07-01' AND '2020-06-30' THEN 'FY 19/20'
+        ELSE 'Uncategorized'
+        END
+        ;;
       drill_fields: [campaign_name]
   }
 
@@ -282,6 +283,7 @@ view: vnv_fb_view {
     hidden: yes
     sql: ${TABLE}.unique_ctr ;;
   }
+
 
 ####### Meausures go below ######
 

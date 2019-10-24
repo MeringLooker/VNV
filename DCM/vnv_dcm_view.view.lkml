@@ -2,7 +2,7 @@ view: vnv_dcm_view {
   sql_table_name: public.vnv_dcm_view ;;
   drill_fields: [id]
 
-######## Dimensions go below ########
+######## PRIMARY KEY ########
 
   dimension: id {
     primary_key: yes
@@ -10,6 +10,8 @@ view: vnv_dcm_view {
     type: string
     sql: ${TABLE}.id ;;
   }
+
+######## Dimensions go below ########
 
   dimension: __id {
     hidden: yes
@@ -53,40 +55,6 @@ view: vnv_dcm_view {
     sql: ${TABLE}.__updatetime ;;
   }
 
-  dimension: active_view__measurable_impressions {
-    hidden: yes
-    type: number
-    sql: ${TABLE}."active view: % measurable impressions"
-      ;;
-  }
-
-  dimension: active_view__viewable_impressions {
-    type: number
-    hidden: yes
-    sql: ${TABLE}."active view: % viewable impressions"
-      ;;
-  }
-
-  dimension: active_view_eligible_impressions {
-    type: number
-    hidden: yes
-    sql: ${TABLE}."active view: eligible impressions"
-      ;;
-  }
-
-  dimension: active_view_measurable_impressions {
-    hidden: yes
-    type: number
-    sql: ${TABLE}."active view: measurable impressions"
-      ;;
-  }
-
-  dimension: active_view_viewable_impressions {
-    type: number
-    hidden: yes
-    sql: ${TABLE}."active view: viewable impressions"
-      ;;
-  }
 
   dimension: ad {
     type: string
@@ -133,24 +101,6 @@ view: vnv_dcm_view {
     sql: ${TABLE}."campaign id" ;;
   }
 
-  dimension: clicks {
-    type: number
-    hidden: yes
-    sql: ${TABLE}.clicks ;;
-  }
-
-  dimension: clickthrough_conversions {
-    type: number
-    hidden: yes
-    sql: ${TABLE}."click-through conversions" ;;
-  }
-
-  dimension: clickthrough_revenue {
-    type: number
-    hidden: yes
-    sql: ${TABLE}."click-through revenue" ;;
-  }
-
   dimension: comp_key {
     type: string
     hidden: yes
@@ -170,6 +120,7 @@ view: vnv_dcm_view {
 
   dimension_group: date {
     type: time
+    group_label: "Date Periods"
     timeframes: [
       raw,
       time,
@@ -180,18 +131,6 @@ view: vnv_dcm_view {
       year
     ]
     sql: ${TABLE}.date ;;
-  }
-
-  dimension: impressions {
-    type: number
-    hidden: yes
-    sql: ${TABLE}.impressions ;;
-  }
-
-  dimension: media_cost {
-    type: number
-    hidden: yes
-    sql: ${TABLE}."media cost" ;;
   }
 
   dimension: placement {
@@ -205,8 +144,9 @@ view: vnv_dcm_view {
     sql: ${TABLE}."placement id" ;;
   }
 
-  dimension: placement_strategy {
+  dimension: advertising_channel {
     type: string
+    label: "Channel"
     sql: ${TABLE}."placement strategy" ;;
   }
 
@@ -218,52 +158,90 @@ view: vnv_dcm_view {
 
   dimension: platform_type {
     type: string
+    hidden: yes
     sql: ${TABLE}."platform type" ;;
   }
 
   dimension: site_dcm {
     type: string
+    hidden: yes
     sql: ${TABLE}."site (dcm)" ;;
   }
 
-  dimension: total_conversions {
-    type: number
-    hidden: yes
-    sql: ${TABLE}."total conversions" ;;
+  dimension: vnv_layer {
+    type: string
+    label: "VNV Objective"
+    sql:
+      CASE
+        WHEN ${campaign} = 'VNV FY20 Objective 4 (Group)' then 'Group'
+        WHEN ${campaign} = 'VNV FY20 Objective 2 (Engage)' then 'Engage'
+        WHEN ${campaign} = 'VNV FY20 Objective #3 (Impact)' then 'Impact'
+        WHEN ${campaign} = 'VNV FY18/19' AND ${site_dcm} = 'Viant' then 'Group'
+        WHEN ${campaign} = 'VNV FY18/19' AND ${site_dcm} = 'Afar Media, LLC 1' then 'Impact'
+        WHEN ${campaign} = 'VNV FY18/19' AND ${site_dcm} = 'Sojern' then 'Engage'
+        WHEN ${campaign} = 'VNV FY18/19' AND ${site_dcm} = 'Refinery 29 1' then 'Engage'
+        WHEN ${campaign} = 'VNV FY18/19' AND ${site_dcm} = 'Architectural Digest' then 'Impact'
+        WHEN ${campaign} = 'VNV FY18/19' AND ${site_dcm} = 'Smart Meetings 1' then 'Group'
+        ELSE 'Uncategorized'
+        END
+        ;;
   }
 
-  dimension: total_revenue {
-    type: number
-    hidden: yes
-    sql: ${TABLE}."total revenue" ;;
+  dimension: formatted_site {
+    type: string
+    label: "Publisher"
+    sql:
+      CASE
+        WHEN ${site_dcm} = 'Smart Meetings 1' then 'Smart Meetings'
+        WHEN ${site_dcm} = 'Refinery 29 1' then 'Refinery 29'
+        WHEN ${site_dcm} ILIKE '%Afar Media%' then 'Afar'
+        WHEN ${site_dcm} ILIKE '%Adara%' then 'Adara'
+        WHEN ${site_dcm} = 'The Wall Street Journal Online' then 'Wall Street Journal'
+        ELSE ${site_dcm}
+        END
+        ;;
   }
 
-  dimension: viewthrough_conversions {
-    type: number
-    hidden: yes
-    sql: ${TABLE}."view-through conversions" ;;
+  dimension: fiscal_year {
+    type: string
+    label: "Fiscal Year"
+    sql:
+      CASE
+        WHEN ${date_date} BETWEEN '2018-07-01' AND '2019-06-30' THEN 'FY 18/19'
+        WHEN ${date_date} BETWEEN '2019-07-01' AND '2020-06-30' THEN 'FY 19/20'
+        ELSE 'Uncategorized'
+        END
+        ;;
   }
 
-  dimension: viewthrough_revenue {
-    type: number
-    hidden: yes
-    sql: ${TABLE}."view-through revenue" ;;
+  dimension: formatted_device {
+    type: string
+    label: "Device Type"
+    sql:
+      CASE
+        WHEN ${platform_type} ILIKE '%mobile%' THEN 'Mobile'
+        ELSE ${platform_type}
+        END
+        ;;
   }
+
 
 ######### All measures go below ########
 
   measure: total_impressions {
     group_label: "3rd Party Measures"
-    type: sum
+    type: sum_distinct
     label: "Impressions"
-    sql: ${impressions} ;;
+    sql_distinct_key: ${TABLE}.id ;;
+    sql: ${TABLE}.impressions ;;
   }
 
   measure: total_clicks {
     group_label: "3rd Party Measures"
-    type: sum
+    type: sum_distinct
     label: "Clicks"
-    sql: ${clicks} ;;
+    sql_distinct_key: ${TABLE}.id ;;
+    sql: ${TABLE}.clicks ;;
   }
 
   measure: click_through_rate {
@@ -276,16 +254,18 @@ view: vnv_dcm_view {
 
   measure: total_active_view_measureable_impressions {
     group_label: "3rd Party Measures"
-    type: sum
+    type: sum_distinct
     label: "Active View Measureable Impressions"
-    sql: ${active_view_measurable_impressions}   ;;
+    sql_distinct_key: ${TABLE}.id ;;
+    sql: ${TABLE}.active_view_measurable_impressions   ;;
   }
 
   measure: total_active_view_viewable_impressions {
     group_label: "3rd Party Measures"
-    type: sum
+    type: sum_distinct
     label: "Active View Viewable Impressions"
-    sql: ${active_view_viewable_impressions} ;;
+    sql_distinct_key: ${TABLE}.id ;;
+    sql: ${TABLE}.active_view_viewable_impressions ;;
   }
 
   measure: total_viewability {
@@ -298,9 +278,10 @@ view: vnv_dcm_view {
 
   measure: total_media_cost {
     group_label: "3rd Party Measures"
-    type: sum
+    type: sum_distinct
     label: "Media Spend"
-    sql: ${media_cost} ;;
+    sql_distinct_key: ${TABLE}.id ;;
+    sql: ${TABLE}.media_cost ;;
     value_format_name: usd
   }
 
@@ -363,18 +344,10 @@ view: vnv_dcm_view {
   }
 
   measure: avg_time_on_site {
-    label: "Avg. TOS - Unformatted"
-    hidden: yes
-    type: number
-    sql: ${vnv_mc_ga_view.total_session_duration}/nullif(${vnv_mc_ga_view.total_sessions}, 0);;
-    value_format: "0.##"
-  }
-
-  measure: formatted_tos {
     group_label: "GA Reporting"
     label: "Avg. TOS"
     type: number
-    sql:  ${avg_time_on_site}::float/86400 ;;
+    sql:  (${vnv_mc_ga_view.total_session_duration}/nullif(${vnv_mc_ga_view.total_sessions}, 0))::float/86400  ;;
     value_format: "m:ss"
   }
 
@@ -411,7 +384,7 @@ view: vnv_dcm_view {
     group_label: "GA Reporting"
     label: "Pgs/Session"
     type: number
-    sql: ${vnv_mc_ga_view.pageviews}/nullif(${vnv_mc_ga_view.total_sessions}, 0) ;;
+    sql: ${vnv_mc_ga_view.total_pageviews}/nullif(${vnv_mc_ga_view.total_sessions}, 0) ;;
   }
 
   measure: count {

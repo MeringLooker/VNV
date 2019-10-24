@@ -88,39 +88,9 @@ view: vnv_mc_ga_view {
     sql: ${TABLE}.devicecategory ;;
   }
 
-  dimension: goal3completions {
-    type: number
-    hidden: yes
-    sql: ${TABLE}.goal3completions ;;
-  }
-
-  dimension: goal5completions {
-    type: number
-    hidden: yes
-    sql: ${TABLE}.goal5completions ;;
-  }
-
-  dimension: goal7completions {
-    type: number
-    hidden: yes
-    sql: ${TABLE}.goal7completions ;;
-  }
-
   dimension: keyword {
     type: string
     sql: ${TABLE}.keyword ;;
-  }
-
-  dimension: newusers {
-    type: number
-    hidden: yes
-    sql: ${TABLE}.newusers ;;
-  }
-
-  dimension: pageviews {
-    type: number
-    hidden: yes
-    sql: ${TABLE}.pageviews ;;
   }
 
   dimension: region {
@@ -128,27 +98,65 @@ view: vnv_mc_ga_view {
     sql: ${TABLE}.region ;;
   }
 
-  dimension: sessionduration {
-    type: number
-    hidden: yes
-    sql: ${TABLE}.sessionduration ;;
-  }
-
-  dimension: sessions {
-    type: number
-    hidden: yes
-    sql: ${TABLE}.sessions ;;
-  }
-
   dimension: sourcemedium {
     type: string
     sql: ${TABLE}.sourcemedium ;;
   }
 
+  dimension: sessions {
+    label: "Sessions"
+    hidden: yes
+    type: string
+    sql: ${TABLE}.sessions ;;
+  }
+
+  dimension: sessionduration {
+    label: "Total Time on Site"
+    hidden: yes
+    type: string
+    sql: ${TABLE}.sessionduration ;;
+  }
+
   dimension: users {
-    type: number
+    label: "Users"
+    type: string
     hidden: yes
     sql: ${TABLE}.users ;;
+  }
+
+  dimension: newusers {
+    label: "New Users"
+    hidden: yes
+    type: string
+    sql: ${TABLE}.newusers ;;
+  }
+
+  dimension: pageviews {
+    label: "Pageviews"
+    hidden: yes
+    type: string
+    sql: ${TABLE}.pageviews ;;
+  }
+
+  dimension: goal3completions {
+    type: string
+    hidden: yes
+    label: "View Guide Online"
+    sql: ${TABLE}.goal3completions ;;
+  }
+
+  dimension: goal5completions {
+    type: string
+    hidden: yes
+    label: "Partner Referrals"
+    sql: ${TABLE}.goal5completions ;;
+  }
+
+ dimension: goal7completions {
+    type: string
+    label: "concierge form"
+    hidden: yes
+    sql: ${TABLE}.goal7completions ;;
   }
 
 ######## All measures go below #######
@@ -156,14 +164,14 @@ view: vnv_mc_ga_view {
   measure: total_sessions {
     label: "Sessions"
     type: sum
-    sql: ${sessions} ;;
+    sql: ${TABLE}.sessions ;;
   }
 
   measure: total_session_duration {
     label: "Total Time on Site"
     hidden: yes
     type: sum
-    sql: ${sessionduration} ;;
+    sql: ${TABLE}.sessionduration ;;
   }
 
   measure: avg_time_on_site {
@@ -185,13 +193,13 @@ view: vnv_mc_ga_view {
   measure: total_users {
     label: "Users"
     type: sum
-    sql: ${users} ;;
+    sql: ${TABLE}.users ;;
   }
 
   measure: new_users {
     label: "New Users"
     type: sum
-    sql: ${newusers} ;;
+    sql: ${TABLE}.newusers ;;
   }
 
   measure: percent_new_users {
@@ -204,7 +212,7 @@ view: vnv_mc_ga_view {
   measure: total_pageviews {
     label: "Pageviews"
     type: sum
-    sql: ${pageviews} ;;
+    sql: ${TABLE}.pageviews ;;
   }
 
   measure: pages_per_session {
