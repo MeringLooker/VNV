@@ -293,22 +293,25 @@ view: vnv_fb_view {
   }
 
   measure: total_impressions {
-    type: sum
+    type: sum_distinct
     label: "Impressions"
+    sql_distinct_key: ${vnv_fb_view.id};;
     sql: ${impressions} ;;
     drill_fields: [detail*]
   }
 
   measure: total_clicks {
-    type: sum
+    type: sum_distinct
     label: "Link Clicks"
+    sql_distinct_key: ${vnv_fb_view.id};;
     sql: ${inline_link_clicks} ;;
     drill_fields: [detail*]
   }
 
   measure: total_spend {
-    type: sum
+    type: sum_distinct
     label: "Media Spend"
+    sql_distinct_key: ${vnv_fb_view.id};;
     sql: ${spend};;
     value_format_name: usd
   }
@@ -338,8 +341,9 @@ view: vnv_fb_view {
 #### Joined FB Action Measures #####
 
   measure: video_completes {
-    type: sum
+    type: sum_distinct
     label: "Views to 100%"
+    sql_distinct_key: ${vnv_fb_view.id};;
     sql: ${facebookads__visit_napa_valley_video_p100_watched_actions.value} ;;
   }
 
