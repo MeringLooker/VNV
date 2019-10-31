@@ -58,6 +58,7 @@ view: vnv_dcm_view {
 
   dimension: ad {
     type: string
+    group_label: "DCM Dimensions"
     sql: ${TABLE}.ad ;;
   }
 
@@ -92,6 +93,7 @@ view: vnv_dcm_view {
 
   dimension: campaign {
     type: string
+    group_label: "DCM Dimensions"
     sql: ${TABLE}.campaign ;;
   }
 
@@ -109,7 +111,23 @@ view: vnv_dcm_view {
 
   dimension: creative {
     type: string
+    group_label: "DCM Dimensions"
     sql: ${TABLE}.creative ;;
+  }
+
+  dimension: ad_size {
+    type: string
+    group_label: "DCM Dimensions"
+    label: "Ad Size"
+    sql:
+      CASE when ${creative} ILIKE '%728x90%' then '728x90'
+      CASE when ${creative} ILIKE '%300x250%' then '300x250'
+      CASE when ${creative} ILIKE '%300x600%' then '300x600'
+      CASE when ${creative} ILIKE '%320x50%' then '320x50'
+      CASE when ${creative} ILIKE '%160x600%' then '160x600'
+      CASE when ${creative} ILIKE '%970x250%' then '970x250'
+      ELSE 'Uncategorized'
+      END;;
   }
 
   dimension: creative_id {
@@ -135,6 +153,7 @@ view: vnv_dcm_view {
 
   dimension: placement {
     type: string
+    group_label: "DCM Dimensions"
     sql: ${TABLE}.placement ;;
   }
 
@@ -146,6 +165,7 @@ view: vnv_dcm_view {
 
   dimension: advertising_channel {
     type: string
+    group_label: "DCM Dimensions"
     label: "Channel"
     sql: ${TABLE}."placement strategy" ;;
   }
@@ -170,6 +190,7 @@ view: vnv_dcm_view {
 
   dimension: vnv_layer {
     type: string
+    group_label: "Client Dimensions"
     label: "VNV Objective"
     sql:
       CASE
@@ -189,6 +210,7 @@ view: vnv_dcm_view {
 
   dimension: formatted_site {
     type: string
+    group_label: "DCM Dimensions"
     label: "Publisher"
     sql:
       CASE
@@ -204,6 +226,7 @@ view: vnv_dcm_view {
 
   dimension: fiscal_year {
     type: string
+    group_label: "Client Dimensions"
     label: "Fiscal Year"
     sql:
       CASE
@@ -217,6 +240,7 @@ view: vnv_dcm_view {
   dimension: formatted_device {
     type: string
     label: "Device Type"
+    group_label: "DCM Dimensions"
     sql:
       CASE
         WHEN ${platform_type} ILIKE '%mobile%' THEN 'Mobile'
