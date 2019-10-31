@@ -5,6 +5,7 @@ include: "/AdWords/**/*.view"
 include: "/DCM/**/*.view"
 include: "/Facebook/**/*.view"
 include: "/Google_Analytics/**/*.view"
+include: "/LinkedIn/**/*.view"
 
 
 datagroup: vnv_default_datagroup {
@@ -73,6 +74,14 @@ explore: vnv_fb_view {
     sql_on: ${vnv_fb_view.comp_key} = ${vnv_mc_ga_view.comp_key} ;;
     relationship: many_to_one
   }
+}
+
+#### Exploring LinkedIn Data #####
+
+explore: vnv_linkedin_campaign  {
+  label: "LinkedIn"
+  group_label: "Visit Napa Valley"
+  view_label: "LinkedIn"
 }
 
 # explore: adwords_ad_performance_report {}

@@ -59,6 +59,7 @@ view: vnv_fb_view {
 
   dimension: account_name {
     type: string
+    hidden: yes
     sql: ${TABLE}.account_name ;;
   }
 
@@ -70,11 +71,13 @@ view: vnv_fb_view {
 
   dimension: ad_name {
     type: string
+    group_label: "Facebook Dimensions"
     sql: ${TABLE}.ad_name ;;
   }
 
   dimension: ad_type {
     type: string
+    group_label: "Facebook Dimensions"
     sql:
      CASE
        when ${ad_name} ilike '%SingleImage%' then 'Single Image'
@@ -95,6 +98,7 @@ view: vnv_fb_view {
 
   dimension: adset_name {
     type: string
+    group_label: "Facebook Dimensions"
     sql: ${TABLE}.adset_name ;;
   }
 
@@ -112,15 +116,18 @@ view: vnv_fb_view {
 
   dimension: campaign_name {
     type: string
+    group_label: "Facebook Dimensions"
     sql: ${TABLE}.campaign_name ;;
   }
 
   dimension: fiscal_year {
     label: "Fiscal"
-    group_label: "Client"
+    group_label: "Client Dimensions"
     type: string
     sql:
       CASE
+        WHEN ${date_start_date} BETWEEN '2015-07-01' AND '2016-06-30' THEN 'FY 15/16'
+        WHEN ${date_start_date} BETWEEN '2016-07-01' AND '2017-06-30' THEN 'FY 16/17'
         WHEN ${date_start_date} BETWEEN '2017-07-01' AND '2018-06-30' THEN 'FY 17/18'
         WHEN ${date_start_date} BETWEEN '2018-07-01' AND '2019-06-30' THEN 'FY 18/19'
         WHEN ${date_start_date} BETWEEN '2019-07-01' AND '2020-06-30' THEN 'FY 19/20'
@@ -132,30 +139,57 @@ view: vnv_fb_view {
 
   dimension: vnv_layer {
     label: "VNV Layer"
-    group_label: "Client"
+    group_label: "Client Dimensions"
     type: string
     sql:
       CASE
        when ${campaign_name} ilike '%_Objective3_%' then 'Impact'
-       when ${campaign_name} ilike '%FY20_VNV_Conversions%' or '%FY20_VNV_Video%' then 'FY 18/19'
-       ELSE ${campaign_name}
-        ELSE 'Uncategorized'
-      END;;
+       when ${campaign_name} ilike '%FY20_VNV_Conversions%' then 'Foundational'
+       when ${campaign_name} ilike '%FY20_VNV_Video%' then 'Foundational'
+       ELSE 'Uncategorized'
+       END;;
       drill_fields: [campaign_name]
   }
 
   dimension: facebook_layer {
     label: "Facebook Layer"
+    group_label: "Client Dimensions"
     type: string
     sql:
       CASE
        when ${campaign_name} ilike '%_VideoViews' then 'Video Views'
        when ${campaign_name} ilike '%_InstagramStories' then 'Instagram Stories'
        when ${campaign_name} ilike '%_TrafficDriving' then 'Traffic Driving'
-       ELSE ${campaign_name}
-        ELSE 'Uncategorized'
-      END;;
+       ELSE 'Uncategorized'
+       END;;
     drill_fields: [campaign_name]
+  }
+
+  dimension: creative_name {
+    group_label: "Client Dimensions"
+    type: string
+    sql:
+      CASE
+        WHEN ${ad_name} ilike '%legendary' then 'Legendary'
+        WHEN ${ad_name} ilike '%lodging' then 'Lodging'
+        WHEN ${ad_name} ilike '%thingstodo' then 'Things To Do'
+        WHEN ${ad_name} ilike '%wellness' then 'Wellness'
+        WHEN ${ad_name} ilike '%gobeyond' then 'Go Beyond'
+        WHEN ${ad_name} ilike '%onevalley' then 'One Valley'
+        WHEN ${ad_name} ilike '%weekends' then 'Weekends'
+        WHEN ${ad_name} ilike '%art' then 'Art'
+        WHEN ${ad_name} ilike '%beer' then 'Beer'
+        WHEN ${ad_name} ilike '%events' then 'Events'
+        WHEN ${ad_name} ilike '%aerial' then 'Aerial'
+        WHEN ${ad_name} ilike '%picnictables' then 'Picnic Tables'
+        WHEN ${ad_name} ilike '%tablescape' then 'Tablescape'
+        WHEN ${ad_name} ilike '%stunningharmony' then 'Stunning Harmony'
+        WHEN ${ad_name} ilike '%theweekend' then 'The Weekend'
+        WHEN ${ad_name} ilike '%nextsip' then 'Next Sip'
+        WHEN ${ad_name} ilike '%winepour' then 'Wine Pour'
+        ELSE ${ad_name}
+          END
+        ;;
   }
 
   dimension: clicks {
@@ -178,6 +212,8 @@ view: vnv_fb_view {
 
   dimension: country {
     type: string
+    hidden: yes
+    group_label: "Facebook Dimensions"
     map_layer_name: countries
     sql: ${TABLE}.country ;;
   }
@@ -256,6 +292,7 @@ view: vnv_fb_view {
 
   dimension: objective {
     type: string
+    group_label: "Facebook Dimensions"
     label: "FB Objective"
     sql: ${TABLE}.objective ;;
   }
@@ -396,7 +433,7 @@ view: vnv_fb_view {
     group_label: "GA Reporting"
     type: number
     sql: (${vnv_mc_ga_view.total_session_duration}/nullif(${vnv_mc_ga_view.total_sessions}, 0))::float/86400 ;;
-    value_format: "0.##"
+    value_format: "m:ss"
   }
 
   measure: ga_total_users {
