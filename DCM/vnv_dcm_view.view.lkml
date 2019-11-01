@@ -70,6 +70,7 @@ view: vnv_dcm_view {
 
   dimension: advertiser {
     type: string
+    hidden: yes
     sql: ${TABLE}.advertiser ;;
   }
 
@@ -115,17 +116,25 @@ view: vnv_dcm_view {
     sql: ${TABLE}.creative ;;
   }
 
+  dimension: creative_name {
+    type: string
+    group_label: "Client Dimensions"
+
+  }
+
   dimension: ad_size {
     type: string
     group_label: "DCM Dimensions"
     label: "Ad Size"
     sql:
-      CASE when ${creative} ILIKE '%728x90%' then '728x90'
-      CASE when ${creative} ILIKE '%300x250%' then '300x250'
-      CASE when ${creative} ILIKE '%300x600%' then '300x600'
-      CASE when ${creative} ILIKE '%320x50%' then '320x50'
-      CASE when ${creative} ILIKE '%160x600%' then '160x600'
-      CASE when ${creative} ILIKE '%970x250%' then '970x250'
+      CASE
+        when ${creative} ILIKE '%728x90%' then '728x90'
+        when ${creative} ILIKE '%300x250%' then '300x250'
+        when ${creative} ILIKE '%300x600%' then '300x600'
+        when ${creative} ILIKE '%320x50%' then '320x50'
+        when ${creative} ILIKE '%160x600%' then '160x600'
+        when ${creative} ILIKE '%970x250%' then '970x250'
+        when ${creative} ILIKE '%300x50%' then '300x50'
       ELSE 'Uncategorized'
       END;;
   }
@@ -281,7 +290,7 @@ view: vnv_dcm_view {
     type: sum_distinct
     label: "Active View Measureable Impressions"
     sql_distinct_key: ${TABLE}.id ;;
-    sql: ${TABLE}.active_view_measurable_impressions   ;;
+    sql: ${TABLE}."active view: measurable impressions";;
   }
 
   measure: total_active_view_viewable_impressions {
@@ -289,7 +298,7 @@ view: vnv_dcm_view {
     type: sum_distinct
     label: "Active View Viewable Impressions"
     sql_distinct_key: ${TABLE}.id ;;
-    sql: ${TABLE}.active_view_viewable_impressions ;;
+    sql: ${TABLE}."active view: viewable impressions" ;;
   }
 
   measure: total_viewability {
@@ -305,7 +314,7 @@ view: vnv_dcm_view {
     type: sum_distinct
     label: "Media Spend"
     sql_distinct_key: ${TABLE}.id ;;
-    sql: ${TABLE}.media_cost ;;
+    sql: ${TABLE}."media cost"" ;;
     value_format_name: usd
   }
 

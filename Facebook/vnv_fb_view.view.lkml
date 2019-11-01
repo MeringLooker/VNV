@@ -377,6 +377,16 @@ view: vnv_fb_view {
 
 #### Joined FB Action Measures #####
 
+  measure: video_views {
+    type: sum_distinct
+    sql_distinct_key: ${vnv_fb_view.id};;
+    label: ":03 Video Views"
+    sql:
+      CASE
+      WHEN ${facebookads__visit_napa_valley_actions.action_type} = 'video_view' THEN ${facebookads__visit_napa_valley_actions.value}
+      END;;
+  }
+
   measure: video_completes {
     type: sum_distinct
     label: "Views to 100%"
