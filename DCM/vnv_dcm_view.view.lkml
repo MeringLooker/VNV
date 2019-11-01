@@ -314,7 +314,7 @@ view: vnv_dcm_view {
     type: sum_distinct
     label: "Media Spend"
     sql_distinct_key: ${TABLE}.id ;;
-    sql: ${TABLE}."media cost"" ;;
+    sql: ${TABLE}."media cost" ;;
     value_format_name: usd
   }
 
