@@ -98,6 +98,23 @@ view: vnv_dcm_view {
     sql: ${TABLE}.campaign ;;
   }
 
+  dimension: sdt_campaign {
+    type: string
+    group_label: "DCM Dimensions"
+    label: "Ad Size"
+    sql:
+      CASE
+        when ${campaign} ILIKE 'Pull-Through' then 'Pull-Through'
+        when ${creative} ILIKE '%300x250%' then '300x250'
+        when ${creative} ILIKE '%300x600%' then '300x600'
+        when ${creative} ILIKE '%320x50%' then '320x50'
+        when ${creative} ILIKE '%160x600%' then '160x600'
+        when ${creative} ILIKE '%970x250%' then '970x250'
+        when ${creative} ILIKE '%300x50%' then '300x50'
+      ELSE 'Uncategorized'
+      END;;
+  }
+
   dimension: campaign_id {
     type: number
     hidden: yes
@@ -364,7 +381,7 @@ view: vnv_dcm_view {
     group_label: "GA Reporting"
     type: number
     label: "CPS"
-    sql: ${total_media_cost}/nullif(${vnv_mc_ga_view.sessions}, 0) ;;
+    sql: ${total_media_cost}/nullif(${ga_sessions}, 0) ;;
     value_format_name: usd
   }
 
@@ -418,6 +435,7 @@ view: vnv_dcm_view {
     label: "Pgs/Session"
     type: number
     sql: ${vnv_mc_ga_view.total_pageviews}/nullif(${vnv_mc_ga_view.total_sessions}, 0) ;;
+    value_format: "#.0"
   }
 
   measure: count {
