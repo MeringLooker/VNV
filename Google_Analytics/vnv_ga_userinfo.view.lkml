@@ -230,6 +230,7 @@ view: vnv_ga_userinfo {
 
   measure: count {
     type: count
+    hidden: yes
     drill_fields: [id]
   }
 }

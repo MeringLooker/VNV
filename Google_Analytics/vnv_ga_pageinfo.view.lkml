@@ -31,11 +31,13 @@ view: vnv_ga_pageinfo {
 
   dimension: __sampled {
     type: yesno
+    hidden: yes
     sql: ${TABLE}.__sampled ;;
   }
 
   dimension_group: __senttime {
     type: time
+    hidden: yes
     timeframes: [
       raw,
       time,
@@ -50,6 +52,7 @@ view: vnv_ga_pageinfo {
 
   dimension_group: __updatetime {
     type: time
+    hidden: yes
     timeframes: [
       raw,
       time,
@@ -77,6 +80,7 @@ view: vnv_ga_pageinfo {
 
   dimension_group: date {
     type: time
+    hidden: yes
     timeframes: [
       raw,
       time,
@@ -116,6 +120,7 @@ view: vnv_ga_pageinfo {
   dimension: pagepath {
     type: string
     label: "Page Path"
+    link: {}
     sql: ${TABLE}.pagepath ;;
   }
 
@@ -206,6 +211,13 @@ view: vnv_ga_pageinfo {
     value_format: "m:ss"
   }
 
+  measure: total_entrances {
+    label: "Entrances"
+    type: sum_distinct
+    sql_distinct_key: ${TABLE}.id ;;
+    sql: ${TABLE}.entrances ;;
+  }
+
   measure: total_users {
     label: "Users"
     type: sum_distinct
@@ -259,7 +271,7 @@ view: vnv_ga_pageinfo {
     label: "Events"
     type: sum_distinct
     sql_distinct_key: ${TABLE}.id ;;
-    sql: ${TABLE}.events ;;
+    sql: ${TABLE}.totalevents ;;
   }
 
   measure: total_unique_events {
@@ -278,6 +290,7 @@ view: vnv_ga_pageinfo {
 
   measure: count {
     type: count
+    hidden: yes
     drill_fields: [id]
   }
 }

@@ -98,23 +98,6 @@ view: vnv_dcm_view {
     sql: ${TABLE}.campaign ;;
   }
 
-  dimension: sdt_campaign {
-    type: string
-    group_label: "DCM Dimensions"
-    label: "Ad Size"
-    sql:
-      CASE
-        when ${campaign} ILIKE 'Pull-Through' then 'Pull-Through'
-        when ${creative} ILIKE '%300x250%' then '300x250'
-        when ${creative} ILIKE '%300x600%' then '300x600'
-        when ${creative} ILIKE '%320x50%' then '320x50'
-        when ${creative} ILIKE '%160x600%' then '160x600'
-        when ${creative} ILIKE '%970x250%' then '970x250'
-        when ${creative} ILIKE '%300x50%' then '300x50'
-      ELSE 'Uncategorized'
-      END;;
-  }
-
   dimension: campaign_id {
     type: number
     hidden: yes
@@ -210,7 +193,6 @@ view: vnv_dcm_view {
 
   dimension: site_dcm {
     type: string
-    hidden: yes
     sql: ${TABLE}."site (dcm)" ;;
   }
 

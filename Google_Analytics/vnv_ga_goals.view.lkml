@@ -31,11 +31,13 @@ view: vnv_ga_goals {
 
   dimension: __sampled {
     type: yesno
+    hidden: yes
     sql: ${TABLE}.__sampled ;;
   }
 
   dimension_group: __senttime {
     type: time
+    hidden: yes
     timeframes: [
       raw,
       time,
@@ -50,6 +52,7 @@ view: vnv_ga_goals {
 
   dimension_group: __updatetime {
     type: time
+    hidden: yes
     timeframes: [
       raw,
       time,
@@ -64,6 +67,7 @@ view: vnv_ga_goals {
 
   dimension: adwordsadgroupid {
     type: number
+    hidden: yes
     value_format_name: id
     sql: ${TABLE}.adwordsadgroupid ;;
   }
@@ -133,11 +137,13 @@ view: vnv_ga_goals {
 
   dimension: keyword {
     type: string
+    hidden: yes
     sql: ${TABLE}.keyword ;;
   }
 
   dimension: sourcemedium {
     type: string
+    label: "Source / Medium"
     sql: ${TABLE}.sourcemedium ;;
   }
 
@@ -194,6 +200,7 @@ view: vnv_ga_goals {
 
   measure: count {
     type: count
+    hidden: yes
     drill_fields: [id]
   }
 }

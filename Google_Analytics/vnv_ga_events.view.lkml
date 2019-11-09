@@ -6,6 +6,7 @@ view: vnv_ga_events {
 
   dimension: id {
     primary_key: yes
+    hidden: yes
     type: string
     sql: ${TABLE}.id ;;
   }
@@ -112,6 +113,7 @@ view: vnv_ga_events {
 
   dimension: sourcemedium {
     type: string
+    label: "Source / Medium"
     sql: ${TABLE}.sourcemedium ;;
   }
 
@@ -133,7 +135,7 @@ view: vnv_ga_events {
     label: "Events"
     type: sum_distinct
     sql_distinct_key: ${TABLE}.id ;;
-    sql: ${TABLE}.events ;;
+    sql: ${TABLE}.totalevents ;;
   }
 
   measure: total_unique_events {
@@ -145,6 +147,7 @@ view: vnv_ga_events {
 
   measure: count {
     type: count
+    hidden: yes
     drill_fields: [id]
   }
 }

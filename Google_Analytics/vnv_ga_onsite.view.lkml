@@ -137,6 +137,7 @@ view: vnv_ga_onsite {
 
   measure: total_sessions {
     label: "Sessions"
+    group_label: "GA Reporting"
     type: sum_distinct
     sql_distinct_key: ${TABLE}.id ;;
     sql: ${TABLE}.sessions ;;
@@ -207,8 +208,13 @@ view: vnv_ga_onsite {
     value_format_name: percent_0
   }
 
+  set: ga_reporting {
+    fields: [vnv_dcm_view.cost_per_session]
+  }
+
   measure: count {
     type: count
+    hidden: yes
     drill_fields: [id]
   }
 }
