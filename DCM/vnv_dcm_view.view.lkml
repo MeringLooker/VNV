@@ -193,6 +193,8 @@ view: vnv_dcm_view {
 
   dimension: site_dcm {
     type: string
+    label: "Site"
+    group_label: "DCM Dimensions"
     sql: ${TABLE}."site (dcm)" ;;
   }
 
@@ -218,7 +220,7 @@ view: vnv_dcm_view {
 
   dimension: formatted_site {
     type: string
-    group_label: "DCM Dimensions"
+    group_label: "Client Dimensions"
     label: "Publisher"
     sql:
       CASE

@@ -6,6 +6,8 @@ include: "/DCM/**/*.view"
 include: "/Facebook/**/*.view"
 include: "/Google_Analytics/**/*.view"
 include: "/LinkedIn/**/*.view"
+include: "/TrueView/**/*.view"
+
 
 
 datagroup: vnv_default_datagroup {
@@ -147,6 +149,16 @@ explore: vnv_fb_view {
 
 
 }
+
+###### Exploring TrueView Data #######
+
+explore: vnv_us_trueview {
+  label: "YouTube"
+  group_label: "Visit Napa Valley"
+  view_label: "AdWords"
+}
+
+
 
 #### Exploring LinkedIn Data #####
 

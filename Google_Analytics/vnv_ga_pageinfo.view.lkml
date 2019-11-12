@@ -80,7 +80,7 @@ view: vnv_ga_pageinfo {
 
   dimension_group: date {
     type: time
-    hidden: yes
+    group_label: "Date Periods"
     timeframes: [
       raw,
       time,
@@ -244,6 +244,30 @@ view: vnv_ga_pageinfo {
     type: sum_distinct
     sql_distinct_key: ${TABLE}.id ;;
     sql: ${TABLE}.pageviews ;;
+  }
+
+  measure: total_time_on_page {
+    label: "Total Time on Page"
+    hidden: yes
+    type: sum_distinct
+    sql_distinct_key: ${TABLE}.id ;;
+    sql: ${TABLE}.timeonpage ;;
+  }
+
+  measure: avg_time_on_page {
+    label: "Avg. TOS - Unformatted"
+    hidden: yes
+    description: "Average Length Time on Page"
+    type: number
+    sql: ${total_time_on_page}/nullif(${total_pageviews}, 0);;
+    value_format: "0.##"
+  }
+
+  measure: formatted_top {
+    label: "Avg. TOP"
+    type: number
+    sql:  ${avg_time_on_page}::float/86400 ;;
+    value_format: "m:ss"
   }
 
   measure: pages_per_session {

@@ -19,7 +19,6 @@ view: vnv_ga_events {
     sql: ${keyword}||'_'||${date_date} ;;
   }
 
-
 ####### AdWords Join ID #######
 
   dimension: adwords_join_id {
@@ -75,6 +74,7 @@ view: vnv_ga_events {
 
   dimension_group: date {
     type: time
+    group_label: "Date Periods"
     timeframes: [
       raw,
       time,

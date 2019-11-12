@@ -74,6 +74,7 @@ view: vnv_ga_goals {
 
   dimension_group: date {
     type: time
+    group_label: "Date Periods"
     timeframes: [
       raw,
       time,

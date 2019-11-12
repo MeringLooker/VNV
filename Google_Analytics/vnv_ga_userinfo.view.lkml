@@ -80,6 +80,7 @@ view: vnv_ga_userinfo {
 
   dimension_group: date {
     type: time
+    group_label: "Date Periods"
     timeframes: [
       raw,
       time,
@@ -130,7 +131,7 @@ view: vnv_ga_userinfo {
 
   dimension: sourcemedium {
     type: string
-    hidden: yes
+    label: "Source / Medium"
     sql: ${TABLE}.sourcemedium ;;
   }
 
