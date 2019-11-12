@@ -212,28 +212,30 @@ view: vnv_sem_gdn_view {
     drill_fields: [id, reportname]
   }
 
+############ All measures go below ############
+
   measure: total_impressions {
     label: "Impressions"
-    type: sum
+    type: sum_distinct
     sql: ${impressions} ;;
   }
 
   measure: total_clicks {
     label: "Clicks"
-    type: sum
+    type: sum_distinct
     sql: ${clicks} ;;
   }
 
   measure: total_cost {
     label: "Cost"
-    type:  sum
+    type: sum_distinct
     sql: ${cost}/1000000.00 ;;
     value_format_name: usd
   }
 
   measure: total_conversions {
     label: "Conversions"
-    type:  sum
+    type: sum_distinct
     sql: ${conversions} ;;
   }
 
@@ -261,17 +263,35 @@ view: vnv_sem_gdn_view {
     value_format_name: usd
   }
 
+  measure: total_conversion_rate {
+    label: "CVR"
+    type: number
+    description: "Conversion Rate"
+    sql: 1.0*${total_conversions}/nullif(${total_clicks}, 0) ;;
+    value_format_name: percent_2
+  }
+
+  measure: cost_per_conversion {
+    label: "CPA"
+    type: number
+    description: "Cost per Conversion"
+    sql: 1.0*${total_cost}/nullif(${total_conversions}, 0) ;;
+    value_format_name: usd
+  }
+
+######## JOINED Measures from GA #########
+
   measure: total_sessions {
     label: "Sessions"
     type: sum
-    sql: ${vnv_ga_adwords_view.sessions} ;;
+    sql: ${vnv_ga_onsite.sessions} ;;
   }
 
   measure: avg_time_on_site {
     label: "Avg. TOS - Unformatted"
     hidden: yes
     type: number
-    sql: ${vnv_ga_adwords_view.total_session_duration}/nullif(${vnv_ga_adwords_view.total_sessions}, 0);;
+    sql: ${vnv_ga_onsite.total_session_duration}/nullif(${vnv_ga_onsite.total_sessions}, 0);;
     value_format: "0.##"
   }
 
@@ -285,7 +305,7 @@ view: vnv_sem_gdn_view {
   measure: percent_new_users {
     label: "% New Users"
     type: number
-    sql: ${vnv_ga_adwords_view.new_users}/nullif(${vnv_ga_adwords_view.total_users}, 0) ;;
+    sql: ${vnv_ga_onsite.new_users}/nullif(${vnv_ga_onsite.total_users}, 0) ;;
     value_format_name: percent_0
 }
 
@@ -293,24 +313,7 @@ view: vnv_sem_gdn_view {
     label: "CPS"
     type: number
     description: "Cost per Session"
-    sql: 1.0*${total_cost}/nullif(${vnv_ga_adwords_view.total_sessions}, 0) ;;
+    sql: 1.0*${total_cost}/nullif(${vnv_ga_onsite.total_sessions}, 0) ;;
     value_format_name: usd
   }
-
-  measure: cost_per_conversion {
-    label: "CPA"
-    type: number
-    description: "Cost per Conversion"
-    sql: 1.0*${total_cost}/nullif(${total_conversions}, 0) ;;
-    value_format_name: usd
-  }
-
-  measure: total_conversion_rate {
-    label: "CVR"
-    type: number
-    description: "Conversion Rate"
-    sql: 1.0*${total_conversions}/nullif(${total_clicks}, 0) ;;
-    value_format_name: percent_2
-  }
-
 }

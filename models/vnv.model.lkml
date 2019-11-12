@@ -24,12 +24,20 @@ explore: vnv_sem_gdn_view {
   label: "AdWords"
   view_label: "AdWords"
 
-join: vnv_ga_adwords_view {
-  view_label: "Google Analytics"
-  type: left_outer
-  sql_on: ${vnv_sem_gdn_view.comp_key} = ${vnv_ga_adwords_view.comp_key} ;;
-  relationship: many_to_one
-  }
+# join: vnv_ga_adwords_view {
+#   view_label: "Google Analytics"
+#   type: left_outer
+#   sql_on: ${vnv_sem_gdn_view.comp_key} = ${vnv_ga_adwords_view.comp_key} ;;
+#   relationship: many_to_one
+#   }
+
+  join: vnv_ga_onsite {
+    view_label: "Google Analytics"
+    fields: []
+    type:left_outer
+    sql_on: ${vnv_ga_onsite.adwords_join_id} = ${vnv_sem_gdn_view.comp_key} ;;
+    relationship: many_to_one
+    }
 }
 
 #### Exploring DCM Data #####
