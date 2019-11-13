@@ -148,6 +148,7 @@ view: vnv_dcm_view {
   dimension_group: date {
     type: time
     group_label: "Date Periods"
+    label: ""
     timeframes: [
       raw,
       time,

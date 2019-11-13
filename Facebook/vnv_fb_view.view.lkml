@@ -237,7 +237,8 @@ view: vnv_fb_view {
   }
 
   dimension_group: date_start {
-    label: "Time Period"
+    group_label: "Date Periods"
+    label: ""
     type: time
     timeframes: [
       raw,
@@ -332,6 +333,7 @@ view: vnv_fb_view {
   measure: total_impressions {
     type: sum_distinct
     label: "Impressions"
+    group_label: "Facebook Metrics"
     sql_distinct_key: ${vnv_fb_view.id};;
     sql: ${impressions} ;;
     drill_fields: [detail*]
@@ -340,6 +342,7 @@ view: vnv_fb_view {
   measure: total_clicks {
     type: sum_distinct
     label: "Link Clicks"
+    group_label: "Facebook Metrics"
     sql_distinct_key: ${vnv_fb_view.id};;
     sql: ${inline_link_clicks} ;;
     drill_fields: [detail*]
@@ -348,6 +351,7 @@ view: vnv_fb_view {
   measure: total_spend {
     type: sum_distinct
     label: "Media Spend"
+    group_label: "Facebook Metrics"
     sql_distinct_key: ${vnv_fb_view.id};;
     sql: ${spend};;
     value_format_name: usd
@@ -356,6 +360,7 @@ view: vnv_fb_view {
   measure: click_through_rate {
     type: number
     label: "CTR"
+    group_label: "Facebook Metrics"
     sql: 1.0*${total_clicks}/nullif(${total_impressions}, 0) ;;
     value_format_name: percent_2
     drill_fields: [detail*]
@@ -364,6 +369,7 @@ view: vnv_fb_view {
   measure: cost_per_click {
     type: number
     label: "CPC"
+    group_label: "Facebook Metrics"
     sql: ${total_spend}/nullif(${total_clicks}, 0) ;;
     value_format_name: usd
   }
@@ -371,6 +377,7 @@ view: vnv_fb_view {
   measure: cost_per_thousand {
     type: number
     label: "CPM"
+    group_label: "Facebook Metrics"
     sql: ${total_spend}/nullif(${total_impressions}/1000, 0) ;;
     value_format_name: usd
   }
@@ -379,8 +386,9 @@ view: vnv_fb_view {
 
   measure: video_views {
     type: sum_distinct
-    sql_distinct_key: ${vnv_fb_view.id};;
+    sql_distinct_key: ${facebookads__visit_napa_valley_actions.id};;
     label: ":03 Video Views"
+    group_label: "Facebook Metrics"
     sql:
       CASE
       WHEN ${facebookads__visit_napa_valley_actions.action_type} = 'video_view' THEN ${facebookads__visit_napa_valley_actions.value}
@@ -390,13 +398,15 @@ view: vnv_fb_view {
   measure: video_completes {
     type: sum_distinct
     label: "Views to 100%"
-    sql_distinct_key: ${vnv_fb_view.id};;
+    group_label: "Facebook Metrics"
+    sql_distinct_key: ${facebookads__visit_napa_valley_video_p100_watched_actions.id};;
     sql: ${facebookads__visit_napa_valley_video_p100_watched_actions.value} ;;
   }
 
   measure: video_completion_rate {
     type: number
     label: "Vid. Completion Rate"
+    group_label: "Facebook Metrics"
     sql: 1.0*${video_completes}/nullif(${total_impressions}, 0) ;;
     value_format_name: percent_2
   }
