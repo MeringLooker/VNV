@@ -41,11 +41,13 @@ view: vnv_us_trueview {
 
   dimension: account {
     type: string
+    group_label: "TrueView Dimensions"
     sql: ${TABLE}.account ;;
   }
 
   dimension: ad_group {
     type: string
+    group_label: "TrueView Dimensions"
     sql: ${TABLE}."ad group" ;;
   }
 
@@ -63,6 +65,7 @@ view: vnv_us_trueview {
 
   dimension: ad_type {
     type: string
+    group_label: "TrueView Dimensions"
     sql: ${TABLE}."ad type" ;;
   }
 
@@ -116,6 +119,7 @@ view: vnv_us_trueview {
 
   dimension: campaign {
     type: string
+    group_label: "TrueView Dimensions"
     sql: ${TABLE}.campaign ;;
   }
 
@@ -133,6 +137,7 @@ view: vnv_us_trueview {
 
   dimension: city {
     type: string
+    hidden: yes
     sql: ${TABLE}.city ;;
   }
 
@@ -231,6 +236,7 @@ view: vnv_us_trueview {
   dimension: fiscal_year {
     label: "Fiscal"
     type: string
+    group_label: "Client Dimensions"
     sql:
       CASE
         WHEN ${Date_date} BETWEEN '2015-07-01' AND '2016-06-30' THEN 'FY 15/16'
@@ -243,10 +249,22 @@ view: vnv_us_trueview {
         ;;
   }
 
+  dimension: vnv_objective {
+    label: "Objective"
+    type: string
+    group_label: "Client Dimensions"
+    sql:
+      CASE
+        WHEN ${campaign} = 'FY20_VNV_Foundational_TrueView' then 'Foundational'
+        ELSE 'Uncategorized'
+        END;;
+  }
+
 
   dimension: formatted_device {
     type: string
     label: "Device Type"
+    group_label: "TrueView Dimensions"
     sql:
       CASE
         WHEN ${device} ILIKE 'mobile%' then 'Mobile'
@@ -291,21 +309,25 @@ view: vnv_us_trueview {
 
   dimension: location_type {
     type: string
+    hidden: yes
     sql: ${TABLE}."location type" ;;
   }
 
   dimension: metro_area {
     type: string
+    hidden: yes
     sql: ${TABLE}."metro area" ;;
   }
 
   dimension: most_specific_location {
     type: string
+    hidden: yes
     sql: ${TABLE}."most specific location" ;;
   }
 
   dimension: network {
     type: string
+    group_label: "TrueView Dimensions"
     sql: ${TABLE}.network ;;
   }
 
@@ -317,6 +339,7 @@ view: vnv_us_trueview {
 
   dimension: region {
     type: string
+    hidden: yes
     sql: ${TABLE}.region ;;
   }
 
@@ -358,6 +381,7 @@ view: vnv_us_trueview {
 
   dimension: views {
     type: number
+    hidden: yes
     sql: ${TABLE}.views ;;
   }
 
