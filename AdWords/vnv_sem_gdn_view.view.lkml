@@ -2,11 +2,31 @@ view: vnv_sem_gdn_view {
   sql_table_name: public.vnv_sem_gdn_view ;;
   drill_fields: [id]
 
+######### Primary Key ########
+
   dimension: id {
     hidden: yes
     primary_key: yes
     type: string
     sql: ${TABLE}.id ;;
+  }
+
+######### Adwords Join ID #######
+
+  dimension: join_id {
+    hidden: yes
+    type: string
+    sql: ${ad_group_id}||'_'||${day_date} ;;
+  }
+
+
+
+######### Adwords Comp_Key ID #######
+
+  dimension: comp_key {
+    hidden: yes
+    type: string
+    sql: ${TABLE}.comp_key ;;
   }
 
   dimension_group: __senttime {
@@ -41,12 +61,14 @@ view: vnv_sem_gdn_view {
 
   dimension: account {
     type: string
+    group_label: "AdWords Dimensions"
     sql: ${TABLE}.account ;;
   }
 
   dimension: advertising_channel {
     type: string
     label: "Channel"
+    group_label: "AdWords Dimensions"
     sql:
       CASE
         WHEN ${account} ILIKE '%GDN' THEN 'Display'
@@ -59,6 +81,7 @@ view: vnv_sem_gdn_view {
   dimension: vnv_objective {
     type: string
     label: "VNV Objective"
+    group_label: "Client Dimensions"
     sql:
       CASE
         WHEN ${account} ILIKE '%foundational%' THEN 'Foundational'
@@ -70,6 +93,7 @@ view: vnv_sem_gdn_view {
   dimension: search_campaign {
     type: string
     label: "Search Campaign"
+    group_label: "Client Dimensions"
     sql:
       CASE
         WHEN ${campaign} ILIKE '%wine%' THEN 'Wine'
@@ -88,6 +112,7 @@ view: vnv_sem_gdn_view {
 
   dimension: ad_group {
     type: string
+    group_label: "AdWords Dimensions"
     sql: ${TABLE}."ad group" ;;
   }
 
@@ -111,6 +136,7 @@ view: vnv_sem_gdn_view {
 
   dimension: campaign {
     type: string
+    group_label: "AdWords Dimensions"
     sql: ${TABLE}.campaign ;;
   }
 
@@ -132,12 +158,6 @@ view: vnv_sem_gdn_view {
     sql: ${TABLE}.clicks ;;
   }
 
-  dimension: comp_key {
-    hidden: yes
-    type: string
-    sql: ${TABLE}.comp_key ;;
-  }
-
   dimension: conversions {
     hidden: yes
     type: number
@@ -151,7 +171,8 @@ view: vnv_sem_gdn_view {
   }
 
   dimension_group: day {
-    label: "Date"
+    group_label: "Date Periods"
+    label: ""
     type: time
     timeframes: [
       raw,
@@ -165,6 +186,22 @@ view: vnv_sem_gdn_view {
     sql: ${TABLE}.day ;;
   }
 
+  dimension: fiscal_year {
+    label: "Fiscal"
+    type: string
+    group_label: "Client Dimensions"
+    sql:
+      CASE
+        WHEN ${day_date} BETWEEN '2015-07-01' AND '2016-06-30' THEN 'FY 15/16'
+        WHEN ${day_date} BETWEEN '2016-07-01' AND '2017-06-30' THEN 'FY 16/17'
+        WHEN ${day_date} BETWEEN '2017-07-01' AND '2018-06-30' THEN 'FY 17/18'
+        WHEN ${day_date} BETWEEN '2018-07-01' AND '2019-06-30' THEN 'FY 18/19'
+        WHEN ${day_date} BETWEEN '2019-07-01' AND '2020-06-30' THEN 'FY 19/20'
+        ELSE 'Uncategorized'
+        END
+        ;;
+  }
+
   dimension: device {
     hidden: yes
     type: string
@@ -173,6 +210,7 @@ view: vnv_sem_gdn_view {
 
   dimension: device_formatted {
     label: "Device"
+    group_label: "AdWords Dimensions"
     type: string
     sql: ${TABLE}.device_formatted ;;
   }
@@ -216,31 +254,40 @@ view: vnv_sem_gdn_view {
 
   measure: total_impressions {
     label: "Impressions"
+    group_label: "AdWords Reporting"
     type: sum_distinct
+    sql_distinct_key: ${vnv_sem_gdn_view.id};;
     sql: ${impressions} ;;
   }
 
   measure: total_clicks {
     label: "Clicks"
+    group_label: "AdWords Reporting"
     type: sum_distinct
+    sql_distinct_key: ${vnv_sem_gdn_view.id};;
     sql: ${clicks} ;;
   }
 
   measure: total_cost {
     label: "Cost"
+    group_label: "AdWords Reporting"
     type: sum_distinct
+    sql_distinct_key: ${vnv_sem_gdn_view.id};;
     sql: ${cost}/1000000.00 ;;
     value_format_name: usd
   }
 
   measure: total_conversions {
     label: "Conversions"
+    group_label: "AdWords Reporting"
     type: sum_distinct
+    sql_distinct_key: ${vnv_sem_gdn_view.id};;
     sql: ${conversions} ;;
   }
 
   measure: click_through_rate {
     label: "CTR"
+    group_label: "AdWords Reporting"
     type: number
     description: "Clickthrough Rate"
     sql: 1.0*${total_clicks}/nullif(${total_impressions}, 0) ;;
@@ -249,6 +296,7 @@ view: vnv_sem_gdn_view {
 
   measure: cost_per_click {
     label: "CPC"
+    group_label: "AdWords Reporting"
     type: number
     description: "Cost per click"
     sql: ${total_cost}/nullif(${total_clicks}, 0) ;;
@@ -257,6 +305,7 @@ view: vnv_sem_gdn_view {
 
   measure: cost_per_thousand {
     label: "CPM"
+    group_label: "AdWords Reporting"
     type: number
     description: "Cost per Thousand Impressions"
     sql: 1.0*${total_cost}/nullif(${total_impressions}/1000, 0) ;;
@@ -265,6 +314,7 @@ view: vnv_sem_gdn_view {
 
   measure: total_conversion_rate {
     label: "CVR"
+    group_label: "AdWords Reporting"
     type: number
     description: "Conversion Rate"
     sql: 1.0*${total_conversions}/nullif(${total_clicks}, 0) ;;
@@ -273,6 +323,7 @@ view: vnv_sem_gdn_view {
 
   measure: cost_per_conversion {
     label: "CPA"
+    group_label: "AdWords Reporting"
     type: number
     description: "Cost per Conversion"
     sql: 1.0*${total_cost}/nullif(${total_conversions}, 0) ;;
@@ -283,7 +334,9 @@ view: vnv_sem_gdn_view {
 
   measure: total_sessions {
     label: "Sessions"
-    type: sum
+    group_label: "GA Reporting"
+    type: sum_distinct
+    sql_distinct_key: ${vnv_ga_onsite.id} ;;
     sql: ${vnv_ga_onsite.sessions} ;;
   }
 
@@ -297,13 +350,40 @@ view: vnv_sem_gdn_view {
 
   measure: formatted_tos {
     label: "Avg. TOS"
+    group_label: "GA Reporting"
     type: number
     sql:  ${avg_time_on_site}::float/86400 ;;
     value_format: "m:ss"
   }
 
+  measure: click_to_session {
+    type: number
+    label: "CTS"
+    group_label: "GA Reporting"
+    description: "Percent of clicks that result in a session."
+    sql: 1.0*${total_sessions}/nullif(${total_clicks}, 0) ;;
+    value_format_name: percent_0
+  }
+
+  measure: ga_total_users {
+    type: sum_distinct
+    group_label: "GA Reporting"
+    label: "Users"
+    sql_distinct_key: ${vnv_ga_onsite.id};;
+    sql: ${vnv_ga_onsite.users};;
+  }
+
+  measure: ga_new_users {
+    type: sum_distinct
+    group_label: "GA Reporting"
+    label: "New Users"
+    sql_distinct_key: ${vnv_ga_onsite.id};;
+    sql: ${vnv_ga_onsite.newusers};;
+  }
+
   measure: percent_new_users {
     label: "% New Users"
+    group_label: "GA Reporting"
     type: number
     sql: ${vnv_ga_onsite.new_users}/nullif(${vnv_ga_onsite.total_users}, 0) ;;
     value_format_name: percent_0
@@ -311,9 +391,27 @@ view: vnv_sem_gdn_view {
 
   measure: cost_per_session {
     label: "CPS"
+    group_label: "GA Reporting"
     type: number
     description: "Cost per Session"
     sql: 1.0*${total_cost}/nullif(${vnv_ga_onsite.total_sessions}, 0) ;;
     value_format_name: usd
   }
+
+  measure: ga_total_pageviews {
+    group_label: "GA Reporting"
+    label: "Pageviews"
+    type: sum_distinct
+    sql_distinct_key: ${vnv_ga_onsite.id};;
+    sql: ${vnv_ga_onsite.pageviews} ;;
+  }
+
+  measure: pages_per_session {
+    group_label: "GA Reporting"
+    label: "Pgs/Session"
+    type: number
+    sql: ${ga_total_pageviews}/nullif(${total_sessions}, 0) ;;
+    value_format: "#.0"
+  }
+
 }

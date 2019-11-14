@@ -20,55 +20,55 @@ label: "Visit Napa Valley"
 persist_with: vnv_default_datagroup
 
 
-#### Exploring AdWords DISPLAY Data #####
-
-# explore: vnv_sem_gdn_view {
-#   label: "AdWords"
-#   view_label: "AdWords Display/Search"
+#### Exploring AdWords Data #####
 
 explore: vnv_sem_gdn_view {
-  always_filter: {
-    filters: {
-      field: advertising_channel
-      value: "Display"
-    }
-  }
-  label: "GDN"
-  view_label: "AdWords Display"
+  label: "AdWords"
+  view_label: "AdWords Display/Search"
+
+# explore: vnv_sem_gdn_view {
+#   always_filter: {
+#     filters: {
+#       field: advertising_channel
+#       value: "Display"
+#     }
+#   }
+#   label: "GDN"
+#   view_label: "AdWords Display"
 
   join: vnv_ga_onsite {
     view_label: "Google Analytics"
     fields: []
     type:left_outer
-    sql_on: ${vnv_ga_onsite.adwords_join_id} = ${vnv_sem_gdn_view.comp_key} ;;
+    sql_on: ${vnv_ga_onsite.adwords_join_id} = ${vnv_sem_gdn_view.join_id} ;;
     relationship: many_to_one
     }
 
   join: vnv_ga_userinfo {
     view_label: "Google Analytics - User Info"
     type: left_outer
-    sql_on: ${vnv_ga_onsite.adwords_join_id} = ${vnv_sem_gdn_view.comp_key} ;;
+    sql_on: ${vnv_ga_onsite.adwords_join_id} = ${vnv_sem_gdn_view.join_id} ;;
     relationship: many_to_one
   }
 
   join: vnv_ga_pageinfo {
     view_label: "Google Analytics - Page Info"
     type: inner
-    sql_on: ${vnv_ga_onsite.adwords_join_id} = ${vnv_sem_gdn_view.comp_key} ;;
+    sql_on: ${vnv_ga_onsite.adwords_join_id} = ${vnv_sem_gdn_view.join_id} ;;
     relationship: many_to_one
   }
 
   join: vnv_ga_events {
     view_label: "Google Analytics - Events"
     type: inner
-    sql_on: ${vnv_ga_onsite.adwords_join_id} = ${vnv_sem_gdn_view.comp_key} ;;
+    sql_on: ${vnv_ga_onsite.adwords_join_id} = ${vnv_sem_gdn_view.join_id} ;;
     relationship: many_to_one
   }
 
   join: vnv_ga_goals {
     view_label: "Google Analytics - Goals"
     type: inner
-    sql_on: ${vnv_ga_onsite.adwords_join_id} = ${vnv_sem_gdn_view.comp_key} ;;
+    sql_on: ${vnv_ga_onsite.adwords_join_id} = ${vnv_sem_gdn_view.join_id} ;;
     relationship: many_to_one
   }
   }

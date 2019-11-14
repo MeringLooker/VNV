@@ -440,7 +440,7 @@ view: vnv_fb_view {
 
   measure: ga_total_session_duration {
     hidden: yes
-    type: sum
+    type: sum_distinct
     group_label: "GA Reporting"
     label: "Total Session Duration"
     sql_distinct_key: ${vnv_mc_ga_view.id};;
@@ -456,7 +456,7 @@ view: vnv_fb_view {
   }
 
   measure: ga_total_users {
-    type: sum
+    type: sum_distinct
     group_label: "GA Reporting"
     label: "Users"
     sql_distinct_key: ${vnv_mc_ga_view.id};;
@@ -464,7 +464,7 @@ view: vnv_fb_view {
   }
 
   measure: ga_new_users {
-    type: sum
+    type: sum_distinct
     group_label: "GA Reporting"
     label: "New Users"
     sql_distinct_key: ${vnv_mc_ga_view.id};;
@@ -483,6 +483,7 @@ view: vnv_fb_view {
     group_label: "GA Reporting"
     label: "Pageviews"
     type: sum
+    sql_distinct_key: ${vnv_mc_ga_view.id};;
     sql: ${vnv_mc_ga_view.pageviews} ;;
   }
 
@@ -497,7 +498,8 @@ view: vnv_fb_view {
   measure: ga_partner_referral_goals {
     group_label: "GA Reporting"
     label: "Partner Referrals"
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${vnv_mc_ga_view.id};;
     sql: ${vnv_mc_ga_view.goal5completions} ;;
   }
 
