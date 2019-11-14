@@ -119,7 +119,18 @@ view: vnv_dcm_view {
   dimension: creative_name {
     type: string
     group_label: "Client Dimensions"
-
+    sql:
+      CASE
+        when ${creative} ILIKE '%theweekend%' then 'The Weekend'
+        when ${creative} ILIKE '%thenextsip%' then 'The Next Sip'
+        when ${creative} ILIKE '%stunningharmony%' then 'Stunning Harmony'
+        when ${creative} ILIKE '%3group%' then 'Group'
+        when ${creative} ILIKE '%cabcab%' then 'Cab Cab'
+        when ${creative} ILIKE '%group%' then 'Group'
+        when ${creative} ILIKE '%refresh%' then 'Refresh'
+        when ${creative} ILIKE '%seeforyourself%' then 'See For Yourself'
+        ELSE ${creative}
+        END;;
   }
 
   dimension: ad_size {

@@ -188,8 +188,7 @@ view: vnv_fb_view {
         WHEN ${ad_name} ilike '%nextsip' then 'Next Sip'
         WHEN ${ad_name} ilike '%winepour' then 'Wine Pour'
         ELSE ${ad_name}
-          END
-        ;;
+        END;;
   }
 
   dimension: clicks {
