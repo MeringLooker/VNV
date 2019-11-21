@@ -2,7 +2,7 @@ view: vnv_ga_pageinfo {
   sql_table_name: public.vnv_ga_pageinfo ;;
   drill_fields: [id]
 
-   ######## Primary Key ########
+######## Primary Key ########
 
   dimension: id {
     primary_key: yes

@@ -211,7 +211,6 @@ view: vnv_fb_view {
 
   dimension: country {
     type: string
-    hidden: yes
     group_label: "Facebook Dimensions"
     map_layer_name: countries
     sql: ${TABLE}.country ;;

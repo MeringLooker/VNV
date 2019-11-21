@@ -199,7 +199,6 @@ view: vnv_dcm_view {
 
   dimension: platform_type {
     type: string
-    hidden: yes
     sql: ${TABLE}."platform type" ;;
   }
 
@@ -244,6 +243,12 @@ view: vnv_dcm_view {
         ELSE ${site_dcm}
         END
         ;;
+        link: {
+          label: "{{value}} Perf. Dash."
+          url: "https://meringcarson.looker.com/dashboards/17?Publisher={{value}}"
+          icon_url: "https://media.glassdoor.com/sqll/30947/meringcarson-squarelogo-1448602930956.png"
+
+        }
   }
 
   dimension: fiscal_year {
