@@ -22,10 +22,6 @@ persist_with: vnv_default_datagroup
 
 #### Exploring AdWords Display Data #####
 
-# explore: vnv_sem_gdn_view { removing to try and separate Display and Search
-#   label: "AdWords"
-#   view_label: "AdWords Display/Search"
-
 explore: vnv_gdn {
   view_name: vnv_sem_gdn_view
   always_filter: {
@@ -86,6 +82,7 @@ explore: vnv_sem {
   }
   label: "AdWords Search"
   view_label: "AdWords Search"
+  group_label: "Visit Napa Valley"
 
   join: vnv_ga_onsite {
     view_label: "Google Analytics"

@@ -19,8 +19,6 @@ view: vnv_sem_gdn_view {
     sql: ${ad_group_id}||'_'||${day_date} ;;
   }
 
-
-
 ######### Adwords Comp_Key ID #######
 
   dimension: comp_key {
