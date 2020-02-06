@@ -2,12 +2,61 @@ view: vnv_us_trueview {
   sql_table_name: public.vnv_us_trueview ;;
   drill_fields: [id]
 
+#### Primary Key ####
+
   dimension: id {
     primary_key: yes
     type: string
     hidden: yes
     sql: ${TABLE}.id ;;
   }
+
+  #### Dimensions Added to this Table Via LookML ####
+
+  dimension: fiscal_year {
+    label: "Fiscal Year"
+    type: string
+    group_label: "Client Dimensions"
+    sql:
+      CASE
+        WHEN ${Date_date} BETWEEN '2015-07-01' AND '2016-06-30' THEN 'FY 15/16'
+        WHEN ${Date_date} BETWEEN '2016-07-01' AND '2017-06-30' THEN 'FY 16/17'
+        WHEN ${Date_date} BETWEEN '2017-07-01' AND '2018-06-30' THEN 'FY 17/18'
+        WHEN ${Date_date} BETWEEN '2018-07-01' AND '2019-06-30' THEN 'FY 18/19'
+        WHEN ${Date_date} BETWEEN '2019-07-01' AND '2020-06-30' THEN 'FY 19/20'
+        ELSE 'Uncategorized'
+        END
+        ;;
+  }
+
+  dimension: vnv_campaign {
+    label: "Campaign"
+    type: string
+    group_label: "Client Dimensions"
+    sql:
+      CASE
+        WHEN ${campaign} = 'FY20_VNV_Foundational_TrueView' then 'Foundational'
+        ELSE 'Uncategorized'
+        END;;
+  }
+
+  dimension: formatted_device {
+    type: string
+    label: "Device Type"
+    group_label: "TrueView Dimensions"
+    sql:
+      CASE
+        WHEN ${device} ILIKE 'mobile%' then 'Mobile'
+        WHEN ${device} ILIKE 'computers%' then 'Computer'
+        WHEN ${device} ILIKE 'tablet%' then 'Tablet'
+        WHEN ${device} ILIKE '%streaming%' then 'Streaming Device'
+        WHEN ${device} ILIKE 'other%' then 'Other'
+        ELSE 'Uncategorized'
+          END
+        ;;
+  }
+
+  #### Dimensions go below ####
 
   dimension_group: __senttime {
     type: time
@@ -233,50 +282,6 @@ view: vnv_us_trueview {
     sql: ${TABLE}.device ;;
   }
 
-  dimension: fiscal_year {
-    label: "Fiscal"
-    type: string
-    group_label: "Client Dimensions"
-    sql:
-      CASE
-        WHEN ${Date_date} BETWEEN '2015-07-01' AND '2016-06-30' THEN 'FY 15/16'
-        WHEN ${Date_date} BETWEEN '2016-07-01' AND '2017-06-30' THEN 'FY 16/17'
-        WHEN ${Date_date} BETWEEN '2017-07-01' AND '2018-06-30' THEN 'FY 17/18'
-        WHEN ${Date_date} BETWEEN '2018-07-01' AND '2019-06-30' THEN 'FY 18/19'
-        WHEN ${Date_date} BETWEEN '2019-07-01' AND '2020-06-30' THEN 'FY 19/20'
-        ELSE 'Uncategorized'
-        END
-        ;;
-  }
-
-  dimension: vnv_objective {
-    label: "Objective"
-    type: string
-    group_label: "Client Dimensions"
-    sql:
-      CASE
-        WHEN ${campaign} = 'FY20_VNV_Foundational_TrueView' then 'Foundational'
-        ELSE 'Uncategorized'
-        END;;
-  }
-
-
-  dimension: formatted_device {
-    type: string
-    label: "Device Type"
-    group_label: "TrueView Dimensions"
-    sql:
-      CASE
-        WHEN ${device} ILIKE 'mobile%' then 'Mobile'
-        WHEN ${device} ILIKE 'computers%' then 'Computer'
-        WHEN ${device} ILIKE 'tablet%' then 'Tablet'
-        WHEN ${device} ILIKE '%streaming%' then 'Streaming Device'
-        WHEN ${device} ILIKE 'other%' then 'Other'
-        ELSE 'Uncategorized'
-          END
-        ;;
-  }
-
   dimension: impressions {
     type: number
     hidden: yes
@@ -373,12 +378,6 @@ view: vnv_us_trueview {
     sql: ${TABLE}."value / conv." ;;
   }
 
-  dimension: view_rate {
-    type: string
-    hidden: yes
-    sql: ${TABLE}."view rate" ;;
-  }
-
   dimension: views {
     type: number
     hidden: yes
@@ -394,22 +393,32 @@ view: vnv_us_trueview {
 ###### All measures go below ######
 
   measure: total_cost {
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${id} ;;
     sql: (${TABLE}.cost/1000000.00) ;;
     value_format_name: usd
   }
 
   measure: total_impressions {
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${id} ;;
+    sql: ${TABLE}.impressions ;;
+  }
+
+  measure: total_clicks {
+    type: sum_distinct
+    sql_distinct_key: ${id} ;;
+    hidden: yes
     sql: ${TABLE}.impressions ;;
   }
 
   measure: total_views {
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${id} ;;
     sql: ${TABLE}.views ;;
   }
 
-  measure: avg_view_rate {
+  measure: view_rate {
     type: number
     sql: 1.0*${total_views}/nullif(${total_impressions}, 0);;
     value_format_name: percent_0
@@ -417,18 +426,18 @@ view: vnv_us_trueview {
 
   measure: cost_per_thousand {
     type: number
-    sql: ${total_cost}/nullif(${total_impressions}/1000,0) ;;
-    value_format: "$0.00"
+    sql: ${total_cost}/nullif((${total_impressions}/1000),0) ;;
+    value_format_name: usd
   }
 
   measure: cost_per_view {
     type: number
     sql: ${total_cost}/nullif(${total_views},0) ;;
-    value_format: "$0.00"
+    value_format_name: usd
   }
 
-  measure: count {
-    type: count
-    drill_fields: [id, client_name, reportname]
-  }
+#   measure: count {
+#     type: count
+#     drill_fields: [id, client_name, reportname]
+#   }
 }

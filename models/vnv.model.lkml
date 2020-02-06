@@ -227,13 +227,13 @@ explore: vnv_fb_view {
 
 }
 
-###### Exploring TrueView Data #######
-
-explore: vnv_us_trueview {
-  label: "YouTube"
-  group_label: "Visit Napa Valley"
-  view_label: "AdWords"
-}
+# ###### Exploring TrueView Data #######
+#
+# explore: vnv_us_trueview {
+#   label: "YouTube"
+#   group_label: "Visit Napa Valley"
+#   view_label: "AdWords"
+# }
 
 
 
