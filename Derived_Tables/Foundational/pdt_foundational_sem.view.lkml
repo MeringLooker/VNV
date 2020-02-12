@@ -1,69 +1,73 @@
 view: pdt_foundational_sem {
-  # # You can specify the table name if it's different from the view name:
-  # sql_table_name: my_schema_name.tester ;;
-  #
-  # # Define your dimensions and measures here, like this:
-  # dimension: user_id {
-  #   description: "Unique ID for each user that has ordered"
-  #   type: number
-  #   sql: ${TABLE}.user_id ;;
-  # }
-  #
-  # dimension: lifetime_orders {
-  #   description: "The total number of orders for each user"
-  #   type: number
-  #   sql: ${TABLE}.lifetime_orders ;;
-  # }
-  #
-  # dimension_group: most_recent_purchase {
-  #   description: "The date when each user last ordered"
-  #   type: time
-  #   timeframes: [date, week, month, year]
-  #   sql: ${TABLE}.most_recent_purchase_at ;;
-  # }
-  #
-  # measure: total_lifetime_orders {
-  #   description: "Use this for counting lifetime orders across many users"
-  #   type: sum
-  #   sql: ${lifetime_orders} ;;
-  # }
-}
+  derived_table: {
+    explore_source: vnv_sem {
+      column: id { field: vnv_sem_view.id }
+      column: campaign { field: vnv_sem_view.vnv_campaign }
+      column: publisher { field: vnv_sem_view.publisher }
+      column: date { field: vnv_sem_view.day_date }
+      column: week { field: vnv_sem_view.day_week }
+      column: month { field: vnv_sem_view.day_month }
+      column: quarter { field: vnv_sem_view.day_quarter }
+      column: total_impressions { field: vnv_sem_view.total_impressions }
+      column: total_clicks { field: vnv_sem_view.total_clicks }
+      column: total_views { field: vnv_sem_view.total_views }
+      column: total_cost { field: vnv_sem_view.total_cost }
+      column: total_sessions { field: vnv_sem_view.total_sessions }
+      column: total_session_duration { field: vnv_sem_view.ga_total_session_duration }
+      filters: {
+        field: vnv_sem_view.vnv_campaign
+        value: "Foundational"
+      }
+    }
+    datagroup_trigger: vnv_foundational_datagroup
+    distribution_style: all
+  }
 
-# view: pdt_foundational_sem {
-#   # Or, you could make this view a derived table, like this:
-#   derived_table: {
-#     sql: SELECT
-#         user_id as user_id
-#         , COUNT(*) as lifetime_orders
-#         , MAX(orders.created_at) as most_recent_purchase_at
-#       FROM orders
-#       GROUP BY user_id
-#       ;;
-#   }
-#
-#   # Define your dimensions and measures here, like this:
-#   dimension: user_id {
-#     description: "Unique ID for each user that has ordered"
-#     type: number
-#     sql: ${TABLE}.user_id ;;
-#   }
-#
-#   dimension: lifetime_orders {
-#     description: "The total number of orders for each user"
-#     type: number
-#     sql: ${TABLE}.lifetime_orders ;;
-#   }
-#
-#   dimension_group: most_recent_purchase {
-#     description: "The date when each user last ordered"
-#     type: time
-#     timeframes: [date, week, month, year]
-#     sql: ${TABLE}.most_recent_purchase_at ;;
-#   }
-#
-#   measure: total_lifetime_orders {
-#     description: "Use this for counting lifetime orders across many users"
-#     type: sum
-#     sql: ${lifetime_orders} ;;
-#   }
-# }
+  dimension: campaign {
+    type: string
+  }
+
+  dimension: publisher {
+    type: string
+  }
+
+  dimension: date {
+    type: date
+  }
+
+  dimension: week {
+    type: date
+  }
+
+  dimension: month {
+    type: date
+  }
+
+  dimension: quarter {
+    type: date
+  }
+
+  dimension: impressions {
+    type: number
+  }
+
+  dimension: total_clicks {
+    type: number
+  }
+
+  dimension: total_views {
+    type: number
+  }
+
+  dimension: total_cost {
+    type: number
+  }
+
+  dimension: total_sessions {
+    type: number
+  }
+
+  dimension: total_session_duration {
+    type: number
+  }
+}

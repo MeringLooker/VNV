@@ -1,13 +1,13 @@
-view: pdt_foundational_campaign {
- derived_table: {
-   sql:
-      select * from ${pdt_foundational_gdn.SQL_TABLE_NAME}
+view: pdt_engage_campaign {
+  derived_table: {
+    sql:
+      select * from ${pdt_engage_adara.SQL_TABLE_NAME}
       union
-      select * from ${pdt_foundational_sem.SQL_TABLE_NAME}
+      select * from ${pdt_engage_tripadvisor.SQL_TABLE_NAME}
       ;;
-  sql_trigger_value: SELECT FLOOR((EXTRACT(epoch from GETDATE()) - 60*60*1)/(60*60*24)) ;;
-  distribution_style: all
-   }
+    sql_trigger_value: SELECT FLOOR((EXTRACT(epoch from GETDATE()) - 60*60*1)/(60*60*24)) ;;
+    distribution_style: all
+  }
 
   ### Primary Key Added ###
 
@@ -85,12 +85,6 @@ view: pdt_foundational_campaign {
     sql: ${TABLE}.total_clicks ;;
   }
 
-  dimension: views {
-    type: number
-    hidden: yes
-    sql: ${TABLE}.total_views ;;
-  }
-
   dimension: cost {
     type: number
     hidden: yes
@@ -130,12 +124,6 @@ view: pdt_foundational_campaign {
     label: "CTR"
     sql: 1.0*${total_clicks}/nullif(${total_impressions}, 0) ;;
     value_format_name: percent_2
-  }
-
-  measure: total_views {
-    type: sum_distinct
-    sql_distinct_key: ${primary_key} ;;
-    sql: ${views} ;;
   }
 
   measure: total_cost {
@@ -190,5 +178,4 @@ view: pdt_foundational_campaign {
   measure: count {
     type: count
   }
-
 }
