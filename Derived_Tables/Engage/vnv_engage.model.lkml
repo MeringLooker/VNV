@@ -16,3 +16,19 @@ explore: pdt_engage_campaign {
   group_label: "Visit Napa Valley"
   hidden: yes
 }
+
+explore: pdt_engage_adara {
+  #persist_with: vca_dream365_datagroup
+  label: "adara"
+  view_label: "Engage"
+  group_label: "Visit Napa Valley"
+  hidden: yes
+}
+
+explore: test_pdt_adara {
+  #persist_with: vca_dream365_datagroup
+  label: "adara test"
+  view_label: "Engage"
+  group_label: "Visit Napa Valley"
+  hidden: yes
+}

@@ -182,9 +182,6 @@ view: vnv_dcm_view {
     sql: 'United States' ;;
   }
 
- ######## Dimensions go below ########
-
-
 ######### All Dimensions Native to Source Table Below #########
 
   dimension: __report {
@@ -436,7 +433,7 @@ view: vnv_dcm_view {
     group_label: "3rd Party Measures"
     type: sum_distinct
     label: "Impressions"
-    sql_distinct_key: ${TABLE}.id ;;
+    sql_distinct_key: ${id} ;;
     sql: ${impressions} ;;
   }
 
@@ -444,7 +441,7 @@ view: vnv_dcm_view {
     group_label: "3rd Party Measures"
     type: sum_distinct
     label: "Clicks"
-    sql_distinct_key: ${TABLE}.id ;;
+    sql_distinct_key: ${id} ;;
     sql: ${clicks} ;;
   }
 
@@ -460,7 +457,7 @@ view: vnv_dcm_view {
     group_label: "3rd Party Measures"
     type: sum_distinct
     label: "Active View Measureable Impressions"
-    sql_distinct_key: ${TABLE}.id ;;
+    sql_distinct_key: ${id} ;;
     sql: ${active_view_measurable_impressions};;
   }
 
@@ -468,7 +465,7 @@ view: vnv_dcm_view {
     group_label: "3rd Party Measures"
     type: sum_distinct
     label: "Active View Viewable Impressions"
-    sql_distinct_key: ${TABLE}.id ;;
+    sql_distinct_key: ${id} ;;
     sql: ${active_view_viewable_impressions} ;;
   }
 
@@ -484,7 +481,7 @@ view: vnv_dcm_view {
     group_label: "3rd Party Measures"
     type: sum_distinct
     label: "Media Spend"
-    sql_distinct_key: ${TABLE}.id ;;
+    sql_distinct_key: ${id} ;;
     sql: ${media_cost} ;;
     value_format_name: usd
   }

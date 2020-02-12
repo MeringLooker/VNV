@@ -70,4 +70,9 @@ view: pdt_engage_adara {
   dimension: total_session_duration {
     type: number
   }
+
+  measure: sessions {
+    type: sum
+    sql: ${total_sessions} ;;
+  }
 }

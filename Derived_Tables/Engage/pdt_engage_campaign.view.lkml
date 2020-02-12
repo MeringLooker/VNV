@@ -13,7 +13,7 @@ view: pdt_engage_campaign {
 
   dimension: primary_key {
     type: string
-    hidden: yes
+    hidden: no
     primary_key: yes
     sql: ${TABLE}.id ;;
   }
