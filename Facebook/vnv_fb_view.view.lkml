@@ -11,7 +11,6 @@ view: vnv_fb_view {
     sql: ${TABLE}.comp_key ;;
   }
 
-
 ####### All dimensions go below ######
 
   dimension: id {
@@ -415,8 +414,8 @@ view: vnv_fb_view {
     type: sum_distinct
     label: "Sessions"
     group_label: "GA Reporting"
-    sql_distinct_key: ${vnv_mc_ga_view.id};;
-    sql: ${vnv_mc_ga_view.sessions};;
+    sql_distinct_key: ${vnv_ga_onsite.id};;
+    sql: ${vnv_ga_onsite.sessions};;
   }
 
   measure: cost_per_session {
@@ -442,15 +441,15 @@ view: vnv_fb_view {
     type: sum_distinct
     group_label: "GA Reporting"
     label: "Total Session Duration"
-    sql_distinct_key: ${vnv_mc_ga_view.id};;
-    sql: ${vnv_mc_ga_view.sessionduration};;
+    sql_distinct_key: ${vnv_ga_onsite.id};;
+    sql: ${vnv_ga_onsite.sessionduration};;
   }
 
   measure: avg_time_on_site {
     label: "Avg. TOS"
     group_label: "GA Reporting"
     type: number
-    sql: (${vnv_mc_ga_view.total_session_duration}/nullif(${vnv_mc_ga_view.total_sessions}, 0))::float/86400 ;;
+    sql: (${vnv_ga_onsite.total_session_duration}/nullif(${vnv_ga_onsite.total_sessions}, 0))::float/86400 ;;
     value_format: "m:ss"
   }
 
@@ -458,16 +457,16 @@ view: vnv_fb_view {
     type: sum_distinct
     group_label: "GA Reporting"
     label: "Users"
-    sql_distinct_key: ${vnv_mc_ga_view.id};;
-    sql: ${vnv_mc_ga_view.users};;
+    sql_distinct_key: ${vnv_ga_onsite.id};;
+    sql: ${vnv_ga_onsite.users};;
   }
 
   measure: ga_new_users {
     type: sum_distinct
     group_label: "GA Reporting"
     label: "New Users"
-    sql_distinct_key: ${vnv_mc_ga_view.id};;
-    sql: ${vnv_mc_ga_view.newusers};;
+    sql_distinct_key: ${vnv_ga_onsite.id};;
+    sql: ${vnv_ga_onsite.newusers};;
   }
 
   measure: percent_new_users {
@@ -482,8 +481,8 @@ view: vnv_fb_view {
     group_label: "GA Reporting"
     label: "Pageviews"
     type: sum
-    sql_distinct_key: ${vnv_mc_ga_view.id};;
-    sql: ${vnv_mc_ga_view.pageviews} ;;
+    sql_distinct_key: ${vnv_ga_onsite.id};;
+    sql: ${vnv_ga_onsite.pageviews} ;;
   }
 
   measure: pages_per_session {
@@ -494,21 +493,21 @@ view: vnv_fb_view {
     value_format: "#.0"
   }
 
-  measure: ga_partner_referral_goals {
-    group_label: "GA Reporting"
-    label: "Partner Referrals"
-    type: sum_distinct
-    sql_distinct_key: ${vnv_mc_ga_view.id};;
-    sql: ${vnv_mc_ga_view.goal5completions} ;;
-  }
-
-  measure: partner_referral_rate {
-    group_label: "GA Reporting"
-    label: "Partner Referral Rate"
-    type: number
-    sql: 1.0*${vnv_mc_ga_view.partner_referrals}/nullif(${vnv_mc_ga_view.total_sessions}, 0) ;;
-    value_format_name: percent_2
-  }
+#   measure: ga_partner_referral_goals {
+#     group_label: "GA Reporting"
+#     label: "Partner Referrals"
+#     type: sum_distinct
+#     sql_distinct_key: ${vnv_ga_onsite.id};;
+#     sql: ${vnv_ga_onsite.goal5completions} ;;
+#   }
+#
+#   measure: partner_referral_rate {
+#     group_label: "GA Reporting"
+#     label: "Partner Referral Rate"
+#     type: number
+#     sql: 1.0*${vnv_ga_onsite.partner_referrals}/nullif(${vnv_ga_onsite.total_sessions}, 0) ;;
+#     value_format_name: percent_2
+#   }
 
 
   # ----- Sets of fields for drilling ------
