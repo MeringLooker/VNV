@@ -1,12 +1,12 @@
 connection: "mc_panoply"
 
 # include all the views
-include: "/AdWords/**/*.view"
-include: "/DCM/**/*.view"
-include: "/Facebook/**/*.view"
-include: "/Google_Analytics/**/*.view"
-include: "/LinkedIn/**/*.view"
-include: "/TrueView/**/*.view"
+# include: "/AdWords/**/*.view"
+# include: "/DCM/**/*.view"
+# include: "/Facebook/**/*.view"
+# include: "/Google_Analytics/**/*.view"
+# include: "/LinkedIn/**/*.view"
+# include: "/TrueView/**/*.view"
 
 
 
@@ -239,20 +239,20 @@ persist_with: vnv_default_datagroup
 
 #### Exploring LinkedIn Data #####
 
-explore: vnv_linkedin_campaign  {
-  label: "LinkedIn"
-  group_label: "Visit Napa Valley"
-  view_label: "LinkedIn"
-}
+# explore: vnv_linkedin_campaign  {
+#   label: "LinkedIn"
+#   group_label: "Visit Napa Valley"
+#   view_label: "LinkedIn"
+# }
 
 ################ Exploring Google Analytics Data ###########
 
-explore: vnv_googleAnalytics{
-  view_name: vnv_ga_onsite
-  label: "Google Analytics"
-  group_label: "Visit Napa Valley"
-  view_label: "Google Analytics"
-}
+# explore: vnv_googleAnalytics{
+#   view_name: vnv_ga_onsite
+#   label: "Google Analytics"
+#   group_label: "Visit Napa Valley"
+#   view_label: "Google Analytics"
+# }
 
 
 # explore: adwords_ad_performance_report {}

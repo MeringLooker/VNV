@@ -11,6 +11,18 @@ view: vnv_us_trueview {
     sql: ${TABLE}.id ;;
   }
 
+  dimension: quartiles_join_id {
+    type: string
+    hidden: yes
+    sql: ${ad_group_id}||'_'||${day_date} ;;
+  }
+
+#   dimension: trueview_join_id {
+#     type: string
+#     hidden: yes
+#     sql: ${sdt_trueview_quartiles.trueview_join} ;;
+#   }
+
   #### Dimensions Added to this Table Via LookML ####
 
   dimension: fiscal_year {
@@ -19,18 +31,39 @@ view: vnv_us_trueview {
     group_label: "Client Dimensions"
     sql:
       CASE
-        WHEN ${Date_date} BETWEEN '2015-07-01' AND '2016-06-30' THEN 'FY 15/16'
-        WHEN ${Date_date} BETWEEN '2016-07-01' AND '2017-06-30' THEN 'FY 16/17'
-        WHEN ${Date_date} BETWEEN '2017-07-01' AND '2018-06-30' THEN 'FY 17/18'
-        WHEN ${Date_date} BETWEEN '2018-07-01' AND '2019-06-30' THEN 'FY 18/19'
-        WHEN ${Date_date} BETWEEN '2019-07-01' AND '2020-06-30' THEN 'FY 19/20'
+        WHEN ${day_date} BETWEEN '2015-07-01' AND '2016-06-30' THEN 'FY 15/16'
+        WHEN ${day_date} BETWEEN '2016-07-01' AND '2017-06-30' THEN 'FY 16/17'
+        WHEN ${day_date} BETWEEN '2017-07-01' AND '2018-06-30' THEN 'FY 17/18'
+        WHEN ${day_date} BETWEEN '2018-07-01' AND '2019-06-30' THEN 'FY 18/19'
+        WHEN ${day_date} BETWEEN '2019-07-01' AND '2020-06-30' THEN 'FY 19/20'
         ELSE 'Uncategorized'
         END
         ;;
   }
 
+  dimension: advertising_channel {
+    type: string
+    hidden: yes
+    label: "Channel"
+    group_label: "TrueView Dimensions"
+    sql: 'Video'
+      ;;
+  }
+
+  dimension: publisher {
+    type: string
+    hidden: yes
+    sql: 'YouTube' ;;
+  }
+
+  dimension: vnv_market {
+    type: string
+    hidden: yes
+    sql: 'United States' ;;
+  }
+
   dimension: vnv_campaign {
-    label: "Campaign"
+    label: "Campaign Name"
     type: string
     group_label: "Client Dimensions"
     sql:
@@ -39,7 +72,6 @@ view: vnv_us_trueview {
         ELSE 'Uncategorized'
         END;;
   }
-
 
 
   dimension: formatted_device {
@@ -59,36 +91,6 @@ view: vnv_us_trueview {
   }
 
   #### Dimensions go below ####
-
-  dimension_group: __senttime {
-    type: time
-    hidden: yes
-    timeframes: [
-      raw,
-      time,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    sql: ${TABLE}.__senttime ;;
-  }
-
-  dimension_group: __updatetime {
-    type: time
-    hidden: yes
-    timeframes: [
-      raw,
-      time,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    sql: ${TABLE}.__updatetime ;;
-  }
 
   dimension: account {
     type: string
@@ -264,8 +266,10 @@ view: vnv_us_trueview {
     sql: ${TABLE}."customer id" ;;
   }
 
-  dimension_group: Date {
+  dimension_group: day {
     type: time
+    group_label: "Date Periods"
+    label: ""
     timeframes: [
       raw,
       time,
@@ -392,6 +396,18 @@ view: vnv_us_trueview {
     sql: ${TABLE}."view-through conv." ;;
   }
 
+  dimension: sessions {
+    type: number
+    hidden: yes
+    sql: '0' ;;
+  }
+
+  dimension: session_duration {
+    type: number
+    hidden: yes
+    sql: '0' ;;
+  }
+
 ###### All measures go below ######
 
   measure: total_cost {
@@ -404,20 +420,25 @@ view: vnv_us_trueview {
   measure: total_impressions {
     type: sum_distinct
     sql_distinct_key: ${id} ;;
-    sql: ${TABLE}.impressions ;;
+    sql: ${impressions} ;;
   }
 
   measure: total_clicks {
     type: sum_distinct
     sql_distinct_key: ${id} ;;
-    hidden: yes
-    sql: ${TABLE}.impressions ;;
+    sql: ${clicks} ;;
+  }
+
+  measure: click_through_rate {
+    type: number
+    sql: 1.0*${total_clicks}/nullif(${total_impressions}, 0);;
+    value_format_name: percent_0
   }
 
   measure: total_views {
     type: sum_distinct
     sql_distinct_key: ${id} ;;
-    sql: ${TABLE}.views ;;
+    sql: ${views} ;;
   }
 
   measure: view_rate {
@@ -436,6 +457,20 @@ view: vnv_us_trueview {
     type: number
     sql: ${total_cost}/nullif(${total_views},0) ;;
     value_format_name: usd
+  }
+
+  measure: total_sessions {
+    type: sum_distinct
+    hidden: yes
+    sql_distinct_key: ${id} ;;
+    sql: ${sessions} ;;
+  }
+
+  measure: total_session_duration {
+    type: sum_distinct
+    hidden: yes
+    sql_distinct_key: ${id} ;;
+    sql: ${session_duration} ;;
   }
 
 #   measure: count {
