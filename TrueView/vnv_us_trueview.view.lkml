@@ -40,6 +40,8 @@ view: vnv_us_trueview {
         END;;
   }
 
+
+
   dimension: formatted_device {
     type: string
     label: "Device Type"
