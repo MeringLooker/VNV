@@ -139,16 +139,16 @@ view: vnv_ga_onsite {
     label: "Sessions"
     group_label: "GA Reporting"
     type: sum_distinct
-    sql_distinct_key: ${TABLE}.id ;;
-    sql: ${TABLE}.sessions ;;
+    sql_distinct_key: ${id} ;;
+    sql: ${sessions} ;;
   }
 
   measure: total_session_duration {
     label: "Total Time on Site"
     hidden: yes
     type: sum_distinct
-    sql_distinct_key: ${TABLE}.id ;;
-    sql: ${TABLE}.sessionduration ;;
+    sql_distinct_key: ${id} ;;
+    sql: ${sessionduration} ;;
   }
 
   measure: avg_time_on_site {
@@ -162,15 +162,15 @@ view: vnv_ga_onsite {
   measure: total_users {
     label: "Users"
     type: sum_distinct
-    sql_distinct_key: ${TABLE}.id ;;
-    sql: ${TABLE}.users ;;
+    sql_distinct_key: ${id} ;;
+    sql: ${users} ;;
   }
 
   measure: new_users {
     label: "New Users"
     type: sum_distinct
-    sql_distinct_key: ${TABLE}.id ;;
-    sql: ${TABLE}.newusers ;;
+    sql_distinct_key: ${id} ;;
+    sql: ${newusers} ;;
   }
 
   measure: percent_new_users {
@@ -183,8 +183,8 @@ view: vnv_ga_onsite {
   measure: total_pageviews {
     label: "Pageviews"
     type: sum_distinct
-    sql_distinct_key: ${TABLE}.id ;;
-    sql: ${TABLE}.pageviews ;;
+    sql_distinct_key: ${id} ;;
+    sql: ${pageviews} ;;
   }
 
   measure: pages_per_session {
@@ -197,8 +197,8 @@ view: vnv_ga_onsite {
   measure: total_bounces {
     label: "Bounces"
     type: sum_distinct
-    sql_distinct_key: ${TABLE}.id ;;
-    sql: ${TABLE}.bounces ;;
+    sql_distinct_key: ${id} ;;
+    sql: ${bounces} ;;
   }
 
   measure: bounce_rate {
@@ -206,10 +206,6 @@ view: vnv_ga_onsite {
     type: number
     sql: ${total_bounces}/nullif(${total_sessions}, 0) ;;
     value_format_name: percent_0
-  }
-
-  set: ga_reporting {
-    fields: [vnv_dcm_view.cost_per_session]
   }
 
   measure: count {
