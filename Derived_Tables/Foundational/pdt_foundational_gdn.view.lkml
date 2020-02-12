@@ -30,7 +30,7 @@ view: pdt_foundational_gdn {
       type: string
     }
 
-    dimension: day {
+    dimension: date {
       type: date
     }
 
