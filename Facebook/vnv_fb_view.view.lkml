@@ -2,6 +2,14 @@ view: vnv_fb_view {
   sql_table_name: public.vnv_fb_view ;;
   drill_fields: [id]
 
+###### Primary Key #######
+
+  dimension: id {
+    primary_key: yes
+    hidden: yes
+    type: string
+    sql: ${TABLE}.id ;;
+  }
 
 ####### Join ID ########
 
@@ -11,14 +19,112 @@ view: vnv_fb_view {
     sql: ${TABLE}.comp_key ;;
   }
 
-####### All dimensions go below ######
+##### Dimensions added to this table via LookML #####
 
-  dimension: id {
-    primary_key: yes
-    hidden: yes
+  dimension: publisher {
     type: string
-    sql: ${TABLE}.id ;;
+    hidden: yes
+    sql: 'Facebook' ;;
   }
+
+  dimension: advertising_channel {
+    type: string
+    hidden: yes
+    sql: 'Social' ;;
+  }
+
+  dimension: vnv_market {
+    type: string
+    hidden: yes
+    sql: 'United States' ;;
+  }
+
+  dimension: ad_type {
+    type: string
+    group_label: "Facebook Dimensions"
+    sql:
+     CASE
+       when ${ad_name} ilike '%SingleImage%' then 'Single Image'
+       when ${ad_name} ilike '%Carousel%' then 'Carousel'
+       when ${ad_name} ilike '%Video%' then 'Video'
+       when ${ad_name} ilike '%Stories%' then 'Story'
+       when ${ad_name} ilike '%Canvas%' then 'Canvas'
+       ELSE 'Uncategorized'
+      END;;
+  }
+
+  dimension: fiscal_year {
+    label: "Fiscal"
+    group_label: "Client Dimensions"
+    type: string
+    sql:
+      CASE
+        WHEN ${date_start_date} BETWEEN '2015-07-01' AND '2016-06-30' THEN 'FY 15/16'
+        WHEN ${date_start_date} BETWEEN '2016-07-01' AND '2017-06-30' THEN 'FY 16/17'
+        WHEN ${date_start_date} BETWEEN '2017-07-01' AND '2018-06-30' THEN 'FY 17/18'
+        WHEN ${date_start_date} BETWEEN '2018-07-01' AND '2019-06-30' THEN 'FY 18/19'
+        WHEN ${date_start_date} BETWEEN '2019-07-01' AND '2020-06-30' THEN 'FY 19/20'
+        ELSE 'Uncategorized'
+        END
+        ;;
+  }
+
+  dimension: vnv_campaign {
+    label: "Campaign Name"
+    group_label: "Client Dimensions"
+    type: string
+    sql:
+      CASE
+       when ${campaign_name} ilike '%_Objective3_%' then 'Impact'
+       when ${campaign_name} ilike '%FY20_VNV_Conversions%' then 'Foundational'
+       when ${campaign_name} ilike '%FY20_VNV_Video%' then 'Foundational'
+       ELSE 'Uncategorized'
+       END;;
+    drill_fields: [campaign_name]
+  }
+
+  dimension: facebook_layer {
+    label: "Campaign Layer"
+    group_label: "Client Dimensions"
+    type: string
+    sql:
+      CASE
+       when ${campaign_name} ilike '%_VideoViews' then 'Video Views'
+       when ${campaign_name} ilike '%_InstagramStories' then 'Instagram Stories'
+       when ${campaign_name} ilike '%_TrafficDriving' then 'Traffic Driving'
+       ELSE 'Uncategorized'
+       END;;
+    drill_fields: [campaign_name]
+  }
+
+  dimension: creative_name {
+    group_label: "Client Dimensions"
+    type: string
+    sql:
+      CASE
+        WHEN ${ad_name} ilike '%legendary' then 'Legendary'
+        WHEN ${ad_name} ilike '%lodging' then 'Lodging'
+        WHEN ${ad_name} ilike '%thingstodo' then 'Things To Do'
+        WHEN ${ad_name} ilike '%wellness' then 'Wellness'
+        WHEN ${ad_name} ilike '%gobeyond' then 'Go Beyond'
+        WHEN ${ad_name} ilike '%onevalley' then 'One Valley'
+        WHEN ${ad_name} ilike '%weekends' then 'Weekends'
+        WHEN ${ad_name} ilike '%art' then 'Art'
+        WHEN ${ad_name} ilike '%beer' then 'Beer'
+        WHEN ${ad_name} ilike '%events' then 'Events'
+        WHEN ${ad_name} ilike '%aerial' then 'Aerial'
+        WHEN ${ad_name} ilike '%picnictables' then 'Picnic Tables'
+        WHEN ${ad_name} ilike '%tablescape' then 'Tablescape'
+        WHEN ${ad_name} ilike '%stunningharmony' then 'Stunning Harmony'
+        WHEN ${ad_name} ilike '%theweekend' then 'The Weekend'
+        WHEN ${ad_name} ilike '%nextsip' then 'Next Sip'
+        WHEN ${ad_name} ilike '%winepour' then 'Wine Pour'
+        ELSE ${ad_name}
+        END;;
+  }
+
+
+####### All dimensions go below ######
 
   dimension_group: __senttime {
     hidden: yes
@@ -63,7 +169,7 @@ view: vnv_fb_view {
   }
 
   dimension: ad_id {
-    hidden: yes
+    group_label: "Facebook IDs"
     type: number
     sql: ${TABLE}.ad_id ;;
   }
@@ -74,29 +180,15 @@ view: vnv_fb_view {
     sql: ${TABLE}.ad_name ;;
   }
 
-  dimension: ad_type {
-    type: string
-    group_label: "Facebook Dimensions"
-    sql:
-     CASE
-       when ${ad_name} ilike '%SingleImage%' then 'Single Image'
-       when ${ad_name} ilike '%Carousel%' then 'Carousel'
-       when ${ad_name} ilike '%Video%' then 'Video'
-       when ${ad_name} ilike '%Stories%' then 'Story'
-       when ${ad_name} ilike '%Canvas%' then 'Canvas'
-       ELSE 'Uncategorized'
-      END;;
-      drill_fields: [ad_name]
-  }
-
   dimension: adset_id {
-    hidden: yes
+    group_label: "Facebook IDs"
     type: number
     sql: ${TABLE}.adset_id ;;
   }
 
   dimension: adset_name {
     type: string
+    label: "Ad Set Name"
     group_label: "Facebook Dimensions"
     sql: ${TABLE}.adset_name ;;
   }
@@ -108,7 +200,7 @@ view: vnv_fb_view {
   }
 
   dimension: campaign_id {
-    hidden: yes
+    group_label: "Facebook IDs"
     type: number
     sql: ${TABLE}.campaign_id ;;
   }
@@ -117,77 +209,6 @@ view: vnv_fb_view {
     type: string
     group_label: "Facebook Dimensions"
     sql: ${TABLE}.campaign_name ;;
-  }
-
-  dimension: fiscal_year {
-    label: "Fiscal"
-    group_label: "Client Dimensions"
-    type: string
-    sql:
-      CASE
-        WHEN ${date_start_date} BETWEEN '2015-07-01' AND '2016-06-30' THEN 'FY 15/16'
-        WHEN ${date_start_date} BETWEEN '2016-07-01' AND '2017-06-30' THEN 'FY 16/17'
-        WHEN ${date_start_date} BETWEEN '2017-07-01' AND '2018-06-30' THEN 'FY 17/18'
-        WHEN ${date_start_date} BETWEEN '2018-07-01' AND '2019-06-30' THEN 'FY 18/19'
-        WHEN ${date_start_date} BETWEEN '2019-07-01' AND '2020-06-30' THEN 'FY 19/20'
-        ELSE 'Uncategorized'
-        END
-        ;;
-      drill_fields: [campaign_name]
-  }
-
-  dimension: vnv_layer {
-    label: "VNV Layer"
-    group_label: "Client Dimensions"
-    type: string
-    sql:
-      CASE
-       when ${campaign_name} ilike '%_Objective3_%' then 'Impact'
-       when ${campaign_name} ilike '%FY20_VNV_Conversions%' then 'Foundational'
-       when ${campaign_name} ilike '%FY20_VNV_Video%' then 'Foundational'
-       ELSE 'Uncategorized'
-       END;;
-      drill_fields: [campaign_name]
-  }
-
-  dimension: facebook_layer {
-    label: "Facebook Layer"
-    group_label: "Client Dimensions"
-    type: string
-    sql:
-      CASE
-       when ${campaign_name} ilike '%_VideoViews' then 'Video Views'
-       when ${campaign_name} ilike '%_InstagramStories' then 'Instagram Stories'
-       when ${campaign_name} ilike '%_TrafficDriving' then 'Traffic Driving'
-       ELSE 'Uncategorized'
-       END;;
-    drill_fields: [campaign_name]
-  }
-
-  dimension: creative_name {
-    group_label: "Client Dimensions"
-    type: string
-    sql:
-      CASE
-        WHEN ${ad_name} ilike '%legendary' then 'Legendary'
-        WHEN ${ad_name} ilike '%lodging' then 'Lodging'
-        WHEN ${ad_name} ilike '%thingstodo' then 'Things To Do'
-        WHEN ${ad_name} ilike '%wellness' then 'Wellness'
-        WHEN ${ad_name} ilike '%gobeyond' then 'Go Beyond'
-        WHEN ${ad_name} ilike '%onevalley' then 'One Valley'
-        WHEN ${ad_name} ilike '%weekends' then 'Weekends'
-        WHEN ${ad_name} ilike '%art' then 'Art'
-        WHEN ${ad_name} ilike '%beer' then 'Beer'
-        WHEN ${ad_name} ilike '%events' then 'Events'
-        WHEN ${ad_name} ilike '%aerial' then 'Aerial'
-        WHEN ${ad_name} ilike '%picnictables' then 'Picnic Tables'
-        WHEN ${ad_name} ilike '%tablescape' then 'Tablescape'
-        WHEN ${ad_name} ilike '%stunningharmony' then 'Stunning Harmony'
-        WHEN ${ad_name} ilike '%theweekend' then 'The Weekend'
-        WHEN ${ad_name} ilike '%nextsip' then 'Next Sip'
-        WHEN ${ad_name} ilike '%winepour' then 'Wine Pour'
-        ELSE ${ad_name}
-        END;;
   }
 
   dimension: clicks {
@@ -210,6 +231,7 @@ view: vnv_fb_view {
 
   dimension: country {
     type: string
+    hidden: yes
     group_label: "Facebook Dimensions"
     map_layer_name: countries
     sql: ${TABLE}.country ;;
@@ -291,7 +313,6 @@ view: vnv_fb_view {
   dimension: objective {
     type: string
     group_label: "Facebook Dimensions"
-    label: "FB Objective"
     sql: ${TABLE}.objective ;;
   }
 
@@ -329,44 +350,41 @@ view: vnv_fb_view {
 
   measure: total_impressions {
     type: sum_distinct
+    sql_distinct_key: ${id} ;;
     label: "Impressions"
-    group_label: "Facebook Metrics"
-    sql_distinct_key: ${vnv_fb_view.id};;
+    group_label: "Facebook Reporting"
     sql: ${impressions} ;;
-    drill_fields: [detail*]
   }
 
   measure: total_clicks {
     type: sum_distinct
-    label: "Link Clicks"
-    group_label: "Facebook Metrics"
-    sql_distinct_key: ${vnv_fb_view.id};;
+    sql_distinct_key: ${id} ;;
+    label: "Clicks"
+    group_label: "Facebook Reporting"
     sql: ${inline_link_clicks} ;;
-    drill_fields: [detail*]
-  }
-
-  measure: total_spend {
-    type: sum_distinct
-    label: "Media Spend"
-    group_label: "Facebook Metrics"
-    sql_distinct_key: ${vnv_fb_view.id};;
-    sql: ${spend};;
-    value_format_name: usd
   }
 
   measure: click_through_rate {
     type: number
     label: "CTR"
-    group_label: "Facebook Metrics"
+    group_label: "Facebook Reporting"
     sql: 1.0*${total_clicks}/nullif(${total_impressions}, 0) ;;
     value_format_name: percent_2
-    drill_fields: [detail*]
+  }
+
+  measure: total_spend {
+    type: sum_distinct
+    sql_distinct_key: ${id} ;;
+    label: "Media Spend"
+    group_label: "Facebook Reporting"
+    sql: ${spend};;
+    value_format_name: usd
   }
 
   measure: cost_per_click {
     type: number
     label: "CPC"
-    group_label: "Facebook Metrics"
+    group_label: "Facebook Reporting"
     sql: ${total_spend}/nullif(${total_clicks}, 0) ;;
     value_format_name: usd
   }
@@ -374,7 +392,7 @@ view: vnv_fb_view {
   measure: cost_per_thousand {
     type: number
     label: "CPM"
-    group_label: "Facebook Metrics"
+    group_label: "Facebook Reporting"
     sql: ${total_spend}/nullif(${total_impressions}/1000, 0) ;;
     value_format_name: usd
   }
@@ -385,17 +403,18 @@ view: vnv_fb_view {
     type: sum_distinct
     sql_distinct_key: ${facebookads__visit_napa_valley_actions.id};;
     label: ":03 Video Views"
-    group_label: "Facebook Metrics"
+    group_label: "Video Reporting"
     sql:
       CASE
       WHEN ${facebookads__visit_napa_valley_actions.action_type} = 'video_view' THEN ${facebookads__visit_napa_valley_actions.value}
+      else null
       END;;
   }
 
   measure: video_completes {
     type: sum_distinct
     label: "Views to 100%"
-    group_label: "Facebook Metrics"
+    group_label: "Video Quartiles"
     sql_distinct_key: ${facebookads__visit_napa_valley_video_p100_watched_actions.id};;
     sql: ${facebookads__visit_napa_valley_video_p100_watched_actions.value} ;;
   }
@@ -403,7 +422,71 @@ view: vnv_fb_view {
   measure: video_completion_rate {
     type: number
     label: "Vid. Completion Rate"
-    group_label: "Facebook Metrics"
+    group_label: "Video Quartiles"
+    sql: 1.0*${video_completes}/nullif(${total_impressions}, 0) ;;
+    value_format_name: percent_2
+  }
+
+  measure: view_rate {
+    type: number
+    group_label: "Video Reporting"
+    label: ":03 View Rate"
+    sql: 1.0*${video_views}/nullif(${total_impressions}, 0) ;;
+    value_format_name: percent_2
+  }
+
+  measure: cost_per_03sec_view {
+    type: number
+    group_label: "Video Reporting"
+    label: "CPV :03"
+    sql: ${video_views}/nullif(${total_spend}, 0);;
+    value_format_name: usd
+  }
+
+  measure: view_to_25_percent {
+    type: sum_distinct
+    label: "Views to 25%"
+    group_label: "Video Quartiles"
+    sql_distinct_key: ${facebookads__visit_napa_valley_video_p25_watched_actions.id};;
+    sql: ${facebookads__visit_napa_valley_video_p25_watched_actions.value} ;;
+  }
+
+  measure: view_to_50_percent {
+    type: sum_distinct
+    label: "Views to 50%"
+    group_label: "Video Quartiles"
+    sql_distinct_key: ${facebookads__visit_napa_valley_video_p50_watched_actions.id};;
+    sql: ${facebookads__visit_napa_valley_video_p50_watched_actions.value} ;;
+  }
+
+  measure: view_to_75_percent {
+    type: sum_distinct
+    label: "Views to 75%"
+    group_label: "Video Quartiles"
+    sql_distinct_key: ${facebookads__visit_napa_valley_video_p75_watched_actions.id};;
+    sql: ${facebookads__visit_napa_valley_video_p75_watched_actions.value} ;;
+  }
+
+  measure: view_to_25_rate {
+    type: number
+    label: "View to 25% Rate"
+    group_label: "Video Quartiles"
+    sql: 1.0*${video_completes}/nullif(${total_impressions}, 0) ;;
+    value_format_name: percent_2
+  }
+
+  measure: view_to_50_rate {
+    type: number
+    label: "View to 50% Rate"
+    group_label: "Video Quartiles"
+    sql: 1.0*${video_completes}/nullif(${total_impressions}, 0) ;;
+    value_format_name: percent_2
+  }
+
+  measure: view_to_75_rate {
+    type: number
+    label: "View to 75% Rate"
+    group_label: "Video Quartiles"
     sql: 1.0*${video_completes}/nullif(${total_impressions}, 0) ;;
     value_format_name: percent_2
   }
@@ -424,16 +507,6 @@ view: vnv_fb_view {
     group_label: "GA Reporting"
     sql: ${total_spend}/nullif(${ga_sessions}, 0) ;;
     value_format_name: usd
-  }
-
-  measure: click_to_session {
-    type: number
-    label: "CTS"
-    group_label: "GA Reporting"
-    description: "Percent of clicks that result in a session."
-    sql: 1.0*${ga_sessions}/nullif(${total_clicks}, 0) ;;
-    value_format_name: percent_0
-    drill_fields: [detail*]
   }
 
   measure: ga_total_session_duration {

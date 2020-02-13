@@ -1,5 +1,5 @@
 view: facebookads__visit_napa_valley_video_p25_watched_actions {
-  sql_table_name: public.facebookads__visit napa valley_video_p25_watched_actions ;;
+  sql_table_name: public."facebookads__visit napa valley_video_p25_watched_actions" ;;
   drill_fields: [id]
 
   dimension: id {

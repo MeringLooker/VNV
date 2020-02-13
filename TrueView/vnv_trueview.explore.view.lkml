@@ -8,5 +8,5 @@ explore: vnv_trueview {
   label: "YouTube"
   hidden: yes
   group_label: "Visit Napa Valley"
-  view_label: "AdWords"
+  view_label: "YouTube"
 }

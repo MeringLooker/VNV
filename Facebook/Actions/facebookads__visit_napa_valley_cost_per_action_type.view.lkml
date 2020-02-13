@@ -1,5 +1,5 @@
 view: facebookads__visit_napa_valley_cost_per_action_type {
-  sql_table_name: public.facebookads__visit napa valley_cost_per_action_type ;;
+  sql_table_name: public."facebookads__visit napa valley_cost_per_action_type" ;;
   drill_fields: [id]
 
   dimension: id {

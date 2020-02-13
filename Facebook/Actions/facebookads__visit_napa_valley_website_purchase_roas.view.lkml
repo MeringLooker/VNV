@@ -1,5 +1,5 @@
 view: facebookads__visit_napa_valley_website_purchase_roas {
-  sql_table_name: public.facebookads__visit napa valley_website_purchase_roas ;;
+  sql_table_name: public."facebookads__visit napa valley_website_purchase_roas" ;;
   drill_fields: [id]
 
   dimension: id {
