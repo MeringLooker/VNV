@@ -1,7 +1,6 @@
 view: pdt_engage_adara {
   derived_table: {
     explore_source: vnv_dcm {
-      column: id {field: vnv_dcm_view.id}
       column: publisher {field: vnv_dcm_view.publisher}
       column: campaign {field: vnv_dcm_view.vnv_campaign}
       column: date {field: vnv_dcm_view.date_date}

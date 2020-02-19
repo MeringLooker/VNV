@@ -15,7 +15,7 @@ view: pdt_engage_campaign {
     type: string
     hidden: no
     primary_key: yes
-    sql: ${TABLE}.id ;;
+    sql: ${publisher}||'_'||${campaign}||'_'||${date} ;;
   }
 
   #### All dimensions go below ####
