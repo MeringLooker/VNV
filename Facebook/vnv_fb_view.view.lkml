@@ -24,7 +24,10 @@ view: vnv_fb_view {
   dimension: publisher {
     type: string
     hidden: yes
-    sql: 'Facebook' ;;
+    sql:
+      when ${campaign_name} ilike '%_InstagramStories' then 'Instagram'
+      else 'Facebook'
+      end;;
   }
 
   dimension: advertising_channel {
@@ -39,19 +42,19 @@ view: vnv_fb_view {
     sql: 'United States' ;;
   }
 
-  dimension: ad_type {
-    type: string
-    group_label: "Facebook Dimensions"
-    sql:
-     CASE
-       when ${ad_name} ilike '%SingleImage%' then 'Single Image'
-       when ${ad_name} ilike '%Carousel%' then 'Carousel'
-       when ${ad_name} ilike '%Video%' then 'Video'
-       when ${ad_name} ilike '%Stories%' then 'Story'
-       when ${ad_name} ilike '%Canvas%' then 'Canvas'
-       ELSE 'Uncategorized'
-      END;;
-  }
+#   dimension: ad_type {
+#     type: string
+#     group_label: "Facebook Dimensions"
+#     sql:
+#      CASE
+#        when ${ad_name} ilike '%SingleImage%' then 'Single Image'
+#        when ${ad_name} ilike '%Carousel%' then 'Carousel'
+#        when ${ad_name} ilike '%Video%' then 'Video'
+#        when ${ad_name} ilike '%Stories%' then 'Story'
+#        when ${ad_name} ilike '%Canvas%' then 'Canvas'
+#        ELSE 'Uncategorized'
+#       END;;
+#   }
 
   dimension: fiscal_year {
     label: "Fiscal"
@@ -83,8 +86,8 @@ view: vnv_fb_view {
     drill_fields: [campaign_name]
   }
 
-  dimension: facebook_layer {
-    label: "Campaign Layer"
+  dimension: vnv_placement {
+    label: "Placement Name"
     group_label: "Client Dimensions"
     type: string
     sql:

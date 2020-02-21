@@ -111,11 +111,13 @@ view: vnv_gdn_view {
     group_label: "Client Dimensions"
     sql:
       CASE
-        WHEN ${ad_group_id} '84007501372' then 'Custom Intent'
-        WHEN ${ad_group_id} '78380941643' then 'Custom Intent'
-        WHEN ${ad_group_id} '84007501332' then 'Retargeting - Web Visitors'
-        WHEN ${ad_group_id} '78380941843' then 'Retargeting - Web Visitors'
-        WHEN ${ad_group_id} '82777330008' then 'Luxury Traveler'
+        WHEN ${ad_group_id} = '84007501372' then 'Custom Intent'
+        WHEN ${ad_group_id} = '78380941643' then 'Custom Intent'
+        WHEN ${ad_group_id} = '84007501332' then 'Retargeting - Web Visitors'
+        WHEN ${ad_group_id} = '78380941843' then 'Retargeting - Web Visitors'
+        WHEN ${ad_group} ilike 'RTGPublisherTraffic%' then 'Retargeting - Publisher Traffic'
+        WHEN ${ad_group} ilike 'SuperAffluentLookalikePublisherTraffic%' then 'Lookalike - Publisher Traffic'
+        WHEN ${ad_group_id} = '82777330008' then 'Luxury Traveler'
 
         ELSE 'Uncategorized'
         END;;
