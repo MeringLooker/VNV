@@ -1,8 +1,9 @@
 view: pdt_foundational_fb {
 derived_table: {
   explore_source: vnv_fb {
-    column: publisher {field: vnv_fb_view.publisher}
     column: campaign {field: vnv_fb_view.vnv_campaign}
+    column: publisher {field: vnv_fb_view.publisher}
+    column: placement {field: vnv_fb_view.vnv_placement}
     column: date {field: vnv_fb_view.date_start_date}
     column: week {field: vnv_fb_view.date_start_week}
     column: month {field: vnv_fb_view.date_start_month}
@@ -45,7 +46,7 @@ dimension: quarter {
   type: date
 }
 
-dimension: impressions {
+dimension: total_impressions {
   type: number
 }
 

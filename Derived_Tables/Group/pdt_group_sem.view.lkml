@@ -1,4 +1,4 @@
-view: pdt_foundational_sem {
+view: pdt_group_sem {
   derived_table: {
     explore_source: vnv_sem {
       column: campaign { field: vnv_sem_view.vnv_campaign }
@@ -16,10 +16,10 @@ view: pdt_foundational_sem {
       column: total_session_duration { field: vnv_sem_view.ga_total_session_duration }
       filters: {
         field: vnv_sem_view.vnv_campaign
-        value: "Foundational"
+        value: "Group"
       }
     }
-    datagroup_trigger: vnv_foundational_datagroup
+    datagroup_trigger: vnv_group_datagroup
     distribution_style: all
   }
 

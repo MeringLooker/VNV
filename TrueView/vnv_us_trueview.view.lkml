@@ -73,6 +73,17 @@ view: vnv_us_trueview {
         END;;
   }
 
+  dimension: vnv_placement {
+    label: "Placement Name"
+    type: string
+    group_label: "Client Dimensions"
+    sql:
+      CASE
+        WHEN ${campaign} = 'FY20_VNV_Foundational_TrueView' then 'Pre-Roll Video'
+        ELSE 'Uncategorized'
+        END;;
+  }
+
 
   dimension: formatted_device {
     type: string
@@ -413,7 +424,7 @@ view: vnv_us_trueview {
   measure: total_cost {
     type: sum_distinct
     sql_distinct_key: ${id} ;;
-    sql: (${TABLE}.cost/1000000.00) ;;
+    sql: (${cost}/1000000.00) ;;
     value_format_name: usd
   }
 

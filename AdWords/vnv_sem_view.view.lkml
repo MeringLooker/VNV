@@ -107,6 +107,13 @@ view: vnv_sem_view {
         WHEN ${campaign} ILIKE '%dining%' THEN 'Dining'
         WHEN ${campaign} ILIKE '%attractions%' THEN 'Attractions'
         WHEN ${campaign} ILIKE '%art%' THEN 'Art'
+
+        WHEN ${ad_group} ILIKE 'Wedding Venues%' THEN 'Wedding Venues'
+        WHEN ${ad_group} ILIKE 'Wedding Event%' THEN 'Wedding Event'
+        WHEN ${ad_group} ILIKE 'Venues%' THEN 'Venues'
+        WHEN ${ad_group} ILIKE 'Corporate Event%' THEN 'Corporate Event'
+
+
         else 'Uncategorized'
         END;;
   }

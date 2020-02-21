@@ -109,26 +109,6 @@ view: vnv_dcm_view {
         ;;
   }
 
-  dimension: vnv_layer {
-    type: string
-    group_label: "Client Dimensions"
-    label: "Campaign Layer"
-    sql:
-      CASE
-        WHEN ${campaign} = 'VNV FY20 Objective 4 (Group)' then 'Group'
-        WHEN ${campaign} = 'VNV FY20 Objective 2 (Engage)' then 'Engage'
-        WHEN ${campaign} = 'VNV FY20 Objective #3 (Impact)' then 'Impact'
-        WHEN ${campaign} = 'VNV FY18/19' AND ${site_dcm} = 'Viant' then 'Group'
-        WHEN ${campaign} = 'VNV FY18/19' AND ${site_dcm} = 'Afar Media, LLC 1' then 'Impact'
-        WHEN ${campaign} = 'VNV FY18/19' AND ${site_dcm} = 'Sojern' then 'Engage'
-        WHEN ${campaign} = 'VNV FY18/19' AND ${site_dcm} = 'Refinery 29 1' then 'Engage'
-        WHEN ${campaign} = 'VNV FY18/19' AND ${site_dcm} = 'Architectural Digest' then 'Impact'
-        WHEN ${campaign} = 'VNV FY18/19' AND ${site_dcm} = 'Smart Meetings 1' then 'Group'
-        ELSE 'Uncategorized'
-        END
-        ;;
-  }
-
   dimension: publisher {
     type: string
     group_label: "Client Dimensions"
@@ -195,8 +175,6 @@ view: vnv_dcm_view {
         END
         ;;
   }
-
-
 
   dimension: vnv_market {
     type: string
@@ -450,6 +428,12 @@ view: vnv_dcm_view {
     sql: ${TABLE}."view-through revenue" ;;
   }
 
+  dimension: views {
+    type: number
+    hidden: yes
+    sql: 0 ;;
+  }
+
 ######### All measures go below ########
 
   measure: total_impressions {
@@ -539,6 +523,11 @@ view: vnv_dcm_view {
     label: "CPM"
     sql: 1.0*${total_clicks}/nullif(${total_impressions}/1000, 0) ;;
     value_format_name: usd
+  }
+
+  measure: total_views {
+    type: sum
+    sql: ${views} ;;
   }
 
 ######## Joined measures from GA #######

@@ -3,6 +3,7 @@ view: pdt_foundational_gdn {
       explore_source: vnv_gdn {
         column: campaign { field: vnv_gdn_view.vnv_campaign }
         column: publisher { field: vnv_gdn_view.publisher }
+        column: placement { field: vnv_gdn_view.vnv_placement }
         column: date { field: vnv_gdn_view.day_date }
         column: week { field: vnv_gdn_view.day_week }
         column: month { field: vnv_gdn_view.day_month }

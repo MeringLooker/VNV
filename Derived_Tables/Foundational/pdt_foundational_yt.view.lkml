@@ -1,20 +1,21 @@
 view: pdt_foundational_yt {
   derived_table: {
     explore_source: vnv_trueview {
-      column: publisher {field: vnv_trueview_view.publisher}
-      column: campaign {field: vnv_trueview.vnv_campaign}
-      column: date {field: vnv_trueview.day_date}
-      column: week {field: vnv_trueview.day_week}
-      column: month {field: vnv_trueview.day_month}
-      column: quarter {field: vnv_trueview.day_quarter}
-      column: total_impressions { field: vnv_trueview.total_impressions }
-      column: total_clicks { field: vnv_trueview.total_clicks }
-      column: total_views { field: vnv_trueview.total_views }
-      column: total_cost { field: vnv_trueview.total_cost }
-      column: total_sessions { field: vnv_trueview.total_sessions }
-      column: total_session_duration { field: vnv_trueview.ga_total_session_duration }
+      column: campaign {field: vnv_us_trueview.vnv_campaign}
+      column: publisher {field: vnv_us_trueview.publisher}
+      column: placement {field: vnv_us_trueview.vnv_placement}
+      column: date {field: vnv_us_trueview.day_date}
+      column: week {field: vnv_us_trueview.day_week}
+      column: month {field: vnv_us_trueview.day_month}
+      column: quarter {field: vnv_us_trueview.day_quarter}
+      column: total_impressions { field: vnv_us_trueview.total_impressions }
+      column: total_clicks { field: vnv_us_trueview.total_clicks }
+      column: total_views { field: vnv_us_trueview.total_views }
+      column: total_cost { field: vnv_us_trueview.total_cost }
+      column: total_sessions { field: vnv_us_trueview.total_sessions }
+      column: total_session_duration { field: vnv_us_trueview.total_session_duration }
       filters: {
-        field: vnv_trueview.vnv_campaign
+        field: vnv_us_trueview.vnv_campaign
         value: "Foundational"
       }
     }

@@ -11,6 +11,60 @@ view: vnv_linkedin_campaign {
     sql: ${TABLE}.id ;;
   }
 
+  #### Dimensions Added to this Table via LookML ####
+
+  dimension: publisher {
+    label: "Publisher"
+    group_label: "Client Dimensions"
+    type: string
+    sql: 'LinkedIn' ;;
+  }
+
+  dimension: market {
+    label: "Market"
+    group_label: "Client Dimensions"
+    type: string
+    sql: 'United States' ;;
+  }
+
+  dimension: fiscal_year {
+    label: "Fiscal"
+    group_label: "Client Dimensions"
+    type: string
+    sql:
+      CASE
+        WHEN ${date_date} BETWEEN '2018-07-01' AND '2019-06-30' THEN 'FY 18/19'
+        WHEN ${date_date} BETWEEN '2019-07-01' AND '2020-06-30' THEN 'FY 19/20'
+        ELSE 'Uncategorized'
+        END;;
+  }
+
+  dimension: vnv_campaign {
+    label: "Campaign Name"
+    group_label: "Client Dimensions"
+    type: string
+    sql: 'Group' ;;
+  }
+
+  dimension: vnv_placement {
+    label: "Placement Name"
+    group_label: "Client Dimensions"
+    type: string
+    sql:
+      CASE
+        WHEN ${campaign_name} = 'VNV_Groups_Groups' then 'Sponsored Content Ads'
+        WHEN ${campaign_name} = 'VNV_FY20_GroupMeetings_Skills' then 'Sponsored Content Ads - Skills'
+        WHEN ${campaign_name} = 'VNV_FY20_GroupMeetings_Jobs' then 'Sponsored Content Ads - Jobs'
+        WHEN ${campaign_name} = 'VNV_FY20_GroupMeetings_Groups' then 'Sponsored Content Ads - Groups'
+        WHEN ${campaign_name} = 'FY1819_Groups_Skills' then 'Sponsored Content Ads - Skills'
+        WHEN ${campaign_name} = 'FY1819_Groups_Jobs' then 'Sponsored Content Ads - Jobs'
+        ELSE 'Uncategorized'
+        END
+        ;;
+  }
+
+
+
 ####### All dimensions go below ########
 
   dimension_group: __senttime {
@@ -41,13 +95,6 @@ view: vnv_linkedin_campaign {
       year
     ]
     sql: ${TABLE}.__updatetime ;;
-  }
-
-  dimension: publisher {
-    label: "Publisher"
-    group_label: "Client Dimensions"
-    type: string
-    sql: "LinkedIn" ;;
   }
 
   dimension: accountid {
@@ -250,31 +297,14 @@ view: vnv_linkedin_campaign {
   dimension: campaign_name {
     type: string
     group_label: "LinkedIn Dimensions"
-    label: "Campaign Name"
+    label: "Campaign"
     sql: ${TABLE}.pivot_value_name ;;
-  }
-
-  dimension: linkedin_layer {
-    label: "LinkedIn Layer"
-    group_label: "LinkedIn Dimensions"
-    type: string
-    sql:
-      CASE
-        WHEN ${campaign_name} = 'VNV_Groups_Groups' then 'Groups'
-        WHEN ${campaign_name} = 'VNV_FY20_GroupMeetings_Skills' then 'Skills'
-        WHEN ${campaign_name} = 'VNV_FY20_GroupMeetings_Jobs' then 'Jobs'
-        WHEN ${campaign_name} = 'VNV_FY20_GroupMeetings_Groups' then 'Groups'
-        WHEN ${campaign_name} = 'FY1819_Groups_Skills' then 'Skills'
-        WHEN ${campaign_name} = 'FY1819_Groups_Jobs' then 'Jobs'
-        ELSE 'Uncategorized'
-        END
-        ;;
   }
 
   dimension: objective {
     type: string
     group_label: "LinkedIn Dimensions"
-    label: "LinkedIn Objective"
+    label: "Objective"
     sql: ${TABLE}.pivot_value_objective_type ;;
   }
 
@@ -317,6 +347,8 @@ view: vnv_linkedin_campaign {
 
   dimension_group: date {
     type: time
+    label: ""
+    group_label: "Date Periods"
         timeframes: [
       raw,
       time,
@@ -327,18 +359,6 @@ view: vnv_linkedin_campaign {
       year
     ]
     sql: ${TABLE}.startdate ;;
-  }
-
-  dimension: fiscal_year {
-    label: "Fiscal"
-    group_label: "Client Dimensions"
-    type: string
-    sql:
-      CASE
-        WHEN ${date_date} BETWEEN '2018-07-01' AND '2019-06-30' THEN 'FY 18/19'
-        WHEN ${date_date} BETWEEN '2019-07-01' AND '2020-06-30' THEN 'FY 19/20'
-        ELSE 'Uncategorized'
-        END;;
   }
 
   dimension: texturlclicks {
@@ -545,20 +565,29 @@ view: vnv_linkedin_campaign {
     sql: ${TABLE}.viralvideoviews ;;
   }
 
-###### All Measures Go Below ######
+  dimension: sessions {
+    type: number
+    sql: 0 ;;
+  }
 
-######### Ad Delivery Measures ########
+  dimension: session_duration {
+    type: number
+    sql: 0 ;;
+  }
+
+
+###### All Measures Go Below ######
 
   measure: total_impressions {
     type: sum
     label: "Impressions"
-    sql: ${TABLE}.impressions ;;
+    sql: ${impressions} ;;
   }
 
   measure: total_clicks {
     type: sum
     label: "Clicks"
-    sql: ${TABLE}.clicks ;;
+    sql: ${clicks} ;;
   }
 
   measure: click_through_rate {
@@ -571,7 +600,7 @@ view: vnv_linkedin_campaign {
   measure: total_spend {
     label: "Media Spend"
     type: sum
-    sql: ${TABLE}.costinusd ;;
+    sql: ${costinusd} ;;
     value_format_name: usd
   }
 
@@ -589,11 +618,23 @@ view: vnv_linkedin_campaign {
     value_format_name: usd
   }
 
-  measure: video_views {
+  measure: total_views {
     type: sum
     hidden: yes
     label: "Video Views"
-    sql: ${TABLE}.videoviews ;;
+    sql: ${videoviews} ;;
+  }
+
+  measure: total_sessions {
+    type: sum
+    hidden: yes
+    sql: ${sessions} ;;
+  }
+
+  measure: total_session_duration {
+    type: sum
+    hidden: yes
+    sql: ${session_duration} ;;
   }
 
 ####### Joined GA Measures ######

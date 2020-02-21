@@ -1,17 +1,15 @@
-view: pdt_foundational_campaign {
- derived_table: {
-   sql:
-      select * from ${pdt_foundational_gdn.SQL_TABLE_NAME}
+view: pdt_group_campaign {
+  derived_table: {
+    sql:
+      select * from ${pdt_group_sem.SQL_TABLE_NAME}
       union
-      select * from ${pdt_foundational_sem.SQL_TABLE_NAME}
+      select * from ${pdt_group_viant.SQL_TABLE_NAME}
       union
-      select * from ${pdt_foundational_fb.SQL_TABLE_NAME}
-      union
-      select * from ${pdt_foundational_yt.SQL_TABLE_NAME}
+      select * from ${pdt_group_linkedin.SQL_TABLE_NAME}
       ;;
-  sql_trigger_value: SELECT FLOOR((EXTRACT(epoch from GETDATE()) - 60*60*1)/(60*60*24)) ;;
-  distribution_style: all
-   }
+    sql_trigger_value: SELECT FLOOR((EXTRACT(epoch from GETDATE()) - 60*60*1)/(60*60*24)) ;;
+    distribution_style: all
+  }
 
   ### Primary Key Added ###
 
@@ -26,19 +24,20 @@ view: pdt_foundational_campaign {
 
   dimension: campaign {
     type: string
+    hidden: yes
 #     drill_fields: []
     sql: ${TABLE}.campaign ;;
   }
 
   dimension: publisher {
     type: string
-    drill_fields: [placement]
+    drill_fields: [placement, date, week, month]
     sql: ${TABLE}.publisher ;;
   }
 
   dimension: placement {
     type: string
-    drill_fields: []
+    drill_fields: [date, week, month]
     sql: ${TABLE}.placement ;;
   }
 
@@ -70,6 +69,7 @@ view: pdt_foundational_campaign {
   dimension: month {
     type: date
     group_label: "Date Periods"
+    drill_fields: [publisher]
     sql: ${TABLE}.month ;;
   }
 

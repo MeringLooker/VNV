@@ -23,8 +23,9 @@ view: vnv_fb_view {
 
   dimension: publisher {
     type: string
-    hidden: yes
+    group_label: "Client Dimensions"
     sql:
+      case
       when ${campaign_name} ilike '%_InstagramStories' then 'Instagram'
       else 'Facebook'
       end;;
@@ -81,9 +82,9 @@ view: vnv_fb_view {
        when ${campaign_name} ilike '%_Objective3_%' then 'Impact'
        when ${campaign_name} ilike '%FY20_VNV_Conversions%' then 'Foundational'
        when ${campaign_name} ilike '%FY20_VNV_Video%' then 'Foundational'
+       when ${campaign_name} ilike 'FY20_VNV_Objective5%' then 'Local'
        ELSE 'Uncategorized'
        END;;
-    drill_fields: [campaign_name]
   }
 
   dimension: vnv_placement {
@@ -94,10 +95,18 @@ view: vnv_fb_view {
       CASE
        when ${campaign_name} ilike '%_VideoViews' then 'Video Views'
        when ${campaign_name} ilike '%_InstagramStories' then 'Instagram Stories'
-       when ${campaign_name} ilike '%_TrafficDriving' then 'Traffic Driving'
+       when ${ad_name} ilike 'FY20_VNV_Conversions_TrafficDriving_Carousel%' then 'Traffic Driving - Carousel'
+       when ${ad_name} ilike 'FY20_VNV_Conversions_TrafficDriving_SingleImage%' then 'Traffic Driving - Single Image'
+       when ${campaign_name} ilike 'FY20_VNV_Objective5_Awareness%' then 'Awareness - Single Image'
+       when ${ad_name} ilike 'FY20_VNV_Objective5_StoreTraffic_Local%' then 'Store Traffic - Single Image'
+       when ${ad_name} = 'FY20_VNV_Objective5_StoreTraffic_Carousel' then 'Store Traffic - Carousel'
+      when ${campaign_name} = 'FY20_VNV_Objective3_Awareness' then 'Video Views'
+      when ${adset_name} ilike 'FY20_VNV_Objective3_Conversion_VideoRTG%' then 'Traffic Driving - Video Retargeting'
+      when ${adset_name} ilike 'FY20_VNV_Objective3_Conversion_RTGWebVisitors%' then 'Traffic Driving - Web Visitor Retargeting'
+      when ${adset_name} ilike 'Objective3_SuperAffluent_VideoRTG%' then 'Traffic Driving - Video Retargeting'
+      when ${adset_name} ilike 'Objective3_SuperAffluent_RTGWebVisitors%' then 'Traffic Driving - Web Visitor Retargeting'
        ELSE 'Uncategorized'
        END;;
-    drill_fields: [campaign_name]
   }
 
   dimension: creative_name {
@@ -122,6 +131,10 @@ view: vnv_fb_view {
         WHEN ${ad_name} ilike '%theweekend' then 'The Weekend'
         WHEN ${ad_name} ilike '%nextsip' then 'Next Sip'
         WHEN ${ad_name} ilike '%winepour' then 'Wine Pour'
+        WHEN ${ad_name} ilike '%singleimage_firerecovery' then 'Fire Recovery'
+        WHEN ${ad_name} ilike '%singleimage_cabseason' then 'Cab Season'
+        WHEN ${ad_name} ilike '%carousel_cabseason' then 'Cab Season'
+
         ELSE ${ad_name}
         END;;
   }
