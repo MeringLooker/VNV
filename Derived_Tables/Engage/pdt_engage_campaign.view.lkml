@@ -13,9 +13,9 @@ view: pdt_engage_campaign {
 
   dimension: primary_key {
     type: string
-    hidden: no
+    hidden: yes
     primary_key: yes
-    sql: ${publisher}||'_'||${campaign}||'_'||${date} ;;
+    sql: ${publisher}||'_'||${campaign}||'_'||${placement}||'_'||${date} ;;
   }
 
   #### All dimensions go below ####
@@ -28,8 +28,14 @@ view: pdt_engage_campaign {
 
   dimension: publisher {
     type: string
-#     drill_fields: []
+    drill_fields: [placement,date,week,month]
     sql: ${TABLE}.publisher ;;
+  }
+
+  dimension: placement {
+    type: string
+    drill_fields: [date,week,month]
+    sql: ${TABLE}.placement ;;
   }
 
   dimension: fiscal_year {
@@ -57,12 +63,14 @@ view: pdt_engage_campaign {
 
   dimension: week {
     type: date
+    drill_fields: [publisher]
     group_label: "Date Periods"
     sql: ${TABLE}.week ;;
   }
 
   dimension: month {
     type: date
+    drill_fields: [publisher]
     group_label: "Date Periods"
     sql: ${TABLE}.month ;;
   }

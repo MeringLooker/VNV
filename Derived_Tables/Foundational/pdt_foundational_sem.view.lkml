@@ -1,7 +1,6 @@
 view: pdt_foundational_sem {
   derived_table: {
     explore_source: vnv_sem {
-      column: id { field: vnv_sem_view.id }
       column: campaign { field: vnv_sem_view.vnv_campaign }
       column: publisher { field: vnv_sem_view.publisher }
       column: date { field: vnv_sem_view.day_date }

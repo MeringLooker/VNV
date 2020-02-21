@@ -1,7 +1,6 @@
 view: pdt_foundational_gdn {
     derived_table: {
       explore_source: vnv_gdn {
-        column: id { field: vnv_gdn_view.id }
         column: campaign { field: vnv_gdn_view.vnv_campaign }
         column: publisher { field: vnv_gdn_view.publisher }
         column: date { field: vnv_gdn_view.day_date }

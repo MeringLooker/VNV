@@ -1,26 +1,24 @@
 view: pdt_foundational_yt {
   derived_table: {
     explore_source: vnv_trueview {
-      column: publisher {field: sdt_fb_view.publisher}
-      column: campaign {field: sdt_fb_view.sdt_campaign}
-      column: market {field: sdt_fb_view.sdt_market}
-      column: region {field: sdt_fb_view.sdt_region}
-      column: audience {field: sdt_fb_view.sdt_audience}
-      column: creative_name {field: sdt_fb_view.creative_name}
-      column: date {field: sdt_fb_view.date_start_date}
-      column: week {field: sdt_fb_view.date_start_week}
-      column: month {field: sdt_fb_view.date_start_month}
-      column: quarter {field: sdt_fb_view.date_start_quarter}
-      column: total_impressions {field: sdt_fb_view.total_impressions}
-      column: total_views {field: sdt_fb_view.total_thruplays}
-      column: total_completes {field: sdt_fb_view.video_completes}
-      column: total_cost {field: sdt_fb_view.total_spend}
+      column: publisher {field: vnv_trueview_view.publisher}
+      column: campaign {field: vnv_trueview.vnv_campaign}
+      column: date {field: vnv_trueview.day_date}
+      column: week {field: vnv_trueview.day_week}
+      column: month {field: vnv_trueview.day_month}
+      column: quarter {field: vnv_trueview.day_quarter}
+      column: total_impressions { field: vnv_trueview.total_impressions }
+      column: total_clicks { field: vnv_trueview.total_clicks }
+      column: total_views { field: vnv_trueview.total_views }
+      column: total_cost { field: vnv_trueview.total_cost }
+      column: total_sessions { field: vnv_trueview.total_sessions }
+      column: total_session_duration { field: vnv_trueview.ga_total_session_duration }
       filters: {
-        field: sdt_fb_view.sdt_campaign
-        value: "Brand Digital Video"
+        field: vnv_trueview.vnv_campaign
+        value: "Foundational"
       }
     }
-    datagroup_trigger: sdt_brand_digital_video_datagroup
+    datagroup_trigger: vnv_foundational_datagroup
     distribution_style: all
   }
 
@@ -29,22 +27,6 @@ view: pdt_foundational_yt {
   }
 
   dimension: campaign {
-    type: string
-  }
-
-  dimension: market {
-    type: string
-  }
-
-  dimension: region {
-    type: string
-  }
-
-  dimension: audience {
-    type: string
-  }
-
-  dimension: creative_name {
     type: string
   }
 

@@ -3,6 +3,7 @@ view: pdt_engage_adara {
     explore_source: vnv_dcm {
       column: publisher {field: vnv_dcm_view.publisher}
       column: campaign {field: vnv_dcm_view.vnv_campaign}
+      column: placement {field: vnv_dcm_view.vnv_placement}
       column: date {field: vnv_dcm_view.date_date}
       column: week {field: vnv_dcm_view.date_week}
       column: month {field: vnv_dcm_view.date_month}

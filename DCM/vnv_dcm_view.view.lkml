@@ -145,10 +145,10 @@ view: vnv_dcm_view {
         ;;
     }
 
-  dimension: dcm_package {
+  dimension: vnv_placement {
     type: string
-    label: "Package Name"
-    group_label: "DCM Dimensions"
+    label: "Placement Name"
+    group_label: "Client Dimensions"
     sql:
     CASE
         when ${placement} ilike 'TripAdvisor_OBJ2_Consideration_TAAudience_US_Advertorial1x1' then 'Advertorial'
@@ -169,11 +169,34 @@ view: vnv_dcm_view {
         when ${placement} ilike '%\\_Run of Lifestyle%' then 'Off Duty Run of Lifestyle'
         when ${placement} ilike '%Content Integration Unit%' then 'Content Integration Unit'
         when ${placement} ilike 'WSJDN_Obj #3_Global Network__Plus Video :06/:15_CA, NY_1x1' then 'Global RON'
+        when ${placement_id} = '263898960' then 'Custom Article CTA'
+
+        when ${placement_id} = '263830381' then 'Advertorial Hub Shelf: Napa'
+        when ${placement_id} = '263891781' then 'Advertorial Hub Shelf: Calistoga'
+        when ${placement_id} = '263832787' then 'Advertorial Hub Shelf: Saint Helena'
+        when ${placement_id} = '263894340' then 'Advertorial Hub Shelf: American Canyon'
+        when ${placement_id} = '263830384' then 'Advertorial Hub Shelf: Yountville'
+        when ${placement_id} = '263897454' then 'Advertorial Hub Shelf: More'
+        when ${placement_id} = '264956350' then 'Advertorial Hub Traffic Drivers'
+        when ${placement_id} = '263894343' then 'Advertorial Hub Map Header'
+        when ${placement_id} = '263512619' then 'Advertorial Hub Book Now'
+
+        when ${placement} ilike 'VNV_OBJ5_Retargeting_SFDMA%' then 'Retargeting Display'
+        when ${placement} ilike 'VNV_OBJ5_Aspirational_SFDMA%' then 'Aspirational Display'
+        when ${placement} ilike 'VNV_OBJ5_AddedValue_SFDMA%' then 'Added Value Display'
+
+        when ${placement} ilike 'Viant_Retargeting Display%' then 'Retargeting Display'
+        when ${placement} ilike 'Viant_Prospecting Display%' then 'Prospecting Display'
+        when ${placement} ilike 'Viant_Added Value Display%' then 'Added Value Display'
+        when ${placement} ilike 'Viant_Video Retargeting Display%' then 'Video Retargeting Display'
+        when ${placement_id} = '250338924' then 'Pre-Roll Video'
 
         else 'Uncategorized'
         END
         ;;
   }
+
+
 
   dimension: vnv_market {
     type: string

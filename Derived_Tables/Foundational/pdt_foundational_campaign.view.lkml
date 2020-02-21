@@ -15,7 +15,7 @@ view: pdt_foundational_campaign {
     type: string
     hidden: yes
     primary_key: yes
-    sql: ${TABLE}.id ;;
+    sql: ${campaign}||'_'||${publisher}||'_'||${date};;
   }
 
   #### All dimensions go below ####
