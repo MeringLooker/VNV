@@ -104,6 +104,12 @@ view: pdt_impact_campaign {
     value_format_name: usd
   }
 
+  dimension: views {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.total_views ;;
+  }
+
   dimension: sessions {
     type: number
     hidden: yes
@@ -164,6 +170,12 @@ view: pdt_impact_campaign {
     type: sum_distinct
     sql_distinct_key: ${primary_key} ;;
     sql: ${sessions} ;;
+  }
+
+  measure: total_views {
+    type: sum_distinct
+    sql_distinct_key: ${primary_key} ;;
+    sql: ${views} ;;
   }
 
   measure: cost_per_session {
