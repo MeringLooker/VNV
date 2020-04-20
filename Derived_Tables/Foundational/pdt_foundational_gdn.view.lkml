@@ -13,7 +13,7 @@ view: pdt_foundational_gdn {
         column: total_views { field: vnv_gdn_view.total_views }
         column: total_cost { field: vnv_gdn_view.total_cost }
         column: total_sessions { field: vnv_gdn_view.total_sessions }
-        column: total_session_duration { field: vnv_gdn_view.ga_total_session_duration }
+        column: total_session_duration { field: vnv_gdn_view.total_session_duration }
         filters: {
           field: vnv_gdn_view.vnv_campaign
           value: "Foundational"

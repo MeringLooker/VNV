@@ -13,7 +13,7 @@ view: pdt_group_sem {
       column: total_views { field: vnv_sem_view.total_views }
       column: total_cost { field: vnv_sem_view.total_cost }
       column: total_sessions { field: vnv_sem_view.total_sessions }
-      column: total_session_duration { field: vnv_sem_view.ga_total_session_duration }
+      column: total_session_duration { field: vnv_sem_view.total_session_duration }
       filters: {
         field: vnv_sem_view.vnv_campaign
         value: "Group"

@@ -7,14 +7,6 @@ explore: vnv_gdn {
   label: "AdWords Display"
   view_label: "AdWords Display"
   group_label: "Visit Napa Valley"
-
-  join: vnv_ga_onsite {
-    view_label: "Google Analytics"
-    fields: []
-    type:left_outer
-    sql_on: ${vnv_ga_onsite.adwords_join_id} = ${vnv_gdn_view.join_id_onsite} ;;
-    relationship: many_to_one
-  }
 #
 #   join: vnv_ga_userinfo {
 #     view_label: "Google Analytics - User Info"
