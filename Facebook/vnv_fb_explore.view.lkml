@@ -43,6 +43,13 @@ include: "/Google_Analytics/**/*.view"
       relationship: many_to_one
     }
 
+    join: vnv_fb_thruplays {
+      type: left_outer
+      fields: []
+      sql_on: ${vnv_fb_view.thruplay_join_id} = ${vnv_fb_thruplays.thruplay_join} ;;
+      relationship: one_to_many
+    }
+
   join: vnv_ga_onsite {
     view_label: "Google Analytics"
     type: left_outer
