@@ -62,21 +62,21 @@ view: pdt_engage_campaign {
   }
 
   dimension: week {
-    type: date
+    type: date_week
     drill_fields: [publisher]
     group_label: "Date Periods"
     sql: ${TABLE}.week ;;
   }
 
   dimension: month {
-    type: date
+    type: date_month
     drill_fields: [publisher]
     group_label: "Date Periods"
     sql: ${TABLE}.month ;;
   }
 
   dimension: quarter {
-    type: date
+    type: date_quarter
     group_label: "Date Periods"
     sql: ${TABLE}.quarter ;;
   }
