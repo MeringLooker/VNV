@@ -38,6 +38,14 @@ view: vnv_sem_view {
     sql: 'Search' ;;
   }
 
+  dimension: creative_name {
+    type: string
+    hidden: yes
+    label: "Creative Name"
+    group_label: "Client Dimensions"
+    sql: 'Uncategorized' ;;
+  }
+
   dimension: publisher {
     type: string
     label: "Publisher"
