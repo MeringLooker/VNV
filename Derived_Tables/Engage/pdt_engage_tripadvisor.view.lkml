@@ -4,6 +4,8 @@ view: pdt_engage_tripadvisor {
       column: publisher {field: vnv_dcm_view.publisher}
       column: campaign {field: vnv_dcm_view.vnv_campaign}
       column: placement {field: vnv_dcm_view.vnv_placement}
+      column: ad_size {field: vnv_dcm_view.ad_size}
+      column: creative_name {field: vnv_dcm_view.creative_name}
       column: date {field: vnv_dcm_view.date_date}
       column: week {field: vnv_dcm_view.date_week}
       column: month {field: vnv_dcm_view.date_month}
