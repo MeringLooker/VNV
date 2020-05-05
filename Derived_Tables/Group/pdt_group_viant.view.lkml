@@ -15,8 +15,8 @@ view: pdt_group_viant {
       column: total_sessions {field: vnv_dcm_view.ga_sessions}
       column: total_session_duration {field: vnv_dcm_view.ga_total_session_duration}
       filters: {
-        field: vnv_dcm_view.vnv_campaign
-        value: "Group"
+        field: vnv_dcm_view.campaign
+        value: "VNV FY20 Objective 4 (Group)"
       }
       filters: {
         field: vnv_dcm_view.publisher
