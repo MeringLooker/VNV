@@ -54,11 +54,36 @@ view: vnv_dcm_view {
         when ${creative} ILIKE '%theweekend%' then 'The Weekend'
         when ${creative} ILIKE '%thenextsip%' then 'The Next Sip'
         when ${creative} ILIKE '%stunningharmony%' then 'Stunning Harmony'
-        when ${creative} ILIKE '%3group%' then 'Group'
+        when ${ad} ILIKE '%group_collaboration%' then 'Group Collaboration'
         when ${creative} ILIKE '%cabcab%' then 'Cab Cab'
         when ${creative} ILIKE '%group%' then 'Group'
-        when ${creative} ILIKE '%refresh%' then 'Refresh'
+        when ${creative} = 'VNV_Refresh_728x90_v2' then 'Refresh v2'
+        when ${creative} = 'VNV_Refresh_300x250_v2' then 'Refresh v2'
+        when ${creative} = 'VNV_Refresh_300x600_v2' then 'Refresh v2'
+        when ${creative} = 'VNV_Refresh_160x600_v2' then 'Refresh v2'
+
+        when ${creative} = 'VNV_Refresh_728x90' then 'Refresh'
+        when ${creative} = 'VNV_Refresh_300x250' then 'Refresh'
+        when ${creative} = 'VNV_Refresh_728x90_Static' then 'Refresh'
+        when ${creative} = 'VNV_Refresh_300x250_Static' then 'Refresh'
+        when ${creative} = 'VNV_Refresh_300x600' then 'Refresh'
+        when ${creative} = 'VNV_Refresh_160x600' then 'Refresh'
+
+        when ${ad} = 'Tracking Ad-WSJDN_Obj #3_Global Network__Plus Video :06/:15_CA, NY_1x1_TheWeekend' then 'The Weekend (:15)'
+        when ${ad} = 'Tracking Ad-WSJDN_Obj #3_Global Network__Plus Video :06/:15_CA, NY_1x1_TheNextSip' then 'The Next Sip (:15)'
+        when ${ad} = 'Tracking Ad-WSJDN_Obj #3_Global Network__Plus Video :06/:15_CA, NY_1x1_StunningHarmony' then 'Stunning Harmony (:15)'
+
+        when ${creative} = 'Tracking Ad-TripAvisor_OBJ2_Awareness_TA''s Audience_US_Advertorial Hub_Shelf 6: More Exper' then 'Hub Shelf: More Experiences'
+        when ${creative} = 'Tracking Ad-TripAvisor_OBJ2_Awareness_TA''s Audience_US_Advertorial Hub_Shelf 5: Am Canyon' then 'Hub Shelf: American Canyon'
+        when ${creative} = 'Tracking Ad-TripAvisor_OBJ2_Awareness_TA''s Audience_US_Advertorial Hub_Shelf 4: Calistoga' then 'Hub Shelf: Calistoga'
+        when ${creative} = 'Tracking Ad-TripAvisor_OBJ2_Awareness_TA''s Audience_US_Advertorial Hub_Shelf 3: Saint Helena' then 'Hub Shelf: Saint Helena'
+        when ${creative} = 'Tracking Ad-TripAvisor_OBJ2_Awareness_TA''s Audience_US_Advertorial Hub_Shelf 2: Yountville' then 'Hub Shelf: Yountville'
+        when ${creative} = 'Tracking Ad-TripAvisor_OBJ2_Awareness_TA''s Audience_US_Advertorial Hub_Shelf 1: Napa' then 'Hub Shelf: Napa'
+        when ${creative} = 'Tracking Ad-TripAvisor_OBJ2_Awareness_TA''s Audience_US_Advertorial Hub_HeaderMapCopy' then 'Hub: Map Header'
+        when ${creative} = 'Tracking Ad-TripAvisor_OBJ2_Awareness_TA''s Audience_US_Advertorial Hub_FooterBookNow' then 'Hub: Book Noow'
+
         when ${creative} ILIKE '%seeforyourself%' then 'See For Yourself'
+        when ${creative} ILIKE '%welcomecenter%' then 'Welcome Center'
         ELSE ${creative}
         END;;
   }
@@ -142,13 +167,13 @@ view: vnv_dcm_view {
         when ${placement} ilike '%\\Targeted Channel Sponsorship Package\\_%' then 'Targeted Channel Sponsorship'
         when ${placement} ilike '%\\_ROS Desktop/Mobile Web\\_%' then 'ROS Display'
 
-        when ${placement} ilike '%\\_Mansion Global US\\_ROS\\_%' then 'Mansion Global ROS'
+        when ${placement} ilike '%\\_Mansion Global US\\_ROS\\_%' then 'Mansion Global ROS Display'
         when ${placement} ilike '%\\_Off Duty 50\\_%' then 'Off Duty 50'
-        when ${placement} ilike '%\\_Global Bundle Package\\_ROS\\_%' then 'Global ROS'
-        when ${placement} ilike '%\\_Global Network\\_RON\\_Added Value%' then 'Global RON'
+        when ${placement} ilike '%\\_Global Bundle Package\\_ROS\\_%' then 'Global ROS Display'
+        when ${placement} ilike '%\\_Global Network\\_RON\\_Added Value%' then 'Global RON Display'
         when ${placement} ilike '%\\_Run of Lifestyle%' then 'Off Duty Run of Lifestyle'
         when ${placement} ilike '%Content Integration Unit%' then 'Content Integration Unit'
-        when ${placement} ilike 'WSJDN_Obj #3_Global Network__Plus Video :06/:15_CA, NY_1x1' then 'Global RON'
+        when ${placement} ilike 'WSJDN_Obj #3_Global Network__Plus Video :06/:15_CA, NY_1x1' then 'Global RON Video'
         when ${placement_id} = '263898960' then 'Custom Article CTA'
 
         when ${placement_id} = '263830381' then 'Advertorial Hub Shelf: Napa'
@@ -259,7 +284,7 @@ view: vnv_dcm_view {
 
   dimension: ad_id {
     type: string
-    hidden: yes
+    group_label: "DCM IDs"
     sql: ${TABLE}."ad id" ;;
   }
 
@@ -301,7 +326,7 @@ view: vnv_dcm_view {
 
   dimension: campaign_id {
     type: number
-    hidden: yes
+    group_label: "DCM IDs"
     sql: ${TABLE}."campaign id" ;;
   }
 
@@ -331,7 +356,7 @@ view: vnv_dcm_view {
 
   dimension: creative_id {
     type: string
-    hidden: yes
+    group_label: "DCM IDs"
     sql: ${TABLE}."creative id" ;;
   }
 
@@ -371,7 +396,7 @@ view: vnv_dcm_view {
 
   dimension: placement_id {
     type: number
-#     hidden: yes
+    group_label: "DCM IDs"
     sql: ${TABLE}."placement id" ;;
   }
 
