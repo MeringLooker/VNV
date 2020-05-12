@@ -10,9 +10,9 @@ view: pdt_engage_tripadvisor {
       column: week {field: vnv_dcm_view.date_week}
       column: month {field: vnv_dcm_view.date_month}
       column: quarter {field: vnv_dcm_view.date_quarter}
-      column: total_impressions {field: vnv_dcm_view.total_impressions}
-      column: total_clicks {field: vnv_dcm_view.total_clicks}
-      column: total_cost {field: vnv_dcm_view.total_media_cost}
+      column: total_impressions {field: vnv_fy20_engage_dcm_view.total_impressions}
+      column: total_clicks {field: vnv_fy20_engage_dcm_view.total_clicks}
+      column: total_cost {field: vnv_fy20_engage_dcm_view.total_media_cost}
       column: total_sessions {field: vnv_dcm_view.ga_sessions}
       column: total_session_duration {field: vnv_dcm_view.ga_total_session_duration}
       filters: {

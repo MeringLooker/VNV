@@ -159,7 +159,7 @@ view: vnv_dcm_view {
         when ${placement} ilike 'TripAdvisor_OBJ2_Consideration_TAAudience_US_Advertorial1x1' then 'Advertorial'
         when ${placement} ilike '%Consideration\\_CompetitveContent%' then 'Competitive Content Display'
         when ${placement} ilike '%Consideration\\_AudienceExtension%' then 'Audience Extension Display'
-        when ${placement} ilike '%Awareness\\_VNVInterestSegments%' then 'Audience Extension Display'
+        when ${placement} ilike '%Awareness\\_VNVInterestSegments%' then 'VNV Interest Segments Display'
         when ${placement} ilike '%Consideration\\_AdaraAudience\\_US%' then 'Adara Audience Display - Consideration'
         when ${placement} ilike '%Consideration\\_AdaraAudience\\_AddedValue%' then 'Adara Audience Display AV - Consideration'
         when ${placement} ilike '%Awareness\\_AdaraAudience\\_US%' then 'Adara Audience Display - Awareness'
