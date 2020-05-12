@@ -7,3 +7,7 @@ explore: vnv_fb_extended {
   extends: [vnv_fb]
   hidden: no
 }
+
+explore: vnv_fb_ga_view {
+  hidden: no
+}
