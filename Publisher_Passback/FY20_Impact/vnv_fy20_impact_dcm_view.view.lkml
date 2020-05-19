@@ -1,20 +1,14 @@
-view: vnv_fy20_impact_wsj {
-  sql_table_name: public.vnv_fy20_impact_wsj ;;
-  drill_fields: [id]
+view: vnv_fy20_impact_dcm_view {
+  sql_table_name: public.vnv_fy20_impact_dcm_view ;;
+
 
 #### Primary Key ####
 
   dimension: passback_join {
     type: string
-    hidden: yes
-    sql: ${placement_id}||'_'||${date_date} ;;
-  }
-
-  dimension: id {
     primary_key: yes
     hidden: yes
-    type: string
-    sql: ${TABLE}.id ;;
+    sql: ${placement_id}||'_'||${date_date} ;;
   }
 
   dimension_group: __senttime {
@@ -107,14 +101,14 @@ view: vnv_fy20_impact_wsj {
   measure: total_impressions {
     label: "Total Impressions"
     type: sum_distinct
-    sql_distinct_key: ${id} ;;
+    sql_distinct_key: ${passback_join} ;;
     sql: ${impressions} ;;
   }
 
   measure: total_clicks {
     label: "Total Clicks"
     type: sum_distinct
-    sql_distinct_key: ${id} ;;
+    sql_distinct_key: ${passback_join} ;;
     sql: ${clicks} ;;
   }
 
@@ -128,7 +122,7 @@ view: vnv_fy20_impact_wsj {
   measure: total_media_cost {
     label: "Total Media Cost"
     type: sum_distinct
-    sql_distinct_key: ${id} ;;
+    sql_distinct_key: ${passback_join} ;;
     sql: ${cost} ;;
     value_format_name: usd
   }
@@ -136,21 +130,21 @@ view: vnv_fy20_impact_wsj {
   measure: total_video_views {
     label: "Total Video Views"
     type: sum_distinct
-    sql_distinct_key: ${id} ;;
+    sql_distinct_key: ${passback_join} ;;
     sql: ${video_views} ;;
   }
 
   measure: total_video_completes {
     label: "Total Video Completes"
     type: sum_distinct
-    sql_distinct_key: ${id} ;;
+    sql_distinct_key: ${passback_join} ;;
     sql: ${video_completions} ;;
   }
 
   measure: video_impressions {
     hidden: yes
     type: sum_distinct
-    sql_distinct_key: ${id} ;;
+    sql_distinct_key: ${passback_join} ;;
     sql:
       case
         when ${video_views} > 0 then ${impressions}
@@ -161,7 +155,7 @@ view: vnv_fy20_impact_wsj {
   measure: video_cost {
     hidden: yes
     type: sum_distinct
-    sql_distinct_key: ${id} ;;
+    sql_distinct_key: ${passback_join} ;;
     sql:
       case
       when ${video_views} > 0 then ${cost}
@@ -199,6 +193,5 @@ view: vnv_fy20_impact_wsj {
 
   measure: count {
     type: count
-    drill_fields: [id]
   }
 }

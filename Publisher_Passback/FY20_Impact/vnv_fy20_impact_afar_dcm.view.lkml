@@ -1,5 +1,5 @@
-view: vnv_fy20_impact_wsj {
-  sql_table_name: public.vnv_fy20_impact_wsj ;;
+view: vnv_fy20_impact_afar_dcm {
+  sql_table_name: public.vnv_fy20_impact_afar_dcm ;;
   drill_fields: [id]
 
 #### Primary Key ####
