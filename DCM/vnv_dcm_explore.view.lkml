@@ -10,13 +10,13 @@ explore: vnv_dcm {
   view_label: "DoubleClick"
   group_label: "Visit Napa Valley"
 
-  join: vnv_ga_onsite {
-    view_label: "Google Analytics"
-    type: left_outer
-    fields: []
-    sql_on: ${vnv_dcm_view.comp_key} = ${vnv_ga_onsite.join_id} ;;
-    relationship: many_to_one
-  }
+#   join: vnv_ga_onsite {
+#     view_label: "Google Analytics"
+#     type: left_outer
+#     fields: []
+#     sql_on: ${vnv_dcm_view.comp_key} = ${vnv_ga_onsite.join_id} ;;
+#     relationship: many_to_one
+#   }
 
   join: vnv_fy20_engage_dcm_view {
     view_label: "FY20 Engage Passback"

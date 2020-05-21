@@ -1,20 +1,13 @@
 view: vnv_fb_ga_view {
   sql_table_name: public.vnv_fb_ga_view ;;
-  drill_fields: [id]
+
 
 ###### Primary Key #######
 
-  dimension: id {
-    primary_key: yes
-    hidden: yes
-    type: string
-    sql: ${TABLE}.id ;;
-  }
-
-####### Join ID ########
 
   dimension: ga_join_id {
     type: string
+    primary_key: yes
     hidden: yes
     sql: ${TABLE}.ga_join_id ;;
   }
@@ -342,30 +335,31 @@ view: vnv_fb_ga_view {
   ####### Meausures go below ######
 
   measure: total_impressions {
-    type: sum_distinct
-    sql_distinct_key: ${id} ;;
+    type: sum
     label: "Impressions"
+    group_label: "Facebook Reporting"
     sql: ${impressions} ;;
   }
 
   measure: total_clicks {
-    type: sum_distinct
-    sql_distinct_key: ${id} ;;
+    type: sum
     label: "Clicks"
+    group_label: "Facebook Reporting"
     sql: ${inline_link_clicks} ;;
   }
 
   measure: click_through_rate {
     type: number
     label: "CTR"
+    group_label: "Facebook Reporting"
     sql: 1.0*${total_clicks}/nullif(${total_impressions}, 0) ;;
     value_format_name: percent_2
   }
 
   measure: total_spend {
-    type: sum_distinct
-    sql_distinct_key: ${id} ;;
+    type: sum
     label: "Media Spend"
+    group_label: "Facebook Reporting"
     sql: ${spend};;
     value_format_name: usd
   }
@@ -373,6 +367,7 @@ view: vnv_fb_ga_view {
   measure: cost_per_click {
     type: number
     label: "CPC"
+    group_label: "Facebook Reporting"
     sql: ${total_spend}/nullif(${total_clicks}, 0) ;;
     value_format_name: usd
   }
@@ -380,6 +375,7 @@ view: vnv_fb_ga_view {
   measure: cost_per_thousand {
     type: number
     label: "CPM"
+    group_label: "Facebook Reporting"
     sql: ${total_spend}/nullif(${total_impressions}/1000, 0) ;;
     value_format_name: usd
   }
@@ -399,8 +395,7 @@ view: vnv_fb_ga_view {
 #### Video Measures #####
 
   measure: video_impressions {
-    type: sum_distinct
-    sql_distinct_key: ${id} ;;
+    type: sum
     sql:
         case
         when ${views_to_25} > 0 then ${impressions}
@@ -410,8 +405,7 @@ view: vnv_fb_ga_view {
   }
 
   measure: video_spend {
-    type: sum_distinct
-    sql_distinct_key: ${id} ;;
+    type: sum
     sql:
         case
         when ${views_to_25} > 0 then ${impressions}
@@ -421,79 +415,74 @@ view: vnv_fb_ga_view {
   }
 
   measure: total_views_to_25 {
-    type: sum_distinct
-    sql_distinct_key: ${id} ;;
+    type: sum
     label: "Views to 25%"
-    group_label: "Video Metrics"
+    group_label: "Facebook Video Reporting"
     sql: ${views_to_25};;
   }
 
   measure: view_to_25_rate {
     type: number
     label: "% Viewed to 25%"
-    group_label: "Video Metrics"
+    group_label: "Facebook Video Reporting"
     sql: 1.0*${total_views_to_25}/nullif(${video_impressions}, 0) ;;
     value_format_name: percent_2
   }
 
   measure: total_views_to_50 {
-    type: sum_distinct
-    sql_distinct_key: ${id} ;;
+    type: sum
     label: "Views to 50%"
-    group_label: "Video Metrics"
+    group_label: "Facebook Video Reporting"
     sql: ${views_to_50};;
   }
 
   measure: view_to_50_rate {
     type: number
     label: "% Viewed to 50%"
-    group_label: "Video Metrics"
+    group_label: "Facebook Video Reporting"
     sql: 1.0*${total_views_to_50}/nullif(${video_impressions}, 0) ;;
     value_format_name: percent_2
   }
 
   measure: total_views_to_75 {
-    type: sum_distinct
-    sql_distinct_key: ${id} ;;
+    type: sum
     label: "Views to 75%"
-    group_label: "Video Metrics"
+    group_label: "Facebook Video Reporting"
   }
 
   measure: view_to_75_rate {
     type: number
     label: "% Viewed to 75%"
-    group_label: "Video Metrics"
+    group_label: "Facebook Video Reporting"
     sql: 1.0*${total_views_to_75}/nullif(${video_impressions}, 0) ;;
     value_format_name: percent_2
   }
 
   measure: total_views_to_95 {
-    type: sum_distinct
-    sql_distinct_key: ${id} ;;
+    type: sum
     label: "Views to 95%"
-    group_label: "Video Metrics"
+    group_label: "Facebook Video Reporting"
   }
 
   measure: view_to_95_rate {
     type: number
     label: "% Viewed to 95%"
-    group_label: "Video Metrics"
+    group_label: "Facebook Video Reporting"
     sql: 1.0*${total_views_to_95}/nullif(${video_impressions}, 0) ;;
     value_format_name: percent_2
   }
 
   measure: total_video_completes {
-    type: sum_distinct
-    sql_distinct_key: ${id} ;;
+    type: sum
     label: "Views to 100%"
-    group_label: "Video Metrics"
+    group_label: "Facebook Video Reporting"
     sql: ${views_to_100};;
   }
 
   measure: video_completion_rate {
     type: number
     label: "Completion Rate"
-    group_label: "Video Metrics"
+    group_label: "Facebook Video Reporting"
     sql: 1.0*${total_video_completes}/nullif(${video_impressions}, 0) ;;
     value_format_name: percent_2
   }
@@ -501,23 +490,22 @@ view: vnv_fb_ga_view {
   measure: cost_per_complete {
     type: number
     label: "CPcV"
-    group_label: "Video Metrics"
+    group_label: "Facebook Video Reporting"
     sql: 1.0*${video_spend}/nullif(${total_video_completes}, 0) ;;
     value_format_name: usd
   }
 
   measure: total_thruplays {
-    type: sum_distinct
-    sql_distinct_key: ${id} ;;
+    type: sum
     label: "ThruPlays"
-    group_label: "Video Metrics"
+    group_label: "Facebook Video Reporting"
     sql: ${thruplays};;
   }
 
   measure: thruplay_rate {
     type: number
     label: "ThruPlay Rate"
-    group_label: "Video Metrics"
+    group_label: "Facebook Video Reporting"
     sql: 1.0*${total_thruplays}/nullif(${video_impressions}, 0) ;;
     value_format_name: percent_2
   }
@@ -525,7 +513,7 @@ view: vnv_fb_ga_view {
   measure: cost_per_thruplay {
     type: number
     label: "Cost/ThruPlay"
-    group_label: "Video Metrics"
+    group_label: "Facebook Video Reporting"
     sql: 1.0*${video_spend}/nullif(${total_thruplays}, 0) ;;
     value_format_name: usd
   }
@@ -550,56 +538,53 @@ view: vnv_fb_ga_view {
   ####### Google Analytics Measures #######
 
   measure: total_sessions {
-    type: sum_distinct
+    type: sum
     label: "Sessions"
-    group_label: "Website Metrics"
-    sql_distinct_key: ${id};;
+    group_label: "GA Reporting"
     sql: ${sessions};;
   }
 
   measure: cost_per_session {
     type: number
     label: "CPS"
+    group_label: "GA Reporting"
     sql: ${total_spend}/nullif(${total_sessions}, 0) ;;
     value_format_name: usd
   }
 
   measure: total_session_duration {
     hidden: yes
-    type: sum_distinct
-    group_label: "Website Metrics"
+    type: sum
+    group_label: "GA Reporting"
     label: "Total Session Duration"
-    sql_distinct_key: ${id};;
     sql: ${sessionduration};;
   }
 
   measure: avg_time_on_site {
     label: "Avg. TOS"
-    group_label: "Website Metrics"
+    group_label: "GA Reporting"
     type: number
     sql: (${total_session_duration}/nullif(${total_sessions}, 0))::float/86400 ;;
     value_format: "m:ss"
   }
 
   measure: total_users {
-    type: sum_distinct
+    type: sum
     label: "Users"
-    group_label: "Website Metrics"
-    sql_distinct_key: ${id};;
+    group_label: "GA Reporting"
     sql: ${users};;
   }
 
   measure: total_new_users {
-    type: sum_distinct
+    type: sum
     label: "New Users"
-    group_label: "Website Metrics"
-    sql_distinct_key: ${id};;
+    group_label: "GA Reporting"
     sql: ${newusers};;
   }
 
   measure: percent_new_users {
     label: "% New Users"
-    group_label: "Website Metrics"
+    group_label: "GA Reporting"
     type: number
     sql: 1.0*${total_new_users}/nullif(${total_users}, 0) ;;
     value_format_name: percent_0
@@ -607,15 +592,14 @@ view: vnv_fb_ga_view {
 
   measure: total_pageviews {
     label: "Pageviews"
-    group_label: "Website Metrics"
+    group_label: "GA Reporting"
     type: sum
-    sql_distinct_key: ${id};;
     sql: ${pageviews} ;;
   }
 
   measure: pages_per_session {
     label: "Pgs/Session"
-    group_label: "Website Metrics"
+    group_label: "GA Reporting"
     type: number
     sql: ${total_pageviews}/nullif(${total_sessions}, 0) ;;
     value_format: "#.0"
@@ -623,6 +607,6 @@ view: vnv_fb_ga_view {
 
   measure: count {
     type: count
-    drill_fields: [id, ad_name, adset_name, campaign_name, account_name]
+    drill_fields: [ad_name, adset_name, campaign_name, account_name]
   }
 }

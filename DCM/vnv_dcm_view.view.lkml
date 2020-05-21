@@ -1,23 +1,16 @@
 view: vnv_dcm_view {
-  sql_table_name: public.vnv_dcm_view ;;
-  drill_fields: [id]
+  sql_table_name: public.vnv_dcm_ga_view ;;
 
 ######## PRIMARY KEY ########
 
-  dimension: id {
+  dimension: ga_join_id {
     primary_key: yes
-    hidden: yes
     type: string
-    sql: ${TABLE}.id ;;
+    hidden: no
+    sql: ${TABLE}.ga_join_id ;;
   }
 
 ######## GA Join ID ########
-
-  dimension: comp_key {
-    type: string
-    hidden: yes
-    sql: ${TABLE}.comp_key ;;
-  }
 
   dimension: passback_join { ## placement ID + date ALWAYS
     type: string
@@ -148,7 +141,7 @@ view: vnv_dcm_view {
         ELSE ${site_dcm}
         END
         ;;
-    }
+  }
 
   dimension: vnv_placement {
     type: string
@@ -261,19 +254,19 @@ view: vnv_dcm_view {
   dimension: active_view_eligible_impressions {
     type: number
     hidden: yes
-    sql: ${TABLE}."active view: eligible impressions"  ;;
+    sql: ${TABLE}.active_view_eligible_impressions  ;;
   }
 
   dimension: active_view_measurable_impressions {
     hidden: yes
     type: number
-    sql: ${TABLE}."active view: measurable impressions" ;;
+    sql: ${TABLE}.active_view_measurable_impressions ;;
   }
 
   dimension: active_view_viewable_impressions {
     type: number
     hidden: yes
-    sql: ${TABLE}."active view: viewable impressions" ;;
+    sql: ${TABLE}.active_view_viewable_impressions ;;
   }
 
   dimension: ad {
@@ -285,7 +278,7 @@ view: vnv_dcm_view {
   dimension: ad_id {
     type: string
     group_label: "DCM IDs"
-    sql: ${TABLE}."ad id" ;;
+    sql: ${TABLE}.ad_id ;;
   }
 
   dimension: advertiser {
@@ -318,6 +311,12 @@ view: vnv_dcm_view {
     sql: ${TABLE}."booked viewable impressions" ;;
   }
 
+  dimension: bounces {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.bounces ;;
+  }
+
   dimension: campaign {
     type: string
     group_label: "DCM Dimensions"
@@ -327,7 +326,7 @@ view: vnv_dcm_view {
   dimension: campaign_id {
     type: number
     group_label: "DCM IDs"
-    sql: ${TABLE}."campaign id" ;;
+    sql: ${TABLE}.campaign_id ;;
   }
 
   dimension: clicks {
@@ -357,7 +356,7 @@ view: vnv_dcm_view {
   dimension: creative_id {
     type: string
     group_label: "DCM IDs"
-    sql: ${TABLE}."creative id" ;;
+    sql: ${TABLE}.creative_id ;;
   }
 
   dimension_group: date {
@@ -385,7 +384,13 @@ view: vnv_dcm_view {
   dimension: media_cost {
     type: number
     hidden: yes
-    sql: ${TABLE}."media cost" ;;
+    sql: ${TABLE}.cost ;;
+  }
+
+  dimension: newusers {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.newusers ;;
   }
 
   dimension: placement {
@@ -397,14 +402,20 @@ view: vnv_dcm_view {
   dimension: placement_id {
     type: number
     group_label: "DCM IDs"
-    sql: ${TABLE}."placement id" ;;
+    sql: ${TABLE}.placement_id ;;
   }
 
   dimension: advertising_channel {
     type: string
     group_label: "DCM Dimensions"
     label: "Channel"
-    sql: ${TABLE}."placement strategy" ;;
+    sql: ${TABLE}.placement_strategy ;;
+  }
+
+  dimension: pageviews {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.pageviews ;;
   }
 
   dimension: planned_media_cost {
@@ -418,15 +429,27 @@ view: vnv_dcm_view {
 
   dimension: platform_type {
     type: string
-#     hidden: yes
-    sql: ${TABLE}."platform type" ;;
+    hidden: yes
+    sql: ${TABLE}.platform_type ;;
+  }
+
+  dimension: sessionduration {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.sessionduration ;;
+  }
+
+  dimension: sessions {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.sessions ;;
   }
 
   dimension: site_dcm {
     type: string
     label: "Site"
     group_label: "DCM Dimensions"
-    sql: ${TABLE}."site (dcm)" ;;
+    sql: ${TABLE}.site_dcm ;;
   }
 
   dimension: total_conversions {
@@ -439,6 +462,12 @@ view: vnv_dcm_view {
     type: number
     hidden: yes
     sql: ${TABLE}."total revenue" ;;
+  }
+
+  dimension: users {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.users ;;
   }
 
   dimension: viewthrough_conversions {
@@ -463,17 +492,15 @@ view: vnv_dcm_view {
 
   measure: total_impressions {
     group_label: "3rd Party Measures"
-    type: sum_distinct
+    type: sum
     label: "Impressions"
-    sql_distinct_key: ${id} ;;
     sql: ${impressions} ;;
   }
 
   measure: total_clicks {
     group_label: "3rd Party Measures"
-    type: sum_distinct
+    type: sum
     label: "Clicks"
-    sql_distinct_key: ${id} ;;
     sql: ${clicks} ;;
   }
 
@@ -487,17 +514,15 @@ view: vnv_dcm_view {
 
   measure: total_active_view_measureable_impressions {
     group_label: "3rd Party Measures"
-    type: sum_distinct
+    type: sum
     label: "Active View Measureable Impressions"
-    sql_distinct_key: ${id} ;;
     sql: ${active_view_measurable_impressions};;
   }
 
   measure: total_active_view_viewable_impressions {
     group_label: "3rd Party Measures"
-    type: sum_distinct
+    type: sum
     label: "Active View Viewable Impressions"
-    sql_distinct_key: ${id} ;;
     sql: ${active_view_viewable_impressions} ;;
   }
 
@@ -511,9 +536,8 @@ view: vnv_dcm_view {
 
   measure: total_media_cost {
     group_label: "3rd Party Measures"
-    type: sum_distinct
+    type: sum
     label: "Media Spend"
-    sql_distinct_key: ${id} ;;
     sql: ${media_cost} ;;
     value_format_name: usd
   }
@@ -551,84 +575,80 @@ view: vnv_dcm_view {
   }
 
   measure: total_views {
+    hidden: yes
     type: sum
     sql: ${views} ;;
   }
 
-######## Joined measures from GA #######
-
-  measure: ga_sessions {
+  measure: total_sessions {
     group_label: "GA Reporting"
-    type: sum_distinct
+    type: sum
     label: "Sessions"
-    sql_distinct_key: ${vnv_ga_onsite.id};;
-    sql: ${vnv_ga_onsite.sessions};;
+    sql: ${sessions};;
   }
 
   measure: cost_per_session {
     group_label: "GA Reporting"
     type: number
     label: "CPS"
-    sql: ${total_media_cost}/nullif(${ga_sessions}, 0) ;;
+    sql: ${total_media_cost}/nullif(${total_sessions}, 0) ;;
     value_format_name: usd
   }
 
-  measure: ga_total_session_duration {
+  measure: total_session_duration {
     hidden: yes
     type: sum
     label: "Total Session Duration"
-    sql_distinct_key: ${vnv_ga_onsite.id};;
-    sql: ${vnv_ga_onsite.sessionduration};;
+    sql: ${sessionduration};;
   }
 
   measure: avg_time_on_site {
     group_label: "GA Reporting"
     label: "Avg. TOS"
     type: number
-    sql:  (${vnv_ga_onsite.total_session_duration}/nullif(${vnv_ga_onsite.total_sessions}, 0))::float/86400  ;;
+    sql:  (${total_session_duration}/nullif(${total_sessions}, 0))::float/86400  ;;
     value_format: "m:ss"
   }
 
-  measure: ga_total_users {
+  measure: total_users {
     group_label: "GA Reporting"
     label: "Users"
     type: sum
-    sql: ${vnv_ga_onsite.users} ;;
+    sql: ${users} ;;
   }
 
-  measure: ga_new_users {
+  measure: total_new_users {
     group_label: "GA Reporting"
     label: "New Users"
     type: sum
-    sql: ${vnv_ga_onsite.newusers} ;;
+    sql: ${newusers} ;;
   }
 
   measure: percent_new_users {
     group_label: "GA Reporting"
     label: "% New Users"
     type: number
-    sql: ${vnv_ga_onsite.new_users}/nullif(${vnv_ga_onsite.total_users}, 0) ;;
+    sql: ${total_new_users}/nullif(${total_users}, 0) ;;
     value_format_name: percent_0
   }
 
-  measure: ga_total_pageviews {
+  measure: total_pageviews {
     group_label: "GA Reporting"
     label: "Pageviews"
     type: sum
-    sql: ${vnv_ga_onsite.pageviews} ;;
+    sql: ${pageviews} ;;
   }
 
   measure: pages_per_session {
     group_label: "GA Reporting"
     label: "Pgs/Session"
     type: number
-    sql: ${vnv_ga_onsite.total_pageviews}/nullif(${vnv_ga_onsite.total_sessions}, 0) ;;
+    sql: ${total_pageviews}/nullif(${total_sessions}, 0) ;;
     value_format: "#.0"
   }
 
   measure: count {
     type: count
-    drill_fields: [id]
   }
 }
 

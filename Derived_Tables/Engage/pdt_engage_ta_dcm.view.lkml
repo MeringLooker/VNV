@@ -13,8 +13,8 @@ view: pdt_engage_tripadvisor {
       column: total_impressions {field: vnv_fy20_engage_dcm_view.total_impressions}
       column: total_clicks {field: vnv_fy20_engage_dcm_view.total_clicks}
       column: total_cost {field: vnv_fy20_engage_dcm_view.total_media_cost}
-      column: total_sessions {field: vnv_dcm_view.ga_sessions}
-      column: total_session_duration {field: vnv_dcm_view.ga_total_session_duration}
+      column: total_sessions {field: vnv_dcm_view.total_sessions}
+      column: total_session_duration {field: vnv_dcm_view.total_session_duration}
       filters: {
         field: vnv_dcm_view.campaign
         value: "VNV FY20 Objective 2 (Engage)"

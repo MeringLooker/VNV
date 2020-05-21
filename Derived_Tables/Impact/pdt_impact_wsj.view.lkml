@@ -12,8 +12,8 @@ view: pdt_impact_wsj {
       column: total_clicks {field: vnv_dcm_view.total_clicks}
       column: total_views {field: vnv_dcm_view.total_views}
       column: total_cost {field: vnv_dcm_view.total_media_cost}
-      column: total_sessions {field: vnv_dcm_view.ga_sessions}
-      column: total_session_duration {field: vnv_dcm_view.ga_total_session_duration}
+      column: total_sessions {field: vnv_dcm_view.total_sessions}
+      column: total_session_duration {field: vnv_dcm_view.total_session_duration}
       filters: {
         field: vnv_dcm_view.campaign
         value: "VNV FY20 Objective #3 (Impact)"

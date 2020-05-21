@@ -8,6 +8,6 @@ explore: vnv_fb_extended {
   hidden: no
 }
 
-explore: vnv_fb_ga_view {
-  hidden: no
-}
+# explore: vnv_fb_ga_view {
+#   hidden: no
+# }
