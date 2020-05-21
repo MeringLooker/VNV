@@ -25,6 +25,13 @@ explore: vnv_dcm {
     relationship: many_to_one
   }
 
+  join: vnv_fy20_impact_dcm_view {
+    view_label: "FY20 Impact Passback"
+    type: inner
+    sql_on: ${vnv_dcm_view.passback_join} = ${vnv_fy20_impact_dcm_view.passback_join} ;;
+    relationship: many_to_one
+  }
+
 #   join: vnv_fy20_engage_adara {
 #     view_label: "FY20 Adara Passback"
 #     type: inner
@@ -47,9 +54,9 @@ explore: vnv_dcm {
   }
 
   join: vnv_fy20_impact_wsj {
-    view_label: "FY20 Impact Passback"
+    view_label: "FY20 WSJ Passback"
     type: inner
-    sql_on: ${vnv_dcm_view.passback_join_ad} = ${vnv_fy20_impact_wsj.passback_join_ad} ;;
+    sql_on: ${vnv_dcm_view.passback_join} = ${vnv_fy20_impact_wsj.passback_join} ;;
     relationship: many_to_one
   }
 
