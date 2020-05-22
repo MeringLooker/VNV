@@ -12,5 +12,5 @@ explore: vnv_yt_extended {
 }
 
 explore: vnv_yt_ga_view  {
-  hidden: no
+  hidden: yes
 }
