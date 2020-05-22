@@ -261,7 +261,7 @@ view: vnv_yt_ga_view {
 
   measure: total_conversions {
     type: sum_distinct
-    group_label: "Trueview Conversion Reporting"
+    group_label: "Trueview Reporting"
     sql_distinct_key: ${comp_key} ;;
     sql: ${conversions} ;;
   }
@@ -292,7 +292,7 @@ view: vnv_yt_ga_view {
 
   measure: total_conversion_rate  {
     label: "CVR"
-    group_label: "Trueview Conversion Reporting"
+    group_label: "Trueview Reporting"
     type: number
     sql: ${total_conversions}/nullif(${total_clicks}, 0) ;;
     value_format_name: percent_2
@@ -300,7 +300,7 @@ view: vnv_yt_ga_view {
 
   measure: cost_per_conversion {
     label: "CPA"
-    group_label: "Trueview Conversion Reporting"
+    group_label: "Trueview Reporting"
     type: number
     sql: ${total_cost}/nullif(${total_conversions} ,0);;
     value_format_name: usd
