@@ -361,6 +361,7 @@ view: vnv_gdn_view {
   }
 
   measure: count {
+    hidden: yes
     type: count
     drill_fields: []
   }

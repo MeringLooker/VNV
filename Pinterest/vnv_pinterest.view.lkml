@@ -622,6 +622,7 @@ view: vnv_pinterest {
   }
 
   measure: count {
+    hidden: yes
     type: count
     drill_fields: [id, campaign_name, ad_group_name, promoted_pin_name]
   }

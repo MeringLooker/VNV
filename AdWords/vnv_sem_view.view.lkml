@@ -53,7 +53,6 @@ view: vnv_sem_view {
     sql: 'Google Search' ;;
   }
 
-
   dimension: vnv_market {
     type: string
     label: "Market"
@@ -380,6 +379,7 @@ view: vnv_sem_view {
   }
 
   measure: count {
+    hidden: yes
     type: count
   }
 }
