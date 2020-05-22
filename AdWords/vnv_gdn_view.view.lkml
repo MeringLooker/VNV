@@ -211,6 +211,30 @@ view: vnv_gdn_view {
     sql: 0 ;;
   }
 
+  dimension: concierge_form_submission {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.concierge_form_submission ;;
+  }
+
+  dimension: partner_referral {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.partner_referral ;;
+  }
+
+  dimension: view_guide_online {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.view_guide_online ;;
+  }
+
+  dimension: tos_above_45 {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.tos_above_45 ;;
+  }
+
   ###### All Measures go Below #######
 
   measure: total_impressions {
@@ -358,6 +382,34 @@ view: vnv_gdn_view {
     type: number
     sql: ${total_bounces}/nullif(${total_sessions}, 0) ;;
     value_format_name: percent_2
+  }
+
+  measure: total_concierge_form_submission {
+    group_label: "GA Reporting Goals"
+    label: "Concierge Form Submission"
+    type: sum
+    sql: ${concierge_form_submission} ;;
+  }
+
+  measure: total_partner_referral {
+    group_label: "GA Reporting Goals"
+    label: "Partner Referrals"
+    type: sum
+    sql: ${partner_referral} ;;
+  }
+
+  measure: total_view_guide_online {
+    group_label: "GA Reporting Goals"
+    label: "View Guide Online"
+    type: sum
+    sql: ${view_guide_online} ;;
+  }
+
+  measure: total_tos_above_45 {
+    group_label: "GA Reporting Goals"
+    label: "TOS Above 45s"
+    type: sum
+    sql: ${tos_above_45} ;;
   }
 
   measure: count {

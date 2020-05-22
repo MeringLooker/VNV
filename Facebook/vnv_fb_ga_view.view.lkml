@@ -332,6 +332,30 @@ view: vnv_fb_ga_view {
     sql: ${TABLE}.views_to_95 ;;
   }
 
+  dimension: concierge_form_submission {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.concierge_form_submission ;;
+  }
+
+  dimension: partner_referral {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.partner_referral ;;
+  }
+
+  dimension: view_guide_online {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.view_guide_online ;;
+  }
+
+  dimension: tos_above_45 {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.tos_above_45 ;;
+  }
+
   ####### Meausures go below ######
 
   measure: total_impressions {
@@ -534,9 +558,6 @@ view: vnv_fb_ga_view {
 #     value_format_name: usd
 #   }
 
-
-  ####### Google Analytics Measures #######
-
   measure: total_sessions {
     type: sum
     label: "Sessions"
@@ -605,7 +626,36 @@ view: vnv_fb_ga_view {
     value_format: "#.0"
   }
 
+  measure: total_concierge_form_submission {
+    group_label: "GA Reporting Goals"
+    label: "Concierge Form Submission"
+    type: sum
+    sql: ${concierge_form_submission} ;;
+  }
+
+  measure: total_partner_referral {
+    group_label: "GA Reporting Goals"
+    label: "Partner Referrals"
+    type: sum
+    sql: ${partner_referral} ;;
+  }
+
+  measure: total_view_guide_online {
+    group_label: "GA Reporting Goals"
+    label: "View Guide Online"
+    type: sum
+    sql: ${view_guide_online} ;;
+  }
+
+  measure: total_tos_above_45 {
+    group_label: "GA Reporting Goals"
+    label: "TOS Above 45s"
+    type: sum
+    sql: ${tos_above_45} ;;
+  }
+
   measure: count {
+    hidden: yes
     type: count
     drill_fields: [ad_name, adset_name, campaign_name, account_name]
   }
