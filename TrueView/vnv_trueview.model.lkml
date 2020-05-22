@@ -10,3 +10,7 @@ explore: vnv_yt_extended {
   view_label: "YouTube"
   group_label: "Visit Napa Valley"
 }
+
+explore: vnv_yt_ga_view  {
+  hidden: no
+}
