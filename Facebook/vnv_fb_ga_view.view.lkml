@@ -77,6 +77,7 @@ view: vnv_fb_ga_view {
        when ${campaign_name} ilike '%FY20_VNV_Conversions%' then 'Foundational'
        when ${campaign_name} ilike '%FY20_VNV_Video%' then 'Foundational'
        when ${campaign_name} ilike 'FY20_VNV_Objective5%' then 'Local'
+       when ${campaign_name} ilike 'FY20_VNV_COVID19Recovery%' then 'Recovery'
        ELSE 'Uncategorized'
        END;;
   }
@@ -87,19 +88,20 @@ view: vnv_fb_ga_view {
     type: string
     sql:
       CASE
-       when ${campaign_name} ilike '%_VideoViews' then 'Video Views'
-       when ${campaign_name} ilike '%_InstagramStories' then 'Instagram Stories'
-       when ${ad_name} ilike 'FY20_VNV_Conversions_TrafficDriving_Carousel%' then 'Traffic Driving - Carousel'
-       when ${ad_name} ilike 'FY20_VNV_Conversions_TrafficDriving_SingleImage%' then 'Traffic Driving - Single Image'
-       when ${campaign_name} ilike 'FY20_VNV_Objective5_Awareness%' then 'Awareness - Single Image'
-       when ${ad_name} ilike 'FY20_VNV_Objective5_StoreTraffic_Local%' then 'Store Traffic - Single Image'
-       when ${ad_name} = 'FY20_VNV_Objective5_StoreTraffic_Carousel' then 'Store Traffic - Carousel'
+      when ${campaign_name} ilike '%_VideoViews' then 'Video Views'
+      when ${campaign_name} ilike '%_InstagramStories' then 'Instagram Stories'
+      when ${ad_name} ilike 'FY20_VNV_Conversions_TrafficDriving_Carousel%' then 'Traffic Driving - Carousel'
+      when ${ad_name} ilike 'FY20_VNV_Conversions_TrafficDriving_SingleImage%' then 'Traffic Driving - Single Image'
+      when ${campaign_name} ilike 'FY20_VNV_Objective5_Awareness%' then 'Awareness - Single Image'
+      when ${ad_name} ilike 'FY20_VNV_Objective5_StoreTraffic_Local%' then 'Store Traffic - Single Image'
+      when ${ad_name} = 'FY20_VNV_Objective5_StoreTraffic_Carousel' then 'Store Traffic - Carousel'
       when ${campaign_name} = 'FY20_VNV_Objective3_Awareness' then 'Video Views'
       when ${adset_name} ilike 'FY20_VNV_Objective3_Conversion_VideoRTG%' then 'Traffic Driving - Video Retargeting'
       when ${adset_name} ilike 'FY20_VNV_Objective3_Conversion_RTGWebVisitors%' then 'Traffic Driving - Web Visitor Retargeting'
       when ${adset_name} ilike 'Objective3_SuperAffluent_VideoRTG%' then 'Traffic Driving - Video Retargeting'
       when ${adset_name} ilike 'Objective3_SuperAffluent_RTGWebVisitors%' then 'Traffic Driving - Web Visitor Retargeting'
-       ELSE 'Uncategorized'
+      when ${campaign_name} = 'FY20_VNV_COVID19Recovery_Phase2_Conversions' then 'Traffic Driving - Single Image'
+      ELSE 'Uncategorized'
        END;;
   }
 
@@ -128,6 +130,16 @@ view: vnv_fb_ga_view {
         WHEN ${ad_name} ilike '%singleimage_firerecovery' then 'Fire Recovery'
         WHEN ${ad_name} ilike '%singleimage_cabseason' then 'Cab Season'
         WHEN ${ad_name} ilike '%carousel_cabseason' then 'Cab Season'
+
+        WHEN ${ad_name} ilike '%BreathtakingViews' then 'Breathtaking Views'
+        WHEN ${ad_name} ilike '%BetterWithTime' then 'Better With Time'
+        WHEN ${ad_name} ilike '%RaisingAGlass' then 'Raising A Glass'
+        WHEN ${ad_name} ilike '%FullStomach' then 'Full Stomach'
+        WHEN ${ad_name} ilike '%Relaxation' then 'Relaxation'
+        WHEN ${ad_name} ilike '%BeingTogether' then 'Being Together'
+        WHEN ${ad_name} ilike '%Patience' then 'Patience'
+
+
 
         ELSE ${ad_name}
         END;;

@@ -58,6 +58,7 @@ view: vnv_yt_ga_view {
     sql:
       CASE
         WHEN ${campaign} = 'FY20_VNV_Foundational_TrueView' then 'Foundational'
+        WHEN ${campaign} = 'FY20_VNV_COVID19Recovery_Phase2_TrueView' then 'Recovery'
         ELSE 'Uncategorized'
         END;;
   }
@@ -68,7 +69,8 @@ view: vnv_yt_ga_view {
     group_label: "Client Dimensions"
     sql:
       CASE
-        WHEN ${campaign} = 'FY20_VNV_Foundational_TrueView' then 'Pre-Roll Video'
+        WHEN ${campaign} = 'FY20_VNV_Foundational_TrueView' then 'Skipabble Pre-Roll Video'
+        WHEN ${campaign} ILIKE 'FY20_VNV_COVID19Recovery%' then 'Skipabble Pre-Roll Video'
         ELSE 'Uncategorized'
         END;;
   }
