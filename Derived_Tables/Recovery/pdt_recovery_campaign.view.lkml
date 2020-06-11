@@ -15,7 +15,7 @@ view: pdt_recovery_campaign {
     type: string
     hidden: yes
     primary_key: yes
-    sql: ${campaign}||'_'||${publisher}||'_'||${placement}||'_'||${date};;
+    sql: ${campaign}||'_'||${publisher}||'_'||${placement}||'_'||${creative}||'_'||${date};;
   }
 
   #### All dimensions go below ####
@@ -37,6 +37,12 @@ view: pdt_recovery_campaign {
     type: string
     drill_fields: [date,week,month]
     sql: ${TABLE}.placement ;;
+  }
+
+  dimension: creative {
+    type: string
+    drill_fields: [date,week,month]
+    sql: ${TABLE}.creative ;;
   }
 
   dimension: fiscal_year {

@@ -113,6 +113,14 @@ view: vnv_sem_view {
         END;;
   }
 
+#### Need to map SEM creative
+  dimension: creative {
+    hidden: yes
+    type:  string
+    group_label: "AdWords Dimensions"
+    sql: 'N/A' ;;
+  }
+
 ###### All Dimensions go Below #######
 
   dimension: account {

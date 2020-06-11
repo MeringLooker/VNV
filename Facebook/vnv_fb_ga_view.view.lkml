@@ -105,7 +105,7 @@ view: vnv_fb_ga_view {
        END;;
   }
 
-  dimension: creative_name {
+  dimension: creative {
     group_label: "Client Dimensions"
     type: string
     sql:

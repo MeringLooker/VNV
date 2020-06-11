@@ -97,6 +97,15 @@ view: vnv_gdn_view {
         END;;
   }
 
+
+  #### Need to map gdn creatove
+  dimension: creative {
+    hidden: yes
+    type:  string
+    group_label: "AdWords Dimensions"
+    sql: 'N/A' ;;
+  }
+
   ###### All Dimensions go Below #######
 
   dimension: account {
