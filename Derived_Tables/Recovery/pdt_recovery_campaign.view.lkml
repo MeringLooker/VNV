@@ -197,6 +197,25 @@ view: pdt_recovery_campaign {
     value_format: "m:ss"
   }
 
+  measure: video_impressions {
+    type: sum_distinct
+    hidden: yes
+    sql_distinct_key: ${primary_key} ;;
+    sql:
+      case
+        when ${views} > 0 then ${impressions}
+        else null
+        end
+        ;;
+  }
+
+  measure: view_rate {
+    type: number
+    label: "View Rate"
+    sql: 1.0*${total_views}/nullif(${video_impressions}, 0) ;;
+    value_format_name: percent_2
+  }
+
   measure: count {
     type: count
   }
