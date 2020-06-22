@@ -3,11 +3,11 @@ view: vnv_yt_ga_view {
 
 #### Primary Key ####
 
-  dimension: comp_key {
+  dimension: ga_join_id {
     type: string
     primary_key: yes
     hidden: yes
-    sql: ${TABLE}.comp_key ;;
+    sql: ${TABLE}.ga_join_id  ;;
   }
 
 ##### Dimensions added to this table via LookML ######
@@ -253,21 +253,21 @@ view: vnv_yt_ga_view {
   measure: total_impressions {
     type: sum_distinct
     group_label: "Trueview Reporting"
-    sql_distinct_key: ${comp_key} ;;
+    sql_distinct_key: ${ga_join_id } ;;
     sql: ${impressions} ;;
   }
 
   measure: total_clicks {
     type: sum_distinct
     group_label: "Trueview Reporting"
-    sql_distinct_key: ${comp_key} ;;
+    sql_distinct_key: ${ga_join_id } ;;
     sql: ${clicks} ;;
   }
 
   measure: total_cost {
     type:  sum_distinct
     group_label: "Trueview Reporting"
-    sql_distinct_key: ${comp_key} ;;
+    sql_distinct_key: ${ga_join_id } ;;
     sql:${cost}/1000000.00  ;;
     value_format_name: usd
   }
@@ -275,7 +275,7 @@ view: vnv_yt_ga_view {
   measure: total_conversions {
     type: sum_distinct
     group_label: "Trueview Reporting"
-    sql_distinct_key: ${comp_key} ;;
+    sql_distinct_key: ${ga_join_id } ;;
     sql: ${conversions} ;;
   }
 
@@ -323,7 +323,7 @@ view: vnv_yt_ga_view {
     type: sum_distinct
     label: "Video Views"
     group_label: "Trueview Reporting"
-    sql_distinct_key: ${comp_key} ;;
+    sql_distinct_key: ${ga_join_id } ;;
     sql: ${views} ;;
   }
 
@@ -341,7 +341,7 @@ view: vnv_yt_ga_view {
     label: "Views To 25%"
     value_format_name: decimal_0
     hidden: no
-    sql_distinct_key: ${comp_key} ;;
+    sql_distinct_key: ${ga_join_id } ;;
     sql: ${views_to_q25} ;;
   }
 
@@ -351,7 +351,7 @@ view: vnv_yt_ga_view {
     label: "Views To 50%"
     value_format_name: decimal_0
     hidden: no
-    sql_distinct_key: ${comp_key} ;;
+    sql_distinct_key: ${ga_join_id } ;;
     sql: ${views_to_q50} ;;
   }
 
@@ -361,7 +361,7 @@ view: vnv_yt_ga_view {
     label: "Views To 75%"
     value_format_name: decimal_0
     hidden: no
-    sql_distinct_key: ${comp_key} ;;
+    sql_distinct_key: ${ga_join_id } ;;
     sql: ${views_to_q75} ;;
   }
 
@@ -371,7 +371,7 @@ view: vnv_yt_ga_view {
     label: "Video Completes"
     group_label: "Trueview Reporting"
     hidden: no
-    sql_distinct_key: ${comp_key} ;;
+    sql_distinct_key: ${ga_join_id } ;;
     sql: ${video_completes} ;;
   }
 
@@ -434,7 +434,7 @@ view: vnv_yt_ga_view {
     hidden: yes
     type: sum_distinct
     label: "Total Session Duration"
-    sql_distinct_key: ${comp_key};;
+    sql_distinct_key: ${ga_join_id };;
     sql: ${sessionduration};;
   }
 
@@ -450,7 +450,7 @@ view: vnv_yt_ga_view {
     group_label: "GA Reporting"
     type: sum_distinct
     label: "Pageviews"
-    sql_distinct_key: ${comp_key} ;;
+    sql_distinct_key: ${ga_join_id } ;;
     sql: ${pageviews} ;;
   }
 
@@ -466,7 +466,7 @@ view: vnv_yt_ga_view {
     group_label: "GA Reporting"
     type: sum_distinct
     label: "Bounces"
-    sql_distinct_key: ${comp_key} ;;
+    sql_distinct_key: ${ga_join_id } ;;
     sql: ${bounces} ;;
   }
 
