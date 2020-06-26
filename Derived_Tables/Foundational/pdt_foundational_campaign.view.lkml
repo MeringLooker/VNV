@@ -282,7 +282,7 @@ view: pdt_foundational_campaign {
     label: "Referral Rate"
     sql: 1.0*${total_partner_referrals}/nullif(${total_sessions}, 0) ;;
     value_format_name: percent_2
-  }
+    }
 
   measure: count {
     type: count
