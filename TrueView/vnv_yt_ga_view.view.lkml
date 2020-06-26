@@ -75,13 +75,14 @@ view: vnv_yt_ga_view {
         END;;
   }
 
-  dimension: creative {
+  dimension: creative_name {
     hidden: yes
     type:  string
     group_label: "AdWords Dimensions"
     sql:
       CASE
         WHEN ${campaign} ILIKE 'FY20_VNV_COVID19Recovery%' then 'Better With Time'
+        else 'Uncategorized'
         END
     ;;
   }

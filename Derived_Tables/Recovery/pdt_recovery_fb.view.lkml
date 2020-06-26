@@ -4,7 +4,7 @@ view: pdt_recovery_fb {
       column: campaign {field: vnv_fb_ga_view.vnv_campaign}
       column: publisher {field: vnv_fb_ga_view.publisher}
       column: placement {field: vnv_fb_ga_view.vnv_placement}
-      column: creative {field: vnv_fb_ga_view.creative}
+      column: creative {field: vnv_fb_ga_view.creative_name}
       column: date {field: vnv_fb_ga_view.date_start_date}
       column: week {field: vnv_fb_ga_view.date_start_week}
       column: month {field: vnv_fb_ga_view.date_start_month}

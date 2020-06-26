@@ -97,9 +97,9 @@ view: vnv_gdn_ga_view {
         END;;
   }
 
+  #### Need to map gdn creative
 
-  #### Need to map gdn creatove
-  dimension: creative {
+  dimension: creative_name {
     hidden: yes
     type:  string
     group_label: "AdWords Dimensions"

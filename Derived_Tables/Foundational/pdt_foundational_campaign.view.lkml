@@ -8,6 +8,8 @@ view: pdt_foundational_campaign {
       select * from ${pdt_foundational_fb.SQL_TABLE_NAME}
       union
       select * from ${pdt_foundational_yt.SQL_TABLE_NAME}
+      union
+      select * from ${pdt_foundational_pin.SQL_TABLE_NAME}
       ;;
   sql_trigger_value: SELECT FLOOR((EXTRACT(epoch from GETDATE()) - 60*60*1)/(60*60*24)) ;;
   distribution_style: all
@@ -17,9 +19,9 @@ view: pdt_foundational_campaign {
 
   dimension: primary_key {
     type: string
-    hidden: yes
+    hidden: no
     primary_key: yes
-    sql: ${campaign}||'_'||${publisher}||'_'||${placement}||'_'||${date};;
+    sql: ${campaign}||'_'||${publisher}||'_'||${placement}||'_'||${creative_name}||'_'||${date};;
   }
 
   #### All dimensions go below ####
@@ -40,6 +42,12 @@ view: pdt_foundational_campaign {
     type: string
     drill_fields: []
     sql: ${TABLE}.placement ;;
+  }
+
+  dimension: creative_name {
+    type: string
+    drill_fields: []
+    sql: ${TABLE}.creative_name ;;
   }
 
   dimension: fiscal_year {
@@ -97,6 +105,18 @@ view: pdt_foundational_campaign {
     sql: ${TABLE}.total_views ;;
   }
 
+  dimension: completes {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.total_completes ;;
+  }
+
+  dimension: partner_referrals {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.total_partner_referrals ;;
+  }
+
   dimension: cost {
     type: number
     hidden: yes
@@ -132,7 +152,6 @@ view: pdt_foundational_campaign {
 
   measure: click_through_rate {
     type: number
-#     drill_fields: [publisher,layer,week,month,quarter]
     label: "CTR"
     sql: 1.0*${total_clicks}/nullif(${total_impressions}, 0) ;;
     value_format_name: percent_2
@@ -144,11 +163,70 @@ view: pdt_foundational_campaign {
     sql: ${views} ;;
   }
 
+  measure: total_completes {
+    type: sum
+    label: "Video Completes"
+    value_format_name: decimal_0
+    sql: ${completes} ;;
+  }
+
+  measure: video_impressions {
+    type: sum
+    hidden: yes
+    sql:
+      case
+        when ${views} > 0 then ${impressions}
+        else null
+        end
+        ;;
+  }
+
+  measure: view_rate {
+    type: number
+    label: "View Rate"
+    sql: 1.0*${total_views}/nullif(${video_impressions}, 0) ;;
+    value_format_name: percent_2
+  }
+
+  measure: completion_rate {
+    type: number
+    label: "Completion Rate"
+    sql: 1.0*${total_completes}/nullif(${video_impressions}, 0) ;;
+    value_format_name: percent_2
+  }
+
   measure: total_cost {
     type: sum_distinct
+    label: "Gross Cost"
     sql_distinct_key: ${primary_key} ;;
     value_format_name: usd
     sql: ${cost} ;;
+  }
+
+  measure: video_cost {
+    type: sum_distinct
+    sql_distinct_key: ${primary_key} ;;
+    hidden: yes
+    sql:
+      case
+        when ${views} > 0 then (${cost}*1.16747)
+        else null
+        end
+        ;;
+  }
+
+  measure: cost_per_view {
+    type: number
+    label: "CPV"
+    value_format_name: usd
+    sql: ${video_cost}/nullif(${total_views}, 0) ;;
+  }
+
+  measure: cost_per_complete {
+    type: number
+    label: "CPcV"
+    value_format_name: usd
+    sql: ${video_cost}/nullif(${total_completes}, 0) ;;
   }
 
   measure: cost_per_thousand {
@@ -191,6 +269,19 @@ view: pdt_foundational_campaign {
     type: number
     sql: (${total_session_duration}/nullif(${total_sessions}, 0))::float/86400 ;;
     value_format: "m:ss"
+  }
+
+  measure: total_partner_referrals {
+    type: sum_distinct
+    sql_distinct_key: ${primary_key} ;;
+    sql: ${partner_referrals} ;;
+  }
+
+  measure: referral_rate {
+    type: number
+    label: "Referral Rate"
+    sql: 1.0*${total_partner_referrals}/nullif(${total_sessions}, 0) ;;
+    value_format_name: percent_2
   }
 
   measure: count {

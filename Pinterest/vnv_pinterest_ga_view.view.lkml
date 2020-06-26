@@ -53,18 +53,31 @@ view: vnv_pinterest_ga_view {
     type: string
     sql:
       CASE
-      when ${campaign_name} ilike '%_VideoViews' then 'Video Views'
+      when ${campaign_name} ilike '%VideoPins%' then 'Video Pins'
+      when ${promoted_pin_name} ilike '%StandardPin%' then 'Standard Pins'
+      when ${promoted_pin_name} ilike '%CarouselPin%' then 'Carousel Pins'
+
 
       ELSE 'Uncategorized'
        END;;
   }
 
-  dimension: creative {
+  dimension: creative_name {
     group_label: "Client Dimensions"
     type: string
     sql:
       CASE
-        WHEN ${promoted_pin_name} ilike '%legendary' then 'Legendary'
+        WHEN ${promoted_pin_name} ilike '%videopins_theweekend' then 'The Weekend (:15)'
+        WHEN ${promoted_pin_name} ilike '%videopins_stunningharmony' then 'Stunning Harmony (:15)'
+        WHEN ${promoted_pin_name} ilike '%videopins_nextsip' then 'Next Sip (:15)'
+
+        WHEN ${promoted_pin_name} ilike '%standardpin_winepersonality' then 'Wine Personality'
+        WHEN ${promoted_pin_name} ilike '%standardpin_topten' then 'Top Ten Things To Do'
+        WHEN ${promoted_pin_name} ilike '%standardpin_romanticbbs' then 'Romantic B&B''s'
+        WHEN ${promoted_pin_name} ilike '%standardpin_roadtripping' then 'Road Tripping'
+        WHEN ${promoted_pin_name} ilike '%standardpin_prettiestspas' then 'Prettiest Spas'
+        WHEN ${promoted_pin_name} ilike '%standardpin_outdoorexcursions' then 'Outdoor Excursions'
+        WHEN ${promoted_pin_name} ilike '%carouselpin%' then 'Carousel Pin'
 
         ELSE ${promoted_pin_name}
         END;;
@@ -441,6 +454,14 @@ view: vnv_pinterest_ga_view {
 
   measure: total_views_at_100 {
     type: sum_distinct
+    group_label: "Total Video Metrics"
+    sql_distinct_key: ${ga_join_id} ;;
+    sql: ${views_at_100} ;;
+  }
+
+  measure: total_views_fndl {
+    type: sum_distinct
+    hidden: yes
     group_label: "Total Video Metrics"
     sql_distinct_key: ${ga_join_id} ;;
     sql: ${views_at_100} ;;
