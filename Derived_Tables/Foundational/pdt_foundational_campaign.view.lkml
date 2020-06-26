@@ -19,7 +19,7 @@ view: pdt_foundational_campaign {
 
   dimension: primary_key {
     type: string
-    hidden: no
+    hidden: yes
     primary_key: yes
     sql: ${campaign}||'_'||${publisher}||'_'||${placement}||'_'||${creative_name}||'_'||${date};;
   }

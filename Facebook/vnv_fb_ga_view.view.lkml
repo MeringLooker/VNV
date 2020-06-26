@@ -88,19 +88,20 @@ view: vnv_fb_ga_view {
     type: string
     sql:
       CASE
-      when ${campaign_name} ilike '%_VideoViews' then 'Video Views'
+      when ${campaign_name} ilike '%_VideoViews' then 'Facebook Video'
       when ${campaign_name} ilike '%_InstagramStories' then 'Instagram Stories'
       when ${ad_name} ilike 'FY20_VNV_Conversions_TrafficDriving_Carousel%' then 'Traffic Driving - Carousel'
       when ${ad_name} ilike 'FY20_VNV_Conversions_TrafficDriving_SingleImage%' then 'Traffic Driving - Single Image'
       when ${campaign_name} ilike 'FY20_VNV_Objective5_Awareness%' then 'Awareness - Single Image'
       when ${ad_name} ilike 'FY20_VNV_Objective5_StoreTraffic_Local%' then 'Store Traffic - Single Image'
       when ${ad_name} = 'FY20_VNV_Objective5_StoreTraffic_Carousel' then 'Store Traffic - Carousel'
-      when ${campaign_name} = 'FY20_VNV_Objective3_Awareness' then 'Video Views'
+      when ${campaign_name} = 'FY20_VNV_Objective3_Awareness' then 'Facebook Video'
       when ${adset_name} ilike 'FY20_VNV_Objective3_Conversion_VideoRTG%' then 'Traffic Driving - Video Retargeting'
       when ${adset_name} ilike 'FY20_VNV_Objective3_Conversion_RTGWebVisitors%' then 'Traffic Driving - Web Visitor Retargeting'
       when ${adset_name} ilike 'Objective3_SuperAffluent_VideoRTG%' then 'Traffic Driving - Video Retargeting'
       when ${adset_name} ilike 'Objective3_SuperAffluent_RTGWebVisitors%' then 'Traffic Driving - Web Visitor Retargeting'
       when ${campaign_name} = 'FY20_VNV_COVID19Recovery_Phase2_Conversions' then 'Traffic Driving - Single Image'
+      when ${campaign_name} ilike '%storetraffic%' then 'Store Traffic - Single Image'
       ELSE 'Uncategorized'
        END;;
   }
@@ -110,26 +111,31 @@ view: vnv_fb_ga_view {
     type: string
     sql:
       CASE
-        WHEN ${ad_name} ilike '%legendary' then 'Legendary'
-        WHEN ${ad_name} ilike '%lodging' then 'Lodging'
-        WHEN ${ad_name} ilike '%thingstodo' then 'Things To Do'
-        WHEN ${ad_name} ilike '%wellness' then 'Wellness'
-        WHEN ${ad_name} ilike '%gobeyond' then 'Go Beyond'
-        WHEN ${ad_name} ilike '%onevalley' then 'One Valley'
-        WHEN ${ad_name} ilike '%weekends' then 'Weekends'
-        WHEN ${ad_name} ilike '%art' then 'Art'
-        WHEN ${ad_name} ilike '%beer' then 'Beer'
-        WHEN ${ad_name} ilike '%events' then 'Events'
-        WHEN ${ad_name} ilike '%aerial' then 'Aerial'
-        WHEN ${ad_name} ilike '%picnictables' then 'Picnic Tables'
-        WHEN ${ad_name} ilike '%tablescape' then 'Tablescape'
-        WHEN ${ad_name} ilike '%stunningharmony' then 'Stunning Harmony'
-        WHEN ${ad_name} ilike '%theweekend' then 'The Weekend'
-        WHEN ${ad_name} ilike '%nextsip' then 'Next Sip'
-        WHEN ${ad_name} ilike '%winepour' then 'Wine Pour'
-        WHEN ${ad_name} ilike '%singleimage_firerecovery' then 'Fire Recovery'
-        WHEN ${ad_name} ilike '%singleimage_cabseason' then 'Cab Season'
-        WHEN ${ad_name} ilike '%carousel_cabseason' then 'Cab Season'
+        WHEN ${ad_name} ilike '%carousel_legendary' then 'Legendary Carousel'
+        WHEN ${ad_name} ilike '%carousel_lodging' then 'Lodging Carousel'
+        WHEN ${ad_name} ilike '%carousel_thingstodo' then 'Things To Do Carousel'
+        WHEN ${ad_name} ilike '%carousel_wellness' then 'Wellness Carousel'
+        WHEN ${ad_name} ilike '%singleimage_gobeyond' then 'Go Beyond Single Image'
+        WHEN ${ad_name} ilike '%singleimage_onevalley' then 'One Valley Single Image'
+        WHEN ${ad_name} ilike '%singleimage_weekends' then 'Weekends Single Image'
+        WHEN ${ad_name} ilike '%stories_art' then 'Art IG Story'
+        WHEN ${ad_name} ilike '%stories_beer' then 'Beer IG Story'
+        WHEN ${ad_name} ilike '%stories_events' then 'Events IG Story'
+        WHEN ${ad_name} ilike '%stories_lodging' then 'Lodging IG Story'
+        WHEN ${ad_name} ilike '%singleimage_aerial' then 'Aerial Single Image'
+        WHEN ${ad_name} ilike '%singleimage_picnictables' then 'Picnic Tables Single Image'
+        WHEN ${ad_name} ilike '%singleimage_tablescape' then 'Tablescape Single Image'
+        WHEN ${ad_name} ilike '%stunningharmony' then 'Stunning Harmony (:15)'
+        WHEN ${ad_name} ilike '%theweekend' then 'The Weekend (:15)'
+        WHEN ${ad_name} ilike '%nextsip' then 'Next Sip (:15)'
+        WHEN ${ad_name} ilike '%singleimage_winepour' then 'Wine Pour Single Image'
+        WHEN ${ad_name} ilike '%singleimage_firerecovery' then 'Fire Recovery Single Image'
+        WHEN ${ad_name} ilike '%singleimage_cabseason' then 'Cab Season Single Image'
+        WHEN ${ad_name} ilike '%carousel_cabseason' then 'Cab Season Carousel'
+
+        WHEN ${ad_name} ilike '%singleimage_cabseasonc' then 'Cab Season (C) Single Image'
+        WHEN ${ad_name} ilike '%singleimage_cabseasonb' then 'Cab Season (B) Single Image'
+        WHEN ${ad_name} ilike '%singleimage_cabseasona' then 'Cab Season (A) Single Image'
 
         WHEN ${ad_name} ilike '%BreathtakingViews' then 'Breathtaking Views'
         WHEN ${ad_name} ilike '%BetterWithTime' then 'Better With Time'
@@ -139,9 +145,25 @@ view: vnv_fb_ga_view {
         WHEN ${ad_name} ilike '%BeingTogether' then 'Being Together'
         WHEN ${ad_name} ilike '%Patience' then 'Patience'
 
+        WHEN ${ad_name} ilike '%Terroir1' then 'Terroir v1 Single Image'
+        WHEN ${ad_name} ilike '%Terroir2' then 'Terroir v2 Single Image'
+        WHEN ${ad_name} ilike '%Local1' then 'Local v1 Single Image'
+        WHEN ${ad_name} ilike '%Local2' then 'Local v2 Single Image'
+        WHEN ${ad_name} ilike '%Local3' then 'Local v3 Single Image'
+        WHEN ${ad_name} ilike '%StoreTraffic_Carousel' then 'Local Carousel'
 
+        when ${ad_name} = 'FY20_Objective3_VideoRTG_SingleImage' then 'Dynamic Creative Single Image'
+        when ${ad_name} = 'FY20_Objective3_RTGWebVisitors_SingleImage' then 'Dynamic Creative Single Image'
 
-        ELSE ${ad_name}
+        when ${ad_name} = 'FY20_VNV_Objective3_Conversion_VideoRTG_DynamicCreative' then 'Dynamic Creative Single Image'
+        when ${ad_name} = 'FY20_VNV_Objective3_Conversion_RTGWebVisitors_DynamicCreative' then 'Dynamic Creative Single Image'
+
+        when ${ad_name} = 'FY20_Objective3_RTGWebVisitors_Legendary' then 'Legendary Carousel'
+
+        when ${ad_name} = 'Objective3_Awareness_DynamicVideo' then 'Dynamic Video (:15)'
+        when ${ad_name} = 'FY20_VNV_Objective3_Awareness' then 'Dynamic Video (:15)'
+
+        ELSE 'Uncategorized'
         END;;
   }
 
