@@ -14,6 +14,12 @@ view: pdt_foundational_sem {
       column: total_cost { field: vnv_sem_ga_view.total_cost }
       column: total_sessions { field: vnv_sem_ga_view.total_sessions }
       column: total_session_duration { field: vnv_sem_ga_view.total_session_duration }
+      column: total_concierge_form_submission {field: vnv_sem_ga_view.total_concierge_form_submission}
+      column: total_enewsletter_sign_up {field: vnv_sem_ga_view.total_enewsletter_sign_up}
+      column: total_partner_referral {field: vnv_sem_ga_view.total_partner_referral}
+      column: total_view_guide_online {field: vnv_sem_ga_view.total_view_guide_online}
+      column: total_guide_hard_copy_sign_up {field: vnv_sem_ga_view.total_guide_hard_copy_sign_up}
+      column: total_tos_above_45s {field: vnv_sem_ga_view.total_tos_above_45s}
       filters: {
         field: vnv_sem_ga_view.vnv_campaign
         value: "Foundational"

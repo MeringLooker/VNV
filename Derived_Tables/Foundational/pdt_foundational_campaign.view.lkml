@@ -116,6 +116,42 @@ view: pdt_foundational_campaign {
     sql: ${TABLE}.total_session_duration ;;
   }
 
+  dimension: concierge_form_submission {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.total_concierge_form_submission ;;
+  }
+
+  dimension: enewsletter_sign_upn {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.total_enewsletter_sign_up ;;
+  }
+
+  dimension: partner_referral {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.total_partner_referral ;;
+  }
+
+  dimension: view_guide_online {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.total_view_guide_online ;;
+  }
+
+  dimension: guide_hard_copy_sign_up {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.total_guide_hard_copy_sign_up ;;
+  }
+
+  dimension: tos_above_45s {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.total_tos_above_45s ;;
+  }
+
 ### All measures go below ###
 
   measure: total_impressions {
@@ -191,6 +227,42 @@ view: pdt_foundational_campaign {
     type: number
     sql: (${total_session_duration}/nullif(${total_sessions}, 0))::float/86400 ;;
     value_format: "m:ss"
+  }
+
+  dimension: total_concierge_form_submission {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.total_concierge_form_submission ;;
+  }
+
+  dimension: total_enewsletter_sign_upn {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.total_enewsletter_sign_up ;;
+  }
+
+  dimension: total_partner_referral {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.total_partner_referral ;;
+  }
+
+  dimension: total_view_guide_online {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.total_view_guide_online ;;
+  }
+
+  dimension: total_guide_hard_copy_sign_up {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.total_guide_hard_copy_sign_up ;;
+  }
+
+  dimension: total_tos_above_45s {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.total_tos_above_45s ;;
   }
 
   measure: count {
