@@ -15,7 +15,7 @@ view: pdt_local_campaign {
     type: string
     hidden: yes
     primary_key: yes
-    sql: ${campaign}||'_'||${publisher}||'_'||${placement}||'_'||${date};;
+    sql: ${campaign}||'_'||${publisher}||'_'||${placement}||'_'||${creative_name}||'_'||${date};;
   }
 
   #### All dimensions go below ####
@@ -37,6 +37,12 @@ view: pdt_local_campaign {
     type: string
     drill_fields: [date,week,month]
     sql: ${TABLE}.placement ;;
+  }
+
+  dimension: creative_name {
+    type: string
+    drill_fields: [date,week,month]
+    sql: ${TABLE}.creative_name ;;
   }
 
   dimension: fiscal_year {
@@ -95,6 +101,12 @@ view: pdt_local_campaign {
     sql: ${TABLE}.total_views ;;
   }
 
+  dimension: completes {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.total_completes ;;
+  }
+
   dimension: cost {
     type: number
     hidden: yes
@@ -142,11 +154,18 @@ view: pdt_local_campaign {
     sql: ${views} ;;
   }
 
-  measure: total_cost {
+  measure: total_completes {
     type: sum_distinct
     sql_distinct_key: ${primary_key} ;;
+    sql: ${completes} ;;
+  }
+
+  measure: total_cost {
+    type: sum_distinct
+    label: "Gross Cost"
+    sql_distinct_key: ${primary_key} ;;
     value_format_name: usd
-    sql: ${cost} ;;
+    sql: ${cost}*1.16747 ;;
   }
 
   measure: cost_per_thousand {

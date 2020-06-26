@@ -200,7 +200,7 @@ view: pdt_foundational_campaign {
     label: "Gross Cost"
     sql_distinct_key: ${primary_key} ;;
     value_format_name: usd
-    sql: ${cost} ;;
+    sql: ${cost}*1.16747 ;;
   }
 
   measure: video_cost {

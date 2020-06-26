@@ -47,7 +47,8 @@ view: vnv_dcm_ga_view {
         when ${creative} ILIKE '%theweekend%' then 'The Weekend'
         when ${creative} ILIKE '%thenextsip%' then 'The Next Sip'
         when ${creative} ILIKE '%stunningharmony%' then 'Stunning Harmony'
-        when ${ad} ILIKE '%group_collaboration%' then 'Group Collaboration'
+        when ${ad} ILIKE '%group_collaboration_728x90%' then 'Collaboration & Creativity (728x90)'
+        when ${ad} ILIKE '%group_collaboration_300x250%' then 'Collaboration & Creativity (300x250)'
         when ${creative} ILIKE '%cabcab%' then 'Cab Cab'
         when ${creative} ILIKE '%group%' then 'Group'
         when ${creative} = 'VNV_Refresh_728x90_v2' then 'Refresh v2'
@@ -75,8 +76,13 @@ view: vnv_dcm_ga_view {
         when ${creative} = 'Tracking Ad-TripAvisor_OBJ2_Awareness_TA''s Audience_US_Advertorial Hub_HeaderMapCopy' then 'Hub: Map Header'
         when ${creative} = 'Tracking Ad-TripAvisor_OBJ2_Awareness_TA''s Audience_US_Advertorial Hub_FooterBookNow' then 'Hub: Book Noow'
 
-        when ${creative} ILIKE '%seeforyourself%' then 'See For Yourself'
-        when ${creative} ILIKE '%welcomecenter%' then 'Welcome Center'
+        when ${ad} ILIKE '%seeforyourself_320x50%' then 'See For Yourself (320x50)'
+        when ${ad} ILIKE '%welcomecenter_728x90%' then 'Not Sure Where To Start? (728x90)'
+        when ${ad} ILIKE '%welcomecenter_320x50%' then 'Legendary Napa Valley (320x50)'
+        when ${ad} ILIKE '%welcomecenter_300x600%' then 'Experience Napa Like A Local (300x600)'
+        when ${ad} ILIKE '%welcomecenter_300x250%' then 'The Perfect Stay (300x250)'
+        when ${ad} ILIKE '%Tracking Ad-Viant_:30 Pre-Roll Video%' then 'Group Video (:30)'
+
         ELSE ${creative}
         END;;
   }
