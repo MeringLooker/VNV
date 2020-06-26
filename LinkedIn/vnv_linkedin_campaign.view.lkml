@@ -63,6 +63,13 @@ view: vnv_linkedin_campaign {
         ;;
   }
 
+  dimension: creative_name {
+    label: "Creative Name"
+    group_label: "Client Dimensions"
+    type: string
+    sql: 'Uncategorized' ;;
+  }
+
 
 
 ####### All dimensions go below ########
@@ -567,11 +574,13 @@ view: vnv_linkedin_campaign {
 
   dimension: sessions {
     type: number
+    hidden: yes
     sql: 0 ;;
   }
 
   dimension: session_duration {
     type: number
+    hidden: yes
     sql: 0 ;;
   }
 
@@ -625,7 +634,20 @@ view: vnv_linkedin_campaign {
     sql: ${videoviews} ;;
   }
 
+  measure: total_completes {
+    type: sum
+    hidden: yes
+    label: "Video Views"
+    sql: ${videocompletions} ;;
+  }
+
   measure: total_sessions {
+    type: sum
+    hidden: yes
+    sql: ${sessions} ;;
+  }
+
+  measure: total_partner_referral {
     type: sum
     hidden: yes
     sql: ${sessions} ;;

@@ -38,7 +38,7 @@ view: vnv_fy20_engage_tripadvisor_social {
 
   dimension: creative_name {
     type: string
-    sql: 'Uncategorized' ;;
+    sql: 'TripAdvisor Social Post' ;;
   }
 
 ### Dimensions Native to This Table ###

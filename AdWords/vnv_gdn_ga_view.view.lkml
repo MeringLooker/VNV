@@ -103,7 +103,7 @@ view: vnv_gdn_ga_view {
     hidden: yes
     type:  string
     group_label: "AdWords Dimensions"
-    sql: 'N/A' ;;
+    sql: 'Uncategorized' ;;
   }
 
   ###### All Dimensions go Below #######

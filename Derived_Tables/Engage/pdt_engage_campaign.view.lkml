@@ -4,6 +4,8 @@ view: pdt_engage_campaign {
       select * from ${pdt_engage_adara.SQL_TABLE_NAME}
       union
       select * from ${pdt_engage_tripadvisor.SQL_TABLE_NAME}
+      union
+      select * from ${pdt_engage_ta_social.SQL_TABLE_NAME}
       ;;
     sql_trigger_value: SELECT FLOOR((EXTRACT(epoch from GETDATE()) - 60*60*1)/(60*60*24)) ;;
     distribution_style: all
@@ -148,9 +150,10 @@ view: pdt_engage_campaign {
 
   measure: total_cost {
     type: sum_distinct
+    label: "Gross Cost"
     sql_distinct_key: ${primary_key} ;;
     value_format_name: usd
-    sql: ${cost} ;;
+    sql: ${cost}*1.16747 ;;
   }
 
   measure: cost_per_thousand {

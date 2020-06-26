@@ -44,37 +44,40 @@ view: vnv_dcm_ga_view {
     group_label: "Client Dimensions"
     sql:
       CASE
-        when ${creative} ILIKE '%theweekend%' then 'The Weekend'
-        when ${creative} ILIKE '%thenextsip%' then 'The Next Sip'
-        when ${creative} ILIKE '%stunningharmony%' then 'Stunning Harmony'
+        when ${creative} ILIKE '%theweekend%' then 'The Weekend (:15)'
+        when ${creative} ILIKE '%thenextsip%' then 'The Next Sip (:15)'
+        when ${creative} ILIKE '%stunningharmony%' then 'Stunning Harmony (:15)'
         when ${ad} ILIKE '%group_collaboration_728x90%' then 'Collaboration & Creativity (728x90)'
         when ${ad} ILIKE '%group_collaboration_300x250%' then 'Collaboration & Creativity (300x250)'
-        when ${creative} ILIKE '%cabcab%' then 'Cab Cab'
-        when ${creative} ILIKE '%group%' then 'Group'
-        when ${creative} = 'VNV_Refresh_728x90_v2' then 'Refresh v2'
-        when ${creative} = 'VNV_Refresh_300x250_v2' then 'Refresh v2'
-        when ${creative} = 'VNV_Refresh_300x600_v2' then 'Refresh v2'
-        when ${creative} = 'VNV_Refresh_160x600_v2' then 'Refresh v2'
 
-        when ${creative} = 'VNV_Refresh_728x90' then 'Refresh'
-        when ${creative} = 'VNV_Refresh_300x250' then 'Refresh'
-        when ${creative} = 'VNV_Refresh_728x90_Static' then 'Refresh'
-        when ${creative} = 'VNV_Refresh_300x250_Static' then 'Refresh'
-        when ${creative} = 'VNV_Refresh_300x600' then 'Refresh'
-        when ${creative} = 'VNV_Refresh_160x600' then 'Refresh'
+        when ${creative} = 'VNV_Refresh_728x90_v2' then 'Refresh_728x90'
+        when ${creative} = 'VNV_Refresh_300x250_v2' then 'Refresh_300x250'
+        when ${creative} = 'VNV_Refresh_300x600_v2' then 'Refresh_300x600'
+        when ${creative} = 'VNV_Refresh_160x600_v2' then 'Refresh_160x600'
+
+        when ${creative} = 'VNV_Refresh_728x90' then 'Refresh_728x90'
+        when ${creative} = 'VNV_Refresh_300x250' then 'Refresh_300x250'
+        when ${creative} = 'VNV_Refresh_728x90_Static' then 'Refresh_728x90'
+        when ${creative} = 'VNV_Refresh_300x250_Static' then 'Refresh_300x250'
+        when ${creative} = 'VNV_Refresh_300x600' then 'Refresh_300x600'
+        when ${creative} = 'VNV_Refresh_160x600' then 'Refresh_160x600'
 
         when ${ad} = 'Tracking Ad-WSJDN_Obj #3_Global Network__Plus Video :06/:15_CA, NY_1x1_TheWeekend' then 'The Weekend (:15)'
         when ${ad} = 'Tracking Ad-WSJDN_Obj #3_Global Network__Plus Video :06/:15_CA, NY_1x1_TheNextSip' then 'The Next Sip (:15)'
         when ${ad} = 'Tracking Ad-WSJDN_Obj #3_Global Network__Plus Video :06/:15_CA, NY_1x1_StunningHarmony' then 'Stunning Harmony (:15)'
 
-        when ${creative} = 'Tracking Ad-TripAvisor_OBJ2_Awareness_TA''s Audience_US_Advertorial Hub_Shelf 6: More Exper' then 'Hub Shelf: More Experiences'
-        when ${creative} = 'Tracking Ad-TripAvisor_OBJ2_Awareness_TA''s Audience_US_Advertorial Hub_Shelf 5: Am Canyon' then 'Hub Shelf: American Canyon'
-        when ${creative} = 'Tracking Ad-TripAvisor_OBJ2_Awareness_TA''s Audience_US_Advertorial Hub_Shelf 4: Calistoga' then 'Hub Shelf: Calistoga'
-        when ${creative} = 'Tracking Ad-TripAvisor_OBJ2_Awareness_TA''s Audience_US_Advertorial Hub_Shelf 3: Saint Helena' then 'Hub Shelf: Saint Helena'
-        when ${creative} = 'Tracking Ad-TripAvisor_OBJ2_Awareness_TA''s Audience_US_Advertorial Hub_Shelf 2: Yountville' then 'Hub Shelf: Yountville'
-        when ${creative} = 'Tracking Ad-TripAvisor_OBJ2_Awareness_TA''s Audience_US_Advertorial Hub_Shelf 1: Napa' then 'Hub Shelf: Napa'
-        when ${creative} = 'Tracking Ad-TripAvisor_OBJ2_Awareness_TA''s Audience_US_Advertorial Hub_HeaderMapCopy' then 'Hub: Map Header'
-        when ${creative} = 'Tracking Ad-TripAvisor_OBJ2_Awareness_TA''s Audience_US_Advertorial Hub_FooterBookNow' then 'Hub: Book Noow'
+        when ${placement} ilike '%Advertorial Hub_Shelf 6: More Exper%' then 'Hub Shelf: More Experiences'
+        when ${placement} ilike '%Advertorial Hub_Shelf 5%' then 'Hub Shelf: American Canyon'
+        when ${placement} ilike '%Advertorial Hub_Shelf 4%' then 'Hub Shelf: Calistoga'
+        when ${placement} ilike '%Advertorial Hub_Shelf 3%' then 'Hub Shelf: Saint Helena'
+        when ${placement} ilike '%Advertorial Hub_Shelf 2%' then 'Hub Shelf: Yountville'
+        when ${placement} ilike '%Advertorial Hub_Shelf 1%' then 'Hub Shelf: Napa'
+        when ${placement} ilike '%Advertorial Hub_HeaderMapCopy%' then 'Hub: Map Header'
+        when ${placement} ilike '%Advertorial Hub_FooterBookNow%' then 'Hub: Book Now'
+
+        when ${placement} ilike 'TripAdvisor_OBJ2_Consideration_TAAudience_US_Advertorial1x1' then 'Advertorial Hub'
+        when ${placement} ilike 'TripAdvisor_OBJ2_Awareness_TA''s Audience_US_Advertorial Hub Traffic Drivers 1x1' then 'Uncategorized - Hub Drivers'
+        when ${placement} ilike 'TripAdvisor_OBJ2_Awareness_VNVInterestSegments_US_Native1x1' then 'Uncategorized - Native Ads'
 
         when ${ad} ILIKE '%seeforyourself_320x50%' then 'See For Yourself (320x50)'
         when ${ad} ILIKE '%welcomecenter_728x90%' then 'Not Sure Where To Start? (728x90)'
@@ -82,6 +85,9 @@ view: vnv_dcm_ga_view {
         when ${ad} ILIKE '%welcomecenter_300x600%' then 'Experience Napa Like A Local (300x600)'
         when ${ad} ILIKE '%welcomecenter_300x250%' then 'The Perfect Stay (300x250)'
         when ${ad} ILIKE '%Tracking Ad-Viant_:30 Pre-Roll Video%' then 'Group Video (:30)'
+
+        when ${creative} ILIKE '%cabcab%' then 'Cab Cab'
+        when ${creative} ILIKE '%group%' then 'Group'
 
         ELSE ${creative}
         END;;
@@ -107,6 +113,11 @@ view: vnv_dcm_ga_view {
         when ${placement} ilike '%\\_300x50' then '300x50'
         when ${placement} ilike '%\\_970x90' then '970x90'
         when ${placement} ilike '%\\_1320x742' then '1320x742'
+        when ${placement} ilike 'TripAdvisor_OBJ2_Awareness_VNVInterestSegments_US_Native1x1' then 'Native Ads'
+        when ${placement} ilike 'TripAdvisor_OBJ2_Awareness_TA''s Audience_US_Advertorial Hub Traffic Drivers 1x1' then 'Uncategorized - Hub Drivers'
+        when ${placement} ilike '%Advertorial Hub_Shelf%' then 'Advertorial Hub Shelf'
+        when ${placement} ilike '%Advertorial1x1' then 'Advertorial Hub'
+
 
       ELSE 'Uncategorized'
       END;;

@@ -41,7 +41,7 @@ view: vnv_sem_ga_view {
     hidden: yes
     label: "Creative Name"
     group_label: "Client Dimensions"
-    sql: 'Uncategorized' ;;
+    sql: 'Text Ad' ;;
   }
 
   dimension: publisher {
