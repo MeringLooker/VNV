@@ -1,21 +1,13 @@
-view: vnv_pinterest {
+view: vnv_pinterest_ga_view {
+  sql_table_name: public.vnv_pinterest_ga_view ;;
 
+  ### Primary Key ###
 
- #### Primary Key ####
-
-  dimension: id {
-    primary_key: yes
+  dimension: ga_join_id {
+    type: string
     hidden: yes
-    type: string
-    sql: ${TABLE}.id ;;
-  }
-
-### GA Join Key ###
-
-  dimension: pinterest_ga_join {
-    hidden: no
-    type: string
-    sql: ${promoted_pin_id}||'_'||${date_date} ;;
+    primary_key: yes
+    sql: ${TABLE}.ga_join_id ;;
   }
 
 #### Dimensions Added to this table via LookML ####
@@ -78,43 +70,8 @@ view: vnv_pinterest {
         END;;
   }
 
-#### Dimensions Native to this table via LookML ####
 
-  dimension_group: __senttime {
-    type: time
-    hidden: yes
-    timeframes: [
-      raw,
-      time,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    sql: ${TABLE}.__senttime ;;
-  }
-
-  dimension: __state {
-    type: string
-    hidden: yes
-    sql: ${TABLE}.__state ;;
-  }
-
-  dimension_group: __updatetime {
-    type: time
-    hidden: yes
-    timeframes: [
-      raw,
-      time,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    sql: ${TABLE}.__updatetime ;;
-  }
+  ### Dimensions Native to Table go Below ###
 
   dimension: ad_group_id {
     type: string
@@ -126,6 +83,12 @@ view: vnv_pinterest {
     type: string
     group_label: "Pinterest Dimensions"
     sql: ${TABLE}.ad_group_name ;;
+  }
+
+  dimension: bounces {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.bounces ;;
   }
 
   dimension: campaign_id {
@@ -144,6 +107,30 @@ view: vnv_pinterest {
     type: string
     group_label: "Pinterest Dimensions"
     sql: ${TABLE}.campaign_objective ;;
+  }
+
+  dimension: clicks {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.clicks ;;
+  }
+
+  dimension: concierge_form_submissions {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.concierge_form_submissions ;;
+  }
+
+  dimension: conversions {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.conversions ;;
+  }
+
+  dimension: cost {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.cost ;;
   }
 
   dimension_group: date {
@@ -192,6 +179,36 @@ view: vnv_pinterest {
     sql: ${TABLE}.earned_views_at_100 ;;
   }
 
+  dimension: enewsletter_sign_up {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.enewsletter_sign_up ;;
+  }
+
+  dimension: guide_hard_copy_sign_up {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.guide_hard_copy_sign_up ;;
+  }
+
+  dimension: impressions {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.impressions ;;
+  }
+
+  dimension: newusers {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.newusers ;;
+  }
+
+  dimension: pageviews {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.pageviews ;;
+  }
+
   dimension: paid_clicks {
     type: number
     hidden: yes
@@ -222,6 +239,12 @@ view: vnv_pinterest {
     sql: ${TABLE}.paid_views_at_100 ;;
   }
 
+  dimension: partner_referral {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.partner_referral ;;
+  }
+
   dimension: pin_description {
     type: string
     group_label: "Pinterest Dimensions"
@@ -246,99 +269,105 @@ view: vnv_pinterest {
     sql: ${TABLE}.promoted_pin_name ;;
   }
 
-  dimension: spend {
-    type: number
-    hidden: yes
-    sql: ${TABLE}.spend ;;
-  }
-
-  dimension: clicks {
-    type: number
-    hidden: yes
-    sql: ${TABLE}.total_clicks ;;
-  }
-
-  dimension: conversions {
-    type: number
-    hidden: yes
-    sql: ${TABLE}.total_conversions ;;
-  }
-
-  dimension: impressions {
-    type: number
-    hidden: yes
-    sql: ${TABLE}.total_impressions ;;
-  }
-
   dimension: saves {
     type: number
     hidden: yes
-    sql: ${TABLE}.total_saves ;;
+    sql: ${TABLE}.saves ;;
+  }
+
+  dimension: sessionduration {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.sessionduration ;;
+  }
+
+  dimension: sessions {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.sessions ;;
+  }
+
+  dimension: tos_above_45s {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.tos_above_45s ;;
+  }
+
+  dimension: users {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.users ;;
   }
 
   dimension: video_starts {
     type: number
     hidden: yes
-    sql: ${TABLE}.total_video_starts ;;
+    sql: ${TABLE}.video_starts ;;
   }
 
   dimension: video_views {
     type: number
     hidden: yes
-    sql: ${TABLE}.total_video_views ;;
+    sql: ${TABLE}.video_views ;;
+  }
+
+  dimension: view_guide_online {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.view_guide_online ;;
   }
 
   dimension: views_at_100 {
     type: number
     hidden: yes
-    sql: ${TABLE}.total_views_at_100 ;;
+    sql: ${TABLE}.views_at_100 ;;
   }
 
   dimension: views_at_25 {
     type: number
     hidden: yes
-    sql: ${TABLE}.total_views_at_25 ;;
+    sql: ${TABLE}.views_at_25 ;;
   }
 
   dimension: views_at_50 {
     type: number
     hidden: yes
-    sql: ${TABLE}.total_views_at_50 ;;
+    sql: ${TABLE}.views_at_50 ;;
   }
 
   dimension: views_at_75 {
     type: number
     hidden: yes
-    sql: ${TABLE}.total_views_at_75 ;;
+    sql: ${TABLE}.views_at_75 ;;
   }
 
   dimension: views_at_95 {
     type: number
     hidden: yes
-    sql: ${TABLE}.total_views_at_95 ;;
+    sql: ${TABLE}.views_at_95 ;;
   }
 
-  #### All Measures go Below ###
+#### All Measures go Below ###
 
   measure: total_spend {
     type: sum_distinct
     group_label: "Total Delivery"
-    sql_distinct_key: ${id} ;;
-    sql: ${spend} ;;
+    sql_distinct_key: ${ga_join_id} ;;
+    sql: ${cost} ;;
     value_format_name: usd
   }
 
   measure: total_impressions {
     type: sum_distinct
     group_label: "Total Delivery"
-    sql_distinct_key: ${id} ;;
+    sql_distinct_key: ${ga_join_id} ;;
     sql: ${impressions} ;;
   }
 
   measure: total_clicks {
     type: sum_distinct
     group_label: "Total Delivery"
-    sql_distinct_key: ${id} ;;
+    sql_distinct_key: ${ga_join_id} ;;
     sql: ${clicks} ;;
   }
 
@@ -369,28 +398,28 @@ view: vnv_pinterest {
   measure: total_conversions {
     type: sum_distinct
     group_label: "Total Delivery"
-    sql_distinct_key: ${id} ;;
+    sql_distinct_key: ${ga_join_id} ;;
     sql: ${conversions} ;;
   }
 
   measure: total_saves {
     group_label: "Total Delivery"
     type: sum_distinct
-    sql_distinct_key: ${id} ;;
+    sql_distinct_key: ${ga_join_id} ;;
     sql: ${saves} ;;
   }
 
   measure: total_video_starts {
     type: sum_distinct
     group_label: "Total Video Metrics"
-    sql_distinct_key: ${id} ;;
+    sql_distinct_key: ${ga_join_id} ;;
     sql: ${video_starts} ;;
   }
 
   measure: total_video_views {
     type: sum_distinct
     group_label: "Total Video Metrics"
-    sql_distinct_key: ${id} ;;
+    sql_distinct_key: ${ga_join_id} ;;
     sql: ${video_views} ;;
   }
 
@@ -413,35 +442,35 @@ view: vnv_pinterest {
   measure: total_views_at_100 {
     type: sum_distinct
     group_label: "Total Video Metrics"
-    sql_distinct_key: ${id} ;;
+    sql_distinct_key: ${ga_join_id} ;;
     sql: ${views_at_100} ;;
   }
 
   measure: total_views_at_25 {
     type: sum_distinct
     group_label: "Total Video Metrics"
-    sql_distinct_key: ${id} ;;
+    sql_distinct_key: ${ga_join_id} ;;
     sql: ${views_at_25} ;;
   }
 
   measure: total_views_at_50 {
     type: sum_distinct
     group_label: "Total Video Metrics"
-    sql_distinct_key: ${id} ;;
+    sql_distinct_key: ${ga_join_id} ;;
     sql: ${views_at_50} ;;
   }
 
   measure: total_views_at_75 {
     type: sum_distinct
     group_label: "Total Video Metrics"
-    sql_distinct_key: ${id} ;;
+    sql_distinct_key: ${ga_join_id} ;;
     sql: ${views_at_75} ;;
   }
 
   measure: total_views_at_95 {
     type: sum_distinct
     group_label: "Total Video Metrics"
-    sql_distinct_key: ${id} ;;
+    sql_distinct_key: ${ga_join_id} ;;
     sql: ${views_at_95} ;;
   }
 
@@ -450,14 +479,14 @@ view: vnv_pinterest {
   measure: total_paid_impressions {
     type: sum_distinct
     group_label: "Paid Metrics"
-    sql_distinct_key: ${id} ;;
+    sql_distinct_key: ${ga_join_id} ;;
     sql: ${paid_impressions} ;;
   }
 
   measure: total_paid_clicks {
     type: sum_distinct
     group_label: "Paid Metrics"
-    sql_distinct_key: ${id} ;;
+    sql_distinct_key: ${ga_join_id} ;;
     sql: ${paid_clicks} ;;
   }
 
@@ -472,21 +501,21 @@ view: vnv_pinterest {
   measure: total_paid_saves {
     type: sum_distinct
     group_label: "Paid Metrics"
-    sql_distinct_key: ${id} ;;
+    sql_distinct_key: ${ga_join_id} ;;
     sql: ${paid_saves} ;;
   }
 
   measure: total_paid_views_at_100 {
     type: sum_distinct
     group_label: "Paid Metrics"
-    sql_distinct_key: ${id} ;;
+    sql_distinct_key: ${ga_join_id} ;;
     sql: ${paid_views_at_100} ;;
   }
 
   measure: total_paid_video_views {
     type: sum_distinct
     group_label: "Paid Metrics"
-    sql_distinct_key: ${id} ;;
+    sql_distinct_key: ${ga_join_id} ;;
     sql: ${paid_video_views} ;;
   }
 
@@ -526,14 +555,14 @@ view: vnv_pinterest {
   measure: total_earned_impressions {
     type: sum_distinct
     group_label: "Earned Metrics"
-    sql_distinct_key: ${id} ;;
+    sql_distinct_key: ${ga_join_id} ;;
     sql: ${earned_impressions} ;;
   }
 
   measure: total_earned_clicks {
     type: sum_distinct
     group_label: "Earned Metrics"
-    sql_distinct_key: ${id} ;;
+    sql_distinct_key: ${ga_join_id} ;;
     sql: ${earned_clicks} ;;
   }
 
@@ -548,21 +577,21 @@ view: vnv_pinterest {
   measure: total_earned_saves {
     type: sum_distinct
     group_label: "Earned Metrics"
-    sql_distinct_key: ${id} ;;
+    sql_distinct_key: ${ga_join_id} ;;
     sql: ${earned_saves} ;;
   }
 
   measure: total_earned_views_at_100 {
     type: sum_distinct
     group_label: "Earned Metrics"
-    sql_distinct_key: ${id} ;;
+    sql_distinct_key: ${ga_join_id} ;;
     sql: ${earned_views_at_100} ;;
   }
 
   measure: total_earned_video_views {
     type: sum_distinct
     group_label: "Earned Metrics"
-    sql_distinct_key: ${id} ;;
+    sql_distinct_key: ${ga_join_id} ;;
     sql: ${earned_video_views} ;;
   }
 
@@ -581,84 +610,114 @@ view: vnv_pinterest {
     value_format_name: percent_2
   }
 
-  #### Joined GA Measures ####
+### Google Analytics Metrics ####
 
-  measure: ga_sessions {
+  measure: total_sessions {
     group_label: "GA Reporting"
     type: sum_distinct
     label: "Sessions"
-    sql_distinct_key: ${vnv_ga_onsite.id};;
-    sql: ${vnv_ga_onsite.sessions} ;;
+    sql_distinct_key: ${ga_join_id} ;;
+    sql: ${sessions} ;;
   }
 
   measure: cost_per_session {
     group_label: "GA Reporting"
     type: number
     label: "CPS"
-    sql: ${total_spend}/nullif(${ga_sessions}, 0) ;;
+    sql: ${total_spend}/nullif(${total_sessions}, 0) ;;
     value_format_name: usd
   }
 
-  measure: ga_total_session_duration {
+  measure: total_session_duration {
     hidden: yes
-    group_label: "GA Reporting"
     type: sum_distinct
-    sql_distinct_key: ${vnv_ga_onsite.id};;
     label: "Total Session Duration"
-    sql: ${vnv_ga_onsite.sessionduration} ;;
+    sql_distinct_key: ${ga_join_id};;
+    sql: ${sessionduration};;
   }
 
-  measure: ga_avg_session_duration {
-    type: number
-    label: "Avg. TOS"
+  measure: avg_time_on_site {
     group_label: "GA Reporting"
-    sql: (${ga_total_session_duration}/nullif(${ga_sessions}, 0))::float/86400 ;;
+    label: "Avg. TOS"
+    type: number
+    sql:  (${total_session_duration}/nullif(${total_sessions}, 0))::float/86400  ;;
     value_format: "m:ss"
   }
 
-  measure: ga_total_users {
+  measure: total_pageviews {
     group_label: "GA Reporting"
-    label: "Users"
     type: sum_distinct
-    sql_distinct_key: ${vnv_ga_onsite.id};;
-    sql: ${vnv_ga_onsite.users} ;;
-  }
-
-  measure: ga_new_users {
-    group_label: "GA Reporting"
-    label: "New Users"
-    type: sum_distinct
-    sql_distinct_key: ${vnv_ga_onsite.id};;
-    sql: ${vnv_ga_onsite.newusers} ;;
-  }
-
-  measure: percent_new_users {
-    group_label: "GA Reporting"
-    label: "% New Users"
-    type: number
-    sql: ${ga_new_users}/nullif(${ga_total_users}, 0) ;;
-    value_format_name: percent_0
-  }
-
-  measure: ga_total_pageviews {
-    group_label: "GA Reporting"
     label: "Pageviews"
-    type: sum_distinct
-    sql_distinct_key: ${vnv_ga_onsite.id};;
-    sql: ${vnv_ga_onsite.pageviews} ;;
+    sql_distinct_key: ${ga_join_id} ;;
+    sql: ${pageviews} ;;
   }
 
   measure: pages_per_session {
     group_label: "GA Reporting"
-    label: "Pgs/Session"
     type: number
-    sql: ${ga_total_pageviews}/nullif(${ga_sessions}, 0) ;;
-    value_format: "#.0"
+    label: "Pages/Session"
+    sql: ${total_pageviews}/nullif(${total_sessions}, 0) ;;
+    value_format_name: decimal_2
   }
 
-  measure: count {
-    hidden: yes
-    type: count
-    drill_fields: [id, campaign_name, ad_group_name, promoted_pin_name]
+  measure: total_bounces {
+    group_label: "GA Reporting"
+    type: sum_distinct
+    label: "Bounces"
+    sql_distinct_key: ${ga_join_id} ;;
+    sql: ${bounces} ;;
   }
- }
+
+  measure: total_bounce_rate  {
+    label: "Bounce Rate"
+    group_label: "GA Reporting"
+    type: number
+    sql: ${total_bounces}/nullif(${total_sessions}, 0) ;;
+    value_format_name: percent_2
+  }
+
+  ### Google Analytics Goals ####
+
+  measure: total_concierge_form_submission {
+    group_label: "GA Reporting Goals"
+    label: "Concierge Form Submission"
+    type: sum
+    sql: ${concierge_form_submissions} ;;
+  }
+
+  measure: total_enewsletter_sign_up {
+    group_label: "GA Reporting Goals"
+    label: "E-Newsletter Sign Up"
+    type: sum
+    sql: ${enewsletter_sign_up} ;;
+  }
+
+  measure: total_partner_referral {
+    group_label: "GA Reporting Goals"
+    label: "Partner Referrals"
+    type: sum
+    sql: ${partner_referral} ;;
+  }
+
+  measure: total_view_guide_online {
+    group_label: "GA Reporting Goals"
+    label: "View Guide Online"
+    type: sum
+    sql: ${view_guide_online} ;;
+  }
+
+  measure: total_guide_hard_copy_sign_up {
+    group_label: "GA Reporting Goals"
+    label: "Guide Hard Copy Side Up"
+    type: sum
+    sql: ${guide_hard_copy_sign_up} ;;
+  }
+
+  measure: total_tos_above_45s {
+    group_label: "GA Reporting Goals"
+    label: "TOS Above 45s"
+    type: sum
+    sql: ${tos_above_45s} ;;
+  }
+
+}

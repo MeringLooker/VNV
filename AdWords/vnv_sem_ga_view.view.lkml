@@ -1,12 +1,10 @@
-view: vnv_gdn_view {
-  sql_table_name: public.vnv_gdn_ga_view ;;
+view: vnv_sem_ga_view {
+  sql_table_name: public.vnv_sem_ga_view ;;
 
-
-###### Primary Key #######
+ ###### Primary Key #######
 
   dimension: comp_key {
     type: string
-    primary_key: yes
     hidden: yes
     sql: ${TABLE}.comp_key ;;
   }
@@ -35,16 +33,23 @@ view: vnv_gdn_view {
     type: string
     label: "Channel"
     group_label: "AdWords Dimensions"
-    sql: 'Display' ;;
+    sql: 'Search' ;;
+  }
+
+  dimension: creative_name {
+    type: string
+    hidden: yes
+    label: "Creative Name"
+    group_label: "Client Dimensions"
+    sql: 'Uncategorized' ;;
   }
 
   dimension: publisher {
     type: string
     label: "Publisher"
     group_label: "AdWords Dimensions"
-    sql: 'Google Display' ;;
+    sql: 'Google Search' ;;
   }
-
 
   dimension: vnv_market {
     type: string
@@ -59,8 +64,8 @@ view: vnv_gdn_view {
     group_label: "Client Dimensions"
     sql:
       CASE
-        WHEN ${account} = 'VNV Foundational GDN' THEN 'Foundational'
-        WHEN ${account} = 'VNV Objective 3 GDN' THEN 'Impact'
+        WHEN ${account} = 'VNV Foundational SEM' THEN 'Foundational'
+        WHEN ${account} = 'VNV Group SEM' THEN 'Group'
         ELSE 'Uncategorized'
         END;;
   }
@@ -70,12 +75,25 @@ view: vnv_gdn_view {
     label: "Campaign Placement"
     group_label: "Client Dimensions"
     sql:
-      CASE
-        WHEN ${campaign_id} = '6555441529' THEN 'Responsive Display'
-        WHEN ${campaign_id} = '6555664518' THEN 'Static Display'
-        WHEN ${campaign_id} = '6450595900' THEN 'Static Display'
+      case
+        WHEN ${campaign} ILIKE '%wine%' THEN 'Wine'
+        WHEN ${campaign} ILIKE '%brand%' THEN 'Brand'
+        WHEN ${campaign} ILIKE '%wellness%' THEN 'Wellness'
+        WHEN ${campaign} ILIKE '%travel%' THEN 'Travel'
+        WHEN ${campaign} ILIKE '%stay%' THEN 'Stay'
+        WHEN ${campaign} ILIKE '%family%' THEN 'Family'
+        WHEN ${campaign} ILIKE '%events%' THEN 'Events'
+        WHEN ${campaign} ILIKE '%dining%' THEN 'Dining'
+        WHEN ${campaign} ILIKE '%attractions%' THEN 'Attractions'
+        WHEN ${campaign} ILIKE '%art%' THEN 'Art'
 
-        ELSE 'Uncategorized'
+        WHEN ${ad_group} ILIKE 'Wedding Venues%' THEN 'Wedding Venues'
+        WHEN ${ad_group} ILIKE 'Wedding Event%' THEN 'Wedding Event'
+        WHEN ${ad_group} ILIKE 'Venues%' THEN 'Venues'
+        WHEN ${ad_group} ILIKE 'Corporate Event%' THEN 'Corporate Event'
+
+
+        else 'Uncategorized'
         END;;
   }
 
@@ -85,20 +103,17 @@ view: vnv_gdn_view {
     group_label: "Client Dimensions"
     sql:
       CASE
-        WHEN ${ad_group_id} = '84007501372' then 'Custom Intent'
-        WHEN ${ad_group_id} = '78380941643' then 'Custom Intent'
-        WHEN ${ad_group_id} = '84007501332' then 'Retargeting - Web Visitors'
-        WHEN ${ad_group_id} = '78380941843' then 'Retargeting - Web Visitors'
-        WHEN ${ad_group} ilike 'RTGPublisherTraffic%' then 'Retargeting - Publisher Traffic'
-        WHEN ${ad_group} ilike 'SuperAffluentLookalikePublisherTraffic%' then 'Lookalike - Publisher Traffic'
-        WHEN ${ad_group_id} = '82777330008' then 'Luxury Traveler'
+        WHEN ${ad_group_id} '84007501372' then 'Custom Intent'
+        WHEN ${ad_group_id} '78380941643' then 'Custom Intent'
+        WHEN ${ad_group_id} '84007501332' then 'Retargeting - Web Visitors'
+        WHEN ${ad_group_id} '78380941843' then 'Retargeting - Web Visitors'
+        WHEN ${ad_group_id} '82777330008' then 'Luxury Traveler'
 
         ELSE 'Uncategorized'
         END;;
   }
 
-
-  #### Need to map gdn creatove
+#### Need to map SEM creative
   dimension: creative {
     hidden: yes
     type:  string
@@ -106,7 +121,7 @@ view: vnv_gdn_view {
     sql: 'N/A' ;;
   }
 
-  ###### All Dimensions go Below #######
+###### All Dimensions go Below #######
 
   dimension: account {
     type: string
@@ -220,10 +235,16 @@ view: vnv_gdn_view {
     sql: 0 ;;
   }
 
-  dimension: concierge_form_submission {
+  dimension: view_guide_online {
     type: number
     hidden: yes
-    sql: ${TABLE}.concierge_form_submission ;;
+    sql: ${TABLE}.view_guide_online ;;
+  }
+
+  dimension: enewsletter_sign_up {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.enewsletter_sign_up ;;
   }
 
   dimension: partner_referral {
@@ -232,19 +253,25 @@ view: vnv_gdn_view {
     sql: ${TABLE}.partner_referral ;;
   }
 
-  dimension: view_guide_online {
+  dimension: guide_hard_copy_sign_up {
     type: number
     hidden: yes
-    sql: ${TABLE}.view_guide_online ;;
+    sql: ${TABLE}.guide_hard_copy_sign_up ;;
   }
 
-  dimension: tos_above_45 {
+  dimension: concierge_form_submissions {
     type: number
     hidden: yes
-    sql: ${TABLE}.tos_above_45 ;;
+    sql: ${TABLE}.concierge_form_submissions ;;
   }
 
-  ###### All Measures go Below #######
+  dimension: tos_above_45s {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.tos_above_45s ;;
+  }
+
+###### All Measures go Below #######
 
   measure: total_impressions {
     type: sum_distinct
@@ -329,6 +356,8 @@ view: vnv_gdn_view {
     sql: ${completes} ;;
   }
 
+    ### Google Analytics Metrics ####
+
   measure: total_sessions {
     group_label: "GA Reporting"
     type: sum_distinct
@@ -366,7 +395,7 @@ view: vnv_gdn_view {
     type: sum_distinct
     label: "Pageviews"
     sql_distinct_key: ${comp_key} ;;
-    sql: ${sessions} ;;
+    sql: ${pageviews} ;;
   }
 
   measure: pages_per_session {
@@ -393,11 +422,20 @@ view: vnv_gdn_view {
     value_format_name: percent_2
   }
 
+  ### Google Analytics Goals ####
+
   measure: total_concierge_form_submission {
     group_label: "GA Reporting Goals"
     label: "Concierge Form Submission"
     type: sum
-    sql: ${concierge_form_submission} ;;
+    sql: ${concierge_form_submissions} ;;
+  }
+
+  measure: total_enewsletter_sign_up {
+    group_label: "GA Reporting Goals"
+    label: "E-Newsletter Sign Up"
+    type: sum
+    sql: ${enewsletter_sign_up} ;;
   }
 
   measure: total_partner_referral {
@@ -414,16 +452,22 @@ view: vnv_gdn_view {
     sql: ${view_guide_online} ;;
   }
 
-  measure: total_tos_above_45 {
+  measure: total_guide_hard_copy_sign_up {
+    group_label: "GA Reporting Goals"
+    label: "Guide Hard Copy Side Up"
+    type: sum
+    sql: ${guide_hard_copy_sign_up} ;;
+  }
+
+  measure: total_tos_above_45s {
     group_label: "GA Reporting Goals"
     label: "TOS Above 45s"
     type: sum
-    sql: ${tos_above_45} ;;
+    sql: ${tos_above_45s} ;;
   }
 
   measure: count {
     hidden: yes
     type: count
-    drill_fields: []
   }
 }

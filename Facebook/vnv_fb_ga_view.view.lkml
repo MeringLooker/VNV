@@ -186,6 +186,12 @@ view: vnv_fb_ga_view {
     sql: ${TABLE}.adset_name ;;
   }
 
+  dimension: bounces {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.bounces ;;
+  }
+
   dimension: buying_type {
     type: string
     group_label: "Facebook Dimensions"
@@ -344,10 +350,16 @@ view: vnv_fb_ga_view {
     sql: ${TABLE}.views_to_95 ;;
   }
 
-  dimension: concierge_form_submission {
+  dimension: view_guide_online {
     type: number
     hidden: yes
-    sql: ${TABLE}.concierge_form_submission ;;
+    sql: ${TABLE}.view_guide_online ;;
+  }
+
+  dimension: enewsletter_sign_up {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.enewsletter_sign_up ;;
   }
 
   dimension: partner_referral {
@@ -356,16 +368,22 @@ view: vnv_fb_ga_view {
     sql: ${TABLE}.partner_referral ;;
   }
 
-  dimension: view_guide_online {
+  dimension: guide_hard_copy_sign_up {
     type: number
     hidden: yes
-    sql: ${TABLE}.view_guide_online ;;
+    sql: ${TABLE}.guide_hard_copy_sign_up ;;
   }
 
-  dimension: tos_above_45 {
+  dimension: concierge_form_submissions {
     type: number
     hidden: yes
-    sql: ${TABLE}.tos_above_45 ;;
+    sql: ${TABLE}.concierge_form_submissions ;;
+  }
+
+  dimension: tos_above_45s {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.tos_above_45s ;;
   }
 
   ####### Meausures go below ######
@@ -570,79 +588,86 @@ view: vnv_fb_ga_view {
 #     value_format_name: usd
 #   }
 
+    ### Google Analytics Metrics ####
+
   measure: total_sessions {
-    type: sum
-    label: "Sessions"
     group_label: "GA Reporting"
-    sql: ${sessions};;
+    type: sum_distinct
+    label: "Sessions"
+    sql_distinct_key: ${ga_join_id} ;;
+    sql: ${sessions} ;;
   }
 
   measure: cost_per_session {
+    group_label: "GA Reporting"
     type: number
     label: "CPS"
-    group_label: "GA Reporting"
     sql: ${total_spend}/nullif(${total_sessions}, 0) ;;
     value_format_name: usd
   }
 
   measure: total_session_duration {
     hidden: yes
-    type: sum
-    group_label: "GA Reporting"
+    type: sum_distinct
     label: "Total Session Duration"
+    sql_distinct_key: ${ga_join_id};;
     sql: ${sessionduration};;
   }
 
   measure: avg_time_on_site {
-    label: "Avg. TOS"
     group_label: "GA Reporting"
+    label: "Avg. TOS"
     type: number
-    sql: (${total_session_duration}/nullif(${total_sessions}, 0))::float/86400 ;;
+    sql:  (${total_session_duration}/nullif(${total_sessions}, 0))::float/86400  ;;
     value_format: "m:ss"
   }
 
-  measure: total_users {
-    type: sum
-    label: "Users"
-    group_label: "GA Reporting"
-    sql: ${users};;
-  }
-
-  measure: total_new_users {
-    type: sum
-    label: "New Users"
-    group_label: "GA Reporting"
-    sql: ${newusers};;
-  }
-
-  measure: percent_new_users {
-    label: "% New Users"
-    group_label: "GA Reporting"
-    type: number
-    sql: 1.0*${total_new_users}/nullif(${total_users}, 0) ;;
-    value_format_name: percent_0
-  }
-
   measure: total_pageviews {
-    label: "Pageviews"
     group_label: "GA Reporting"
-    type: sum
+    type: sum_distinct
+    label: "Pageviews"
+    sql_distinct_key: ${ga_join_id} ;;
     sql: ${pageviews} ;;
   }
 
   measure: pages_per_session {
-    label: "Pgs/Session"
     group_label: "GA Reporting"
     type: number
+    label: "Pages/Session"
     sql: ${total_pageviews}/nullif(${total_sessions}, 0) ;;
-    value_format: "#.0"
+    value_format_name: decimal_2
   }
+
+  measure: total_bounces {
+    group_label: "GA Reporting"
+    type: sum_distinct
+    label: "Bounces"
+    sql_distinct_key: ${ga_join_id} ;;
+    sql: ${bounces} ;;
+  }
+
+  measure: total_bounce_rate  {
+    label: "Bounce Rate"
+    group_label: "GA Reporting"
+    type: number
+    sql: ${total_bounces}/nullif(${total_sessions}, 0) ;;
+    value_format_name: percent_2
+  }
+
+  ### Google Analytics Goals ####
 
   measure: total_concierge_form_submission {
     group_label: "GA Reporting Goals"
     label: "Concierge Form Submission"
     type: sum
-    sql: ${concierge_form_submission} ;;
+    sql: ${concierge_form_submissions} ;;
+  }
+
+  measure: total_enewsletter_sign_up {
+    group_label: "GA Reporting Goals"
+    label: "E-Newsletter Sign Up"
+    type: sum
+    sql: ${enewsletter_sign_up} ;;
   }
 
   measure: total_partner_referral {
@@ -659,16 +684,23 @@ view: vnv_fb_ga_view {
     sql: ${view_guide_online} ;;
   }
 
-  measure: total_tos_above_45 {
+  measure: total_guide_hard_copy_sign_up {
+    group_label: "GA Reporting Goals"
+    label: "Guide Hard Copy Side Up"
+    type: sum
+    sql: ${guide_hard_copy_sign_up} ;;
+  }
+
+  measure: total_tos_above_45s {
     group_label: "GA Reporting Goals"
     label: "TOS Above 45s"
     type: sum
-    sql: ${tos_above_45} ;;
+    sql: ${tos_above_45s} ;;
   }
 
   measure: count {
     hidden: yes
     type: count
-    drill_fields: [ad_name, adset_name, campaign_name, account_name]
+    drill_fields: []
   }
 }

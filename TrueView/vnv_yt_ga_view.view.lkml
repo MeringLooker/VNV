@@ -130,12 +130,6 @@ view: vnv_yt_ga_view {
     sql: ${TABLE}.clicks ;;
   }
 
-  dimension: concierge_form_submission {
-    type: number
-    hidden: yes
-    sql: ${TABLE}.concierge_form_submission ;;
-  }
-
   dimension: conversions {
     type: number
     hidden: yes
@@ -182,12 +176,6 @@ view: vnv_yt_ga_view {
     sql: ${TABLE}.pageviews ;;
   }
 
-  dimension: partner_referral {
-    type: number
-    hidden: yes
-    sql: ${TABLE}.partner_referral ;;
-  }
-
   dimension: sessionduration {
     type: number
     hidden: yes
@@ -200,22 +188,10 @@ view: vnv_yt_ga_view {
     sql: ${TABLE}.sessions ;;
   }
 
-  dimension: tos_above_45 {
-    type: number
-    hidden: yes
-    sql: ${TABLE}.tos_above_45 ;;
-  }
-
   dimension: users {
     type: number
     hidden: yes
     sql: ${TABLE}.users ;;
-  }
-
-  dimension: view_guide_online {
-    type: number
-    hidden: yes
-    sql: ${TABLE}.view_guide_online ;;
   }
 
   dimension: views {
@@ -248,26 +224,62 @@ view: vnv_yt_ga_view {
     sql: ${TABLE}.views_to_q75 ;;
   }
 
+  dimension: view_guide_online {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.view_guide_online ;;
+  }
+
+  dimension: enewsletter_sign_up {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.enewsletter_sign_up ;;
+  }
+
+  dimension: partner_referral {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.partner_referral ;;
+  }
+
+  dimension: guide_hard_copy_sign_up {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.guide_hard_copy_sign_up ;;
+  }
+
+  dimension: concierge_form_submissions {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.concierge_form_submissions ;;
+  }
+
+  dimension: tos_above_45s {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.tos_above_45s ;;
+  }
+
 #### All Measures Go Below ####
 
   measure: total_impressions {
     type: sum_distinct
     group_label: "Trueview Reporting"
-    sql_distinct_key: ${ga_join_id } ;;
+    sql_distinct_key: ${ga_join_id} ;;
     sql: ${impressions} ;;
   }
 
   measure: total_clicks {
     type: sum_distinct
     group_label: "Trueview Reporting"
-    sql_distinct_key: ${ga_join_id } ;;
+    sql_distinct_key: ${ga_join_id} ;;
     sql: ${clicks} ;;
   }
 
   measure: total_cost {
     type:  sum_distinct
     group_label: "Trueview Reporting"
-    sql_distinct_key: ${ga_join_id } ;;
+    sql_distinct_key: ${ga_join_id} ;;
     sql:${cost}/1000000.00  ;;
     value_format_name: usd
   }
@@ -275,7 +287,7 @@ view: vnv_yt_ga_view {
   measure: total_conversions {
     type: sum_distinct
     group_label: "Trueview Reporting"
-    sql_distinct_key: ${ga_join_id } ;;
+    sql_distinct_key: ${ga_join_id} ;;
     sql: ${conversions} ;;
   }
 
@@ -323,7 +335,7 @@ view: vnv_yt_ga_view {
     type: sum_distinct
     label: "Video Views"
     group_label: "Trueview Reporting"
-    sql_distinct_key: ${ga_join_id } ;;
+    sql_distinct_key: ${ga_join_id} ;;
     sql: ${views} ;;
   }
 
@@ -341,7 +353,7 @@ view: vnv_yt_ga_view {
     label: "Views To 25%"
     value_format_name: decimal_0
     hidden: no
-    sql_distinct_key: ${ga_join_id } ;;
+    sql_distinct_key: ${ga_join_id} ;;
     sql: ${views_to_q25} ;;
   }
 
@@ -351,7 +363,7 @@ view: vnv_yt_ga_view {
     label: "Views To 50%"
     value_format_name: decimal_0
     hidden: no
-    sql_distinct_key: ${ga_join_id } ;;
+    sql_distinct_key: ${ga_join_id} ;;
     sql: ${views_to_q50} ;;
   }
 
@@ -361,7 +373,7 @@ view: vnv_yt_ga_view {
     label: "Views To 75%"
     value_format_name: decimal_0
     hidden: no
-    sql_distinct_key: ${ga_join_id } ;;
+    sql_distinct_key: ${ga_join_id} ;;
     sql: ${views_to_q75} ;;
   }
 
@@ -371,7 +383,7 @@ view: vnv_yt_ga_view {
     label: "Video Completes"
     group_label: "Trueview Reporting"
     hidden: no
-    sql_distinct_key: ${ga_join_id } ;;
+    sql_distinct_key: ${ga_join_id} ;;
     sql: ${video_completes} ;;
   }
 
@@ -415,10 +427,14 @@ view: vnv_yt_ga_view {
     value_format_name: percent_2
   }
 
+
+  ### Google Analytics Metrics ####
+
   measure: total_sessions {
-    type: sum_distinct
-#     hidden: yes
     group_label: "GA Reporting"
+    type: sum_distinct
+    label: "Sessions"
+    sql_distinct_key: ${ga_join_id} ;;
     sql: ${sessions} ;;
   }
 
@@ -434,7 +450,7 @@ view: vnv_yt_ga_view {
     hidden: yes
     type: sum_distinct
     label: "Total Session Duration"
-    sql_distinct_key: ${ga_join_id };;
+    sql_distinct_key: ${ga_join_id};;
     sql: ${sessionduration};;
   }
 
@@ -450,7 +466,7 @@ view: vnv_yt_ga_view {
     group_label: "GA Reporting"
     type: sum_distinct
     label: "Pageviews"
-    sql_distinct_key: ${ga_join_id } ;;
+    sql_distinct_key: ${ga_join_id} ;;
     sql: ${pageviews} ;;
   }
 
@@ -466,7 +482,7 @@ view: vnv_yt_ga_view {
     group_label: "GA Reporting"
     type: sum_distinct
     label: "Bounces"
-    sql_distinct_key: ${ga_join_id } ;;
+    sql_distinct_key: ${ga_join_id} ;;
     sql: ${bounces} ;;
   }
 
@@ -478,8 +494,47 @@ view: vnv_yt_ga_view {
     value_format_name: percent_2
   }
 
-#   measure: count {
-#     type: count
-#     drill_fields: []
-#   }
+  ### Google Analytics Goals ####
+
+  measure: total_concierge_form_submission {
+    group_label: "GA Reporting Goals"
+    label: "Concierge Form Submission"
+    type: sum
+    sql: ${concierge_form_submissions} ;;
+  }
+
+  measure: total_enewsletter_sign_up {
+    group_label: "GA Reporting Goals"
+    label: "E-Newsletter Sign Up"
+    type: sum
+    sql: ${enewsletter_sign_up} ;;
+  }
+
+  measure: total_partner_referral {
+    group_label: "GA Reporting Goals"
+    label: "Partner Referrals"
+    type: sum
+    sql: ${partner_referral} ;;
+  }
+
+  measure: total_view_guide_online {
+    group_label: "GA Reporting Goals"
+    label: "View Guide Online"
+    type: sum
+    sql: ${view_guide_online} ;;
+  }
+
+  measure: total_guide_hard_copy_sign_up {
+    group_label: "GA Reporting Goals"
+    label: "Guide Hard Copy Side Up"
+    type: sum
+    sql: ${guide_hard_copy_sign_up} ;;
+  }
+
+  measure: total_tos_above_45s {
+    group_label: "GA Reporting Goals"
+    label: "TOS Above 45s"
+    type: sum
+    sql: ${tos_above_45s} ;;
+  }
 }

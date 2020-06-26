@@ -1,4 +1,4 @@
-view: vnv_dcm_view {
+view: vnv_dcm_ga_view {
   sql_table_name: public.vnv_dcm_ga_view ;;
 
 ######## PRIMARY KEY ########
@@ -488,10 +488,16 @@ view: vnv_dcm_view {
     sql: 0 ;;
   }
 
-  dimension: concierge_form_submission {
+  dimension: view_guide_online {
     type: number
     hidden: yes
-    sql: ${TABLE}.concierge_form_submission ;;
+    sql: ${TABLE}.view_guide_online ;;
+  }
+
+  dimension: enewsletter_sign_up {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.enewsletter_sign_up ;;
   }
 
   dimension: partner_referral {
@@ -500,17 +506,24 @@ view: vnv_dcm_view {
     sql: ${TABLE}.partner_referral ;;
   }
 
-  dimension: view_guide_online {
+  dimension: guide_hard_copy_sign_up {
     type: number
     hidden: yes
-    sql: ${TABLE}.view_guide_online ;;
+    sql: ${TABLE}.guide_hard_copy_sign_up ;;
   }
 
-  dimension: tos_above_45 {
+  dimension: concierge_form_submissions {
     type: number
     hidden: yes
-    sql: ${TABLE}.tos_above_45 ;;
+    sql: ${TABLE}.concierge_form_submissions ;;
   }
+
+  dimension: tos_above_45s {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.tos_above_45s ;;
+  }
+
 
 ######### All measures go below ########
 
@@ -604,6 +617,8 @@ view: vnv_dcm_view {
     sql: ${views} ;;
   }
 
+  ### Google Analytics Metrics ####
+
   measure: total_sessions {
     group_label: "GA Reporting"
     type: sum
@@ -671,11 +686,20 @@ view: vnv_dcm_view {
     value_format: "#.0"
   }
 
+  ### Google Analytics Goals ####
+
   measure: total_concierge_form_submission {
     group_label: "GA Reporting Goals"
     label: "Concierge Form Submission"
     type: sum
-    sql: ${concierge_form_submission} ;;
+    sql: ${concierge_form_submissions} ;;
+  }
+
+  measure: total_enewsletter_sign_up {
+    group_label: "GA Reporting Goals"
+    label: "E-Newsletter Sign Up"
+    type: sum
+    sql: ${enewsletter_sign_up} ;;
   }
 
   measure: total_partner_referral {
@@ -692,11 +716,18 @@ view: vnv_dcm_view {
     sql: ${view_guide_online} ;;
   }
 
-  measure: total_tos_above_45 {
+  measure: total_guide_hard_copy_sign_up {
+    group_label: "GA Reporting Goals"
+    label: "Guide Hard Copy Side Up"
+    type: sum
+    sql: ${guide_hard_copy_sign_up} ;;
+  }
+
+  measure: total_tos_above_45s {
     group_label: "GA Reporting Goals"
     label: "TOS Above 45s"
     type: sum
-    sql: ${tos_above_45} ;;
+    sql: ${tos_above_45s} ;;
   }
 
   measure: count {
