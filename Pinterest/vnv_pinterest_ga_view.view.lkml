@@ -702,42 +702,48 @@ view: vnv_pinterest_ga_view {
   measure: total_concierge_form_submission {
     group_label: "GA Reporting Goals"
     label: "Concierge Form Submission"
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${ga_join_id} ;;
     sql: ${concierge_form_submissions} ;;
   }
 
   measure: total_enewsletter_sign_up {
     group_label: "GA Reporting Goals"
     label: "E-Newsletter Sign Up"
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${ga_join_id} ;;
     sql: ${enewsletter_sign_up} ;;
   }
 
   measure: total_partner_referral {
     group_label: "GA Reporting Goals"
     label: "Partner Referrals"
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${ga_join_id} ;;
     sql: ${partner_referral} ;;
   }
 
   measure: total_view_guide_online {
     group_label: "GA Reporting Goals"
     label: "View Guide Online"
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${ga_join_id} ;;
     sql: ${view_guide_online} ;;
   }
 
   measure: total_guide_hard_copy_sign_up {
     group_label: "GA Reporting Goals"
     label: "Guide Hard Copy Side Up"
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${ga_join_id} ;;
     sql: ${guide_hard_copy_sign_up} ;;
   }
 
   measure: total_tos_above_45s {
     group_label: "GA Reporting Goals"
     label: "TOS Above 45s"
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${ga_join_id} ;;
     sql: ${tos_above_45s} ;;
   }
 

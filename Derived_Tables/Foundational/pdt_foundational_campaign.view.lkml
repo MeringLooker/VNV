@@ -259,6 +259,7 @@ view: pdt_foundational_campaign {
 
   measure: total_session_duration {
     type: sum_distinct
+    hidden: yes
     sql_distinct_key: ${primary_key} ;;
     sql: ${session_duration} ;;
   }

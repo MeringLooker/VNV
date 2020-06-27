@@ -44,9 +44,63 @@ view: vnv_dcm_ga_view {
     group_label: "Client Dimensions"
     sql:
       CASE
-        when ${creative} ILIKE '%theweekend%' then 'The Weekend (:15)'
-        when ${creative} ILIKE '%thenextsip%' then 'The Next Sip (:15)'
-        when ${creative} ILIKE '%stunningharmony%' then 'Stunning Harmony (:15)'
+
+        when ${placement} ILIKE '%WSJDN_Obj #3_Global Network_RON_Added Value_728x90%' then 'Refresh_728x90'
+        when ${placement} ILIKE '%WSJDN_Obj #3_Off Duty 50 Global Network_Run of Lifestyle_CA,NY_728x90%' then 'Refresh_728x90'
+        when ${placement} ILIKE '%WSJDN_Obj #3_Global Bundle Package_ROS_Culture/Lifestyle_CA,NY_728x90%' then 'Refresh_728x90'
+        when ${placement} ILIKE '%WSJ_Obj #3_Mansion Global US_ROS_CA, NY_728x90%' then 'Refresh_728x90'
+
+        when ${placement} ILIKE '%WSJDN_Obj #3_Off Duty 50 Global Network_Run of Lifestyle_CA,NY_300x600 CIU%' then 'Custom 300x600'
+        when ${placement} ILIKE '%WSJDN_Obj #3_Off Duty 50 Global Network _Content Integration Unit_CA,NY_300x600 CIU%' then 'Custom  300x600'
+        when ${placement} ILIKE '%WSJ_Obj. #3_Off Duty 50_CA,NY_ 300x600 Custom%' then 'Custom  300x600'
+        when ${placement} ILIKE '%WSJ_Obj #3_Mansion Global US_ROS_CA, NY_300x600%' then 'Refresh_300x600'
+        when ${placement} ILIKE '%WSJDN_Obj #3_Global Bundle Package_ROS_Culture/Lifestyle_CA,NY_300x600%' then 'Refresh_300x600'
+
+        when ${placement} ILIKE '%WSJ_Obj #3_Mansion Global US_ROS_CA, NY_300x250%' then 'Refresh_300x250'
+        when ${placement} ILIKE '%WSJDN_Obj #3_Off Duty 50 Global Network_Run of Lifestyle_CA,NY_300x250%' then 'Refresh_300x250'
+        when ${placement} ILIKE '%WSJDN_Obj #3_Global Network_RON_Added Value_300x250%' then 'Refresh_300x250'
+        when ${placement} ILIKE '%WSJDN_Obj #3_Global Bundle Package_ROS_Culture/Lifestyle_CA,NY_300x250%' then 'Refresh_300x250'
+        when ${placement} ILIKE '%WSJ_Obj. #3_Off Duty 50_CA,NY_ 300x250%' then 'Refresh_300x250'
+
+        when ${placement} ilike 'WSJDN_Obj #3_Off Duty 50 Global Network_Run of Lifestyle_CA,NY_970x250_Weekend' then 'TheWeekend_970x250'
+
+        when ${placement} ILIKE '%Afar_Obj #3_Targeted Channel Sponsorship Package_300x250%' then 'Refresh_300x250'
+        when ${placement} ILIKE '%Afar_Obj #3_Targeted Channel Sponsorship Package_320x50%' then 'Uncategorized_320x50'
+        when ${placement} ILIKE '%Afar_Obj #3_Targeted Channel Sponsorship Package_300x600%' then 'Refresh_300x600'
+        when ${placement} ILIKE '%Afar_Obj #3_Targeted Channel Sponsorship Package_728x90%' then 'Refresh_728x90'
+
+        when ${placement} ILIKE '%Afar_Obj #3_ROS Desktop/Mobile Web_300x250%' then 'Refresh_300x250'
+        when ${placement} ILIKE '%Afar_Obj #3_ROS Desktop/Mobile Web_320x50%' then 'Uncategorized_320x50'
+        when ${placement} ILIKE '%Afar_Obj #3_ROS Desktop/Mobile Web_300x600%' then 'Refresh_300x600'
+        when ${placement} ILIKE '%Afar_Obj #3_ROS Desktop/Mobile Web_728x90%' then 'Refresh_728x90'
+
+        when ${placement} ILIKE '%Afar_Obj #3_HPTO Package_300x250%' then 'Refresh_300x250'
+        when ${placement} ILIKE '%Afar_Obj #3_HPTO Package_320x50%' then 'Uncategorized_320x50'
+        when ${placement} ILIKE '%Afar_Obj #3_HPTO Package_300x600%' then 'Refresh_300x600'
+        when ${placement} ILIKE '%Afar_Obj #3_HPTO Package_728x90%' then 'Refresh_728x90'
+
+        when ${placement} ilike '%slideshow%' then 'Slideshow'
+        when ${placement} ilike '%ArticleCTA%' then 'Article CTA'
+
+        when ${placement} = 'WSJDN_Obj #3_Global Network__Plus Video :06/:15_CA, NY_1x1' then 'Uncategorized Video (:15)'
+
+        when ${placement} ilike 'Afar_Obj #3_ROS Desktop/Mobile Web_320x50' then 'Uncategorized_320x50'
+        when ${placement} ilike 'Afar_Obj #3_Targeted Channel Sponsorship Package_320x50' then 'Uncategorized_320x50'
+        when ${placement} ilike 'Afar_Obj #3_HPTO Package_320x50' then 'Uncategorized_320x50'
+
+        when ${placement} ilike '%Advertorial Hub_Shelf 6: More Exper%' then 'Hub Shelf: More Experiences'
+        when ${placement} ilike '%Advertorial Hub_Shelf 5%' then 'Hub Shelf: American Canyon'
+        when ${placement} ilike '%Advertorial Hub_Shelf 4%' then 'Hub Shelf: Calistoga'
+        when ${placement} ilike '%Advertorial Hub_Shelf 3%' then 'Hub Shelf: Saint Helena'
+        when ${placement} ilike '%Advertorial Hub_Shelf 2%' then 'Hub Shelf: Yountville'
+        when ${placement} ilike '%Advertorial Hub_Shelf 1%' then 'Hub Shelf: Napa'
+        when ${placement} ilike '%Advertorial Hub_HeaderMapCopy%' then 'Hub: Map Header'
+        when ${placement} ilike '%Advertorial Hub_FooterBookNow%' then 'Hub: Book Now'
+
+        when ${placement} ilike 'TripAdvisor_OBJ2_Consideration_TAAudience_US_Advertorial1x1' then 'Advertorial Hub'
+        when ${placement} ilike 'TripAdvisor_OBJ2_Awareness_TA''s Audience_US_Advertorial Hub Traffic Drivers 1x1' then 'Uncategorized - Hub Drivers'
+        when ${placement} ilike 'TripAdvisor_OBJ2_Awareness_VNVInterestSegments_US_Native1x1' then 'Uncategorized - Native Ads'
+
         when ${ad} ILIKE '%group_collaboration_728x90%' then 'Collaboration & Creativity (728x90)'
         when ${ad} ILIKE '%group_collaboration_300x250%' then 'Collaboration & Creativity (300x250)'
 
@@ -62,23 +116,6 @@ view: vnv_dcm_ga_view {
         when ${creative} = 'VNV_Refresh_300x600' then 'Refresh_300x600'
         when ${creative} = 'VNV_Refresh_160x600' then 'Refresh_160x600'
 
-        when ${ad} = 'Tracking Ad-WSJDN_Obj #3_Global Network__Plus Video :06/:15_CA, NY_1x1_TheWeekend' then 'The Weekend (:15)'
-        when ${ad} = 'Tracking Ad-WSJDN_Obj #3_Global Network__Plus Video :06/:15_CA, NY_1x1_TheNextSip' then 'The Next Sip (:15)'
-        when ${ad} = 'Tracking Ad-WSJDN_Obj #3_Global Network__Plus Video :06/:15_CA, NY_1x1_StunningHarmony' then 'Stunning Harmony (:15)'
-
-        when ${placement} ilike '%Advertorial Hub_Shelf 6: More Exper%' then 'Hub Shelf: More Experiences'
-        when ${placement} ilike '%Advertorial Hub_Shelf 5%' then 'Hub Shelf: American Canyon'
-        when ${placement} ilike '%Advertorial Hub_Shelf 4%' then 'Hub Shelf: Calistoga'
-        when ${placement} ilike '%Advertorial Hub_Shelf 3%' then 'Hub Shelf: Saint Helena'
-        when ${placement} ilike '%Advertorial Hub_Shelf 2%' then 'Hub Shelf: Yountville'
-        when ${placement} ilike '%Advertorial Hub_Shelf 1%' then 'Hub Shelf: Napa'
-        when ${placement} ilike '%Advertorial Hub_HeaderMapCopy%' then 'Hub: Map Header'
-        when ${placement} ilike '%Advertorial Hub_FooterBookNow%' then 'Hub: Book Now'
-
-        when ${placement} ilike 'TripAdvisor_OBJ2_Consideration_TAAudience_US_Advertorial1x1' then 'Advertorial Hub'
-        when ${placement} ilike 'TripAdvisor_OBJ2_Awareness_TA''s Audience_US_Advertorial Hub Traffic Drivers 1x1' then 'Uncategorized - Hub Drivers'
-        when ${placement} ilike 'TripAdvisor_OBJ2_Awareness_VNVInterestSegments_US_Native1x1' then 'Uncategorized - Native Ads'
-
         when ${ad} ILIKE '%seeforyourself_320x50%' then 'See For Yourself (320x50)'
         when ${ad} ILIKE '%welcomecenter_728x90%' then 'Not Sure Where To Start? (728x90)'
         when ${ad} ILIKE '%welcomecenter_320x50%' then 'Legendary Napa Valley (320x50)'
@@ -88,6 +125,8 @@ view: vnv_dcm_ga_view {
 
         when ${creative} ILIKE '%cabcab%' then 'Cab Cab'
         when ${creative} ILIKE '%group%' then 'Group'
+
+
 
         ELSE ${creative}
         END;;
@@ -99,13 +138,10 @@ view: vnv_dcm_ga_view {
     label: "Ad Size"
     sql:
       CASE
-        when ${creative} ILIKE '%728x90%' then '728x90'
-        when ${creative} ILIKE '%300x250%' then '300x250'
-        when ${creative} ILIKE '%300x600%' then '300x600'
-        when ${creative} ILIKE '%320x50%' then '320x50'
-        when ${creative} ILIKE '%160x600%' then '160x600'
-        when ${creative} ILIKE '%970x250%' then '970x250'
-        when ${creative} ILIKE '%300x50%' then '300x50'
+
+        when ${placement} ILIKE '%970x250%' then '970x250'
+        when ${placement} ilike '%300x600%' then '300x600'
+        when ${placement} ilike '%300x250%' then '300x250'
         when ${placement} ilike '%\\_728x90' then '728x90'
         when ${placement} ilike '%\\_300x250' then '300x250'
         when ${placement} ilike '%\\_160x600' then '160x600'
@@ -117,6 +153,21 @@ view: vnv_dcm_ga_view {
         when ${placement} ilike 'TripAdvisor_OBJ2_Awareness_TA''s Audience_US_Advertorial Hub Traffic Drivers 1x1' then 'Uncategorized - Hub Drivers'
         when ${placement} ilike '%Advertorial Hub_Shelf%' then 'Advertorial Hub Shelf'
         when ${placement} ilike '%Advertorial1x1' then 'Advertorial Hub'
+        when ${placement} ilike '%slideshow%' then 'Slideshow'
+        when ${placement} ilike '%ArticleCTA%' then 'Article CTA'
+        when ${placement} ilike '%320x50%' then '320x50'
+
+        when ${placement_id} = '255764759' then 'Video'
+
+        when ${creative} ILIKE '%728x90%' then '728x90'
+        when ${creative} ILIKE '%300x250%' then '300x250'
+        when ${creative} ILIKE '%300x600%' then '300x600'
+        when ${creative} ILIKE '%320x50%' then '320x50'
+        when ${creative} ILIKE '%160x600%' then '160x600'
+        when ${creative} ILIKE '%970x250%' then '970x250'
+
+        when ${creative} ILIKE '%300x50%' then '300x50'
+
 
 
       ELSE 'Uncategorized'
@@ -546,14 +597,16 @@ view: vnv_dcm_ga_view {
 
   measure: total_impressions {
     group_label: "3rd Party Measures"
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${ga_join_id} ;;
     label: "Impressions"
     sql: ${impressions} ;;
   }
 
   measure: total_clicks {
     group_label: "3rd Party Measures"
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${ga_join_id} ;;
     label: "Clicks"
     sql: ${clicks} ;;
   }
@@ -575,7 +628,8 @@ view: vnv_dcm_ga_view {
 
   measure: total_active_view_viewable_impressions {
     group_label: "3rd Party Measures"
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${ga_join_id} ;;
     label: "Active View Viewable Impressions"
     sql: ${active_view_viewable_impressions} ;;
   }
@@ -590,7 +644,8 @@ view: vnv_dcm_ga_view {
 
   measure: total_media_cost {
     group_label: "3rd Party Measures"
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${ga_join_id} ;;
     label: "Media Spend"
     sql: ${media_cost} ;;
     value_format_name: usd
@@ -630,7 +685,8 @@ view: vnv_dcm_ga_view {
 
   measure: total_views {
     hidden: yes
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${ga_join_id} ;;
     sql: ${views} ;;
   }
 
@@ -638,7 +694,8 @@ view: vnv_dcm_ga_view {
 
   measure: total_sessions {
     group_label: "GA Reporting"
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${ga_join_id} ;;
     label: "Sessions"
     sql: ${sessions};;
   }
@@ -653,7 +710,8 @@ view: vnv_dcm_ga_view {
 
   measure: total_session_duration {
     hidden: yes
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${ga_join_id} ;;
     label: "Total Session Duration"
     sql: ${sessionduration};;
   }
@@ -676,7 +734,8 @@ view: vnv_dcm_ga_view {
   measure: total_new_users {
     group_label: "GA Reporting"
     label: "New Users"
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${ga_join_id} ;;
     sql: ${newusers} ;;
   }
 
@@ -691,7 +750,8 @@ view: vnv_dcm_ga_view {
   measure: total_pageviews {
     group_label: "GA Reporting"
     label: "Pageviews"
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${ga_join_id} ;;
     sql: ${pageviews} ;;
   }
 
@@ -708,42 +768,48 @@ view: vnv_dcm_ga_view {
   measure: total_concierge_form_submission {
     group_label: "GA Reporting Goals"
     label: "Concierge Form Submission"
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${ga_join_id} ;;
     sql: ${concierge_form_submissions} ;;
   }
 
   measure: total_enewsletter_sign_up {
     group_label: "GA Reporting Goals"
     label: "E-Newsletter Sign Up"
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${ga_join_id} ;;
     sql: ${enewsletter_sign_up} ;;
   }
 
   measure: total_partner_referral {
     group_label: "GA Reporting Goals"
     label: "Partner Referrals"
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${ga_join_id} ;;
     sql: ${partner_referral} ;;
   }
 
   measure: total_view_guide_online {
     group_label: "GA Reporting Goals"
     label: "View Guide Online"
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${ga_join_id} ;;
     sql: ${view_guide_online} ;;
   }
 
   measure: total_guide_hard_copy_sign_up {
     group_label: "GA Reporting Goals"
     label: "Guide Hard Copy Side Up"
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${ga_join_id} ;;
     sql: ${guide_hard_copy_sign_up} ;;
   }
 
   measure: total_tos_above_45s {
     group_label: "GA Reporting Goals"
     label: "TOS Above 45s"
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${ga_join_id} ;;
     sql: ${tos_above_45s} ;;
   }
 

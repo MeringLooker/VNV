@@ -167,6 +167,25 @@ view: vnv_fb_ga_view {
         END;;
   }
 
+  dimension: ad_size {
+    type: string
+    group_label: "Facebook Dimensions"
+    label: "Ad Size"
+    sql:
+      CASE
+        when ${ad_name} ilike '%Carousel%' then 'Carousel'
+        when ${ad_name} ilike '%SingleImage%' then 'Landscape Image'
+        when ${ad_name} = 'FY20_Objective3_RTGWebVisitors_Legendary' then 'Carousel'
+        when ${ad_name} = 'FY20_VNV_Objective3_Conversion_VideoRTG_DynamicCreative' then 'Landscape Image'
+        when ${ad_name} = 'FY20_VNV_Objective3_Conversion_RTGWebVisitors_DynamicCreative' then 'Landscape Image'
+        when ${ad_name} = 'Objective3_Awareness_DynamicVideo' then 'Landscape Video'
+        when ${ad_name} = 'FY20_VNV_Objective3_Awareness' then 'Landscape Video'
+
+        ELSE 'Uncategorized'
+        END
+        ;;
+  }
+
 
 ####### All dimensions go below ######
 
@@ -411,14 +430,16 @@ view: vnv_fb_ga_view {
   ####### Meausures go below ######
 
   measure: total_impressions {
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${ga_join_id} ;;
     label: "Impressions"
     group_label: "Facebook Reporting"
     sql: ${impressions} ;;
   }
 
   measure: total_clicks {
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${ga_join_id} ;;
     label: "Clicks"
     group_label: "Facebook Reporting"
     sql: ${inline_link_clicks} ;;
@@ -433,7 +454,8 @@ view: vnv_fb_ga_view {
   }
 
   measure: total_spend {
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${ga_join_id} ;;
     label: "Media Spend"
     group_label: "Facebook Reporting"
     sql: ${spend};;
@@ -471,7 +493,8 @@ view: vnv_fb_ga_view {
 #### Video Measures #####
 
   measure: video_impressions {
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${ga_join_id} ;;
     sql:
         case
         when ${views_to_25} > 0 then ${impressions}
@@ -481,7 +504,8 @@ view: vnv_fb_ga_view {
   }
 
   measure: video_spend {
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${ga_join_id} ;;
     sql:
         case
         when ${views_to_25} > 0 then ${impressions}
@@ -491,7 +515,8 @@ view: vnv_fb_ga_view {
   }
 
   measure: total_views_to_25 {
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${ga_join_id} ;;
     label: "Views to 25%"
     group_label: "Facebook Video Reporting"
     sql: ${views_to_25};;
@@ -506,7 +531,8 @@ view: vnv_fb_ga_view {
   }
 
   measure: total_views_to_50 {
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${ga_join_id} ;;
     label: "Views to 50%"
     group_label: "Facebook Video Reporting"
     sql: ${views_to_50};;
@@ -521,7 +547,8 @@ view: vnv_fb_ga_view {
   }
 
   measure: total_views_to_75 {
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${ga_join_id} ;;
     label: "Views to 75%"
     group_label: "Facebook Video Reporting"
   }
@@ -535,7 +562,8 @@ view: vnv_fb_ga_view {
   }
 
   measure: total_views_to_95 {
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${ga_join_id} ;;
     label: "Views to 95%"
     group_label: "Facebook Video Reporting"
   }
@@ -549,7 +577,8 @@ view: vnv_fb_ga_view {
   }
 
   measure: total_video_completes {
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${ga_join_id} ;;
     label: "Views to 100%"
     group_label: "Facebook Video Reporting"
     sql: ${views_to_100};;
@@ -572,7 +601,8 @@ view: vnv_fb_ga_view {
   }
 
   measure: total_thruplays {
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${ga_join_id} ;;
     label: "ThruPlays"
     group_label: "Facebook Video Reporting"
     sql: ${thruplays};;
@@ -681,42 +711,48 @@ view: vnv_fb_ga_view {
   measure: total_concierge_form_submission {
     group_label: "GA Reporting Goals"
     label: "Concierge Form Submission"
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${ga_join_id} ;;
     sql: ${concierge_form_submissions} ;;
   }
 
   measure: total_enewsletter_sign_up {
     group_label: "GA Reporting Goals"
     label: "E-Newsletter Sign Up"
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${ga_join_id} ;;
     sql: ${enewsletter_sign_up} ;;
   }
 
   measure: total_partner_referral {
     group_label: "GA Reporting Goals"
     label: "Partner Referrals"
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${ga_join_id} ;;
     sql: ${partner_referral} ;;
   }
 
   measure: total_view_guide_online {
     group_label: "GA Reporting Goals"
     label: "View Guide Online"
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${ga_join_id} ;;
     sql: ${view_guide_online} ;;
   }
 
   measure: total_guide_hard_copy_sign_up {
     group_label: "GA Reporting Goals"
     label: "Guide Hard Copy Side Up"
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${ga_join_id} ;;
     sql: ${guide_hard_copy_sign_up} ;;
   }
 
   measure: total_tos_above_45s {
     group_label: "GA Reporting Goals"
     label: "TOS Above 45s"
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${ga_join_id} ;;
     sql: ${tos_above_45s} ;;
   }
 

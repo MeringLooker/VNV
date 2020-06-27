@@ -79,6 +79,20 @@ view: vnv_gdn_ga_view {
         END;;
   }
 
+  dimension: ad_size {
+    type: string
+    label: "Ad Size"
+    group_label: "AdWords Dimensions"
+    sql:
+      CASE
+        WHEN ${campaign_id} = '6555441529' THEN 'Responsive Display'
+        WHEN ${campaign_id} = '6555664518' THEN 'Static Display'
+        WHEN ${campaign_id} = '6450595900' THEN 'Static Display'
+
+        ELSE 'Uncategorized'
+        END;;
+  }
+
   dimension: vnv_audience {
     type: string
     label: "Audience"
@@ -102,7 +116,7 @@ view: vnv_gdn_ga_view {
   dimension: creative_name {
     hidden: yes
     type:  string
-    group_label: "AdWords Dimensions"
+    group_label: "Client Dimensions"
     sql: 'Uncategorized' ;;
   }
 
@@ -413,42 +427,48 @@ view: vnv_gdn_ga_view {
   measure: total_concierge_form_submission {
     group_label: "GA Reporting Goals"
     label: "Concierge Form Submission"
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${comp_key} ;;
     sql: ${concierge_form_submissions} ;;
   }
 
   measure: total_enewsletter_sign_up {
     group_label: "GA Reporting Goals"
     label: "E-Newsletter Sign Up"
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${comp_key} ;;
     sql: ${enewsletter_sign_up} ;;
   }
 
   measure: total_partner_referral {
     group_label: "GA Reporting Goals"
     label: "Partner Referrals"
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${comp_key} ;;
     sql: ${partner_referral} ;;
   }
 
   measure: total_view_guide_online {
     group_label: "GA Reporting Goals"
     label: "View Guide Online"
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${comp_key} ;;
     sql: ${view_guide_online} ;;
   }
 
   measure: total_guide_hard_copy_sign_up {
     group_label: "GA Reporting Goals"
     label: "Guide Hard Copy Side Up"
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${comp_key} ;;
     sql: ${guide_hard_copy_sign_up} ;;
   }
 
   measure: total_tos_above_45s {
     group_label: "GA Reporting Goals"
     label: "TOS Above 45s"
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${comp_key} ;;
     sql: ${tos_above_45s} ;;
   }
 
