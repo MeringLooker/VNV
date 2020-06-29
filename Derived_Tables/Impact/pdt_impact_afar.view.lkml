@@ -23,7 +23,7 @@ view: pdt_impact_afar {
       }
       filters: {
         field: vnv_dcm_ga_view.publisher
-        value: "Afar"
+        value: "AFAR"
       }
     }
     datagroup_trigger: vnv_impact_datagroup

@@ -4,6 +4,7 @@ include: "*.view.lkml"
 include: "/DCM/*.view"
 include: "/Facebook/*.view"
 include: "/AdWords/*.view"
+include: "/Publisher_Passback/*/*.view"
 include: "/Google_Analytics/*.view"
 
 datagroup: vnv_impact_datagroup {

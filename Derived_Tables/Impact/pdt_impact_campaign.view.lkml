@@ -8,6 +8,10 @@ view: pdt_impact_campaign {
       select * from ${pdt_impact_fb.SQL_TABLE_NAME}
       union
       select * from ${pdt_impact_gdn.SQL_TABLE_NAME}
+      union
+      select * from ${pdt_impact_afar_email.SQL_TABLE_NAME}
+      union
+      select * from ${pdt_impact_afar_social.SQL_TABLE_NAME}
       ;;
     sql_trigger_value: SELECT FLOOR((EXTRACT(epoch from GETDATE()) - 60*60*1)/(60*60*24)) ;;
     distribution_style: all

@@ -203,7 +203,7 @@ view: vnv_dcm_ga_view {
       CASE
         WHEN ${site_dcm} = 'Smart Meetings 1' then 'Smart Meetings'
         WHEN ${site_dcm} = 'Refinery 29 1' then 'Refinery 29'
-        WHEN ${site_dcm} ILIKE '%Afar Media%' then 'Afar'
+        WHEN ${site_dcm} ILIKE '%Afar Media%' then 'AFAR'
         WHEN ${site_dcm} ILIKE '%Adara%' then 'Adara'
         WHEN ${site_dcm} = 'The Wall Street Journal Online' then 'Wall Street Journal'
         ELSE ${site_dcm}
