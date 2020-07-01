@@ -15,11 +15,13 @@ view: pdt_foundational_campaign {
   distribution_style: all
    }
 
+
+
   ### Primary Key Added ###
 
   dimension: primary_key {
     type: string
-    hidden: yes
+    hidden: no
     primary_key: yes
     sql: ${campaign}||'_'||${publisher}||'_'||${placement}||'_'||${creative_name}||'_'||${date};;
   }
@@ -200,7 +202,7 @@ view: pdt_foundational_campaign {
     label: "Gross Cost"
     sql_distinct_key: ${primary_key} ;;
     value_format_name: usd
-    sql: ${cost}*1.16747 ;;
+    sql: (${cost}*1.16747) ;;
   }
 
   measure: video_cost {
