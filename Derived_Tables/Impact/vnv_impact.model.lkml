@@ -13,8 +13,8 @@ datagroup: vnv_impact_datagroup {
 }
 
 explore: pdt_impact_campaign {
-  label: "Impact"
+  label: "FY20 Impact"
   view_label: "Impact"
   group_label: "Visit Napa Valley"
-  hidden: yes
+  hidden: no
 }

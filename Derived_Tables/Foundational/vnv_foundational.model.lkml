@@ -14,8 +14,8 @@ datagroup: vnv_foundational_datagroup {
 
 explore: pdt_foundational_campaign {
   #persist_with: vca_dream365_datagroup
-  label: "Foundational"
+  label: "FY20 Foundational"
   view_label: "Foundational"
   group_label: "Visit Napa Valley"
-  hidden: yes
+  hidden: no
 }

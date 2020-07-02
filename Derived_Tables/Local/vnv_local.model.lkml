@@ -12,8 +12,8 @@ datagroup: vnv_local_datagroup {
 
 explore: pdt_local_campaign {
   #persist_with: vca_dream365_datagroup
-  label: "Local"
+  label: "FY20 Local"
   view_label: "Local"
   group_label: "Visit Napa Valley"
-  hidden: yes
+  hidden: no
 }

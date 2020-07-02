@@ -11,8 +11,8 @@ datagroup: vnv_engage_datagroup {
 
 explore: pdt_engage_campaign {
   #persist_with: vca_dream365_datagroup
-  label: "Engage"
+  label: "FY20 Engage"
   view_label: "Engage"
   group_label: "Visit Napa Valley"
-  hidden: yes
+  hidden: no
 }

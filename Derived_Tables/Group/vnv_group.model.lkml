@@ -13,8 +13,8 @@ datagroup: vnv_group_datagroup {
 
 explore: pdt_group_campaign {
   #persist_with: vca_dream365_datagroup
-  label: "Group"
+  label: "FY20 Group"
   view_label: "Group"
   group_label: "Visit Napa Valley"
-  hidden: yes
+  hidden: no
 }
