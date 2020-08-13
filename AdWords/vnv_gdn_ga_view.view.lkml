@@ -8,7 +8,7 @@ view: vnv_gdn_ga_view {
     type: string
     primary_key: yes
     hidden: yes
-    sql: ${TABLE}.comp_key ;;
+    sql: ${TABLE}.ga_join_id ;;
   }
 
 ###### Dimensions added to this table via LookML #######
