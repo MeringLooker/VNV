@@ -59,6 +59,7 @@ view: vnv_gdn_ga_view {
     group_label: "Client Dimensions"
     sql:
       CASE
+        WHEN ${campaign} = 'FY20_VNV_COVID19Recovery_Phase2_GDN' then 'Recovery'
         WHEN ${account} = 'VNV Foundational GDN' THEN 'Foundational'
         WHEN ${account} = 'VNV Objective 3 GDN' THEN 'Impact'
         ELSE 'Uncategorized'
@@ -72,6 +73,7 @@ view: vnv_gdn_ga_view {
     sql:
       CASE
         WHEN ${campaign_id} = '6555441529' THEN 'Responsive Display'
+        WHEN ${campaign_id} = '10459516532' THEN 'Responsive Display'
         WHEN ${campaign_id} = '6555664518' THEN 'Static Display'
         WHEN ${campaign_id} = '6450595900' THEN 'Static Display'
 
@@ -86,6 +88,7 @@ view: vnv_gdn_ga_view {
     sql:
       CASE
         WHEN ${campaign_id} = '6555441529' THEN 'Responsive Display'
+        WHEN ${campaign_id} = '10459516532' THEN 'Responsive Display'
         WHEN ${campaign_id} = '6555664518' THEN 'Static Display'
         WHEN ${campaign_id} = '6450595900' THEN 'Static Display'
 
@@ -117,7 +120,18 @@ view: vnv_gdn_ga_view {
     hidden: yes
     type:  string
     group_label: "Client Dimensions"
-    sql: 'Uncategorized' ;;
+    sql:
+      CASE
+        WHEN ${ad_group} = 'FY20_VNV_COVID19Recovery_Phase2_GDN_BeingTogether' then 'Being Together'
+        WHEN ${ad_group} = 'FY20_VNV_COVID19Recovery_Phase2_GDN_Relaxation' then 'Relaxation'
+        WHEN ${ad_group} = 'FY20_VNV_COVID19Recovery_Phase2_GDN_BreathtakingViews' then 'Breathtaking Views'
+        WHEN ${ad_group} = 'FY20_VNV_COVID19Recovery_Phase2_GDN_FullStomach' then 'Full Stomach'
+        WHEN ${ad_group} = 'FY20_VNV_COVID19Recovery_Phase2_GDN_Patience' then 'Patience'
+        WHEN ${ad_group} = 'FY20_VNV_COVID19Recovery_Phase2_GDN_RaisingAGlass' then 'Raising A Glass'
+
+        ELSE 'Uncategorized'
+        END
+    ;;
   }
 
   ###### All Dimensions go Below #######
