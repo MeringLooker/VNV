@@ -6,7 +6,7 @@ view: vnv_sem_ga_view {
   dimension: comp_key {
     type: string
     hidden: yes
-    sql: ${TABLE}.comp_key ;;
+    sql: ${TABLE}.ga_join_id ;;
   }
 
 ###### Dimensions added to this table via LookML #######
