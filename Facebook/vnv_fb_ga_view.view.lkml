@@ -77,7 +77,8 @@ view: vnv_fb_ga_view {
        when ${campaign_name} ilike '%FY20_VNV_Conversions%' then 'Foundational'
        when ${campaign_name} ilike '%FY20_VNV_Video%' then 'Foundational'
        when ${campaign_name} ilike 'FY20_VNV_Objective5%' then 'Local'
-       when ${campaign_name} ilike 'FY20_VNV_COVID19Recovery%' then 'Better With Time'
+       when ${campaign_name} ilike '%Phase2%' then 'Better With Time'
+       when ${campaign_name} ilike '%Phase3%' then 'Raise A Glass'
        ELSE 'Uncategorized'
        END;;
   }

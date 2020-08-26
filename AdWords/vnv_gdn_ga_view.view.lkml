@@ -60,6 +60,7 @@ view: vnv_gdn_ga_view {
     sql:
       CASE
         WHEN ${campaign} = 'FY20_VNV_COVID19Recovery_Phase2_GDN' then 'Better With Time'
+        WHEN ${campaign} ilike '%Phase3%' then 'Raise A Glass'
         WHEN ${account} = 'VNV Foundational GDN' THEN 'Foundational'
         WHEN ${account} = 'VNV Objective 3 GDN' THEN 'Impact'
         ELSE 'Uncategorized'

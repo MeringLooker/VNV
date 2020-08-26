@@ -1,4 +1,4 @@
-view: pdt_recovery_yt {
+view: pdt_better_with_time_yt {
   derived_table: {
     explore_source: vnv_yt {
       column: campaign {field: vnv_yt_ga_view.vnv_campaign}
@@ -20,7 +20,7 @@ view: pdt_recovery_yt {
         value: "Better With Time"
       }
     }
-    datagroup_trigger: vnv_recovery_datagroup
+    datagroup_trigger: vnv_better_with_time_datagroup
     distribution_style: all
   }
 

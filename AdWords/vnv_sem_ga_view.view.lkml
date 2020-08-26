@@ -65,6 +65,7 @@ view: vnv_sem_ga_view {
     sql:
       CASE
         WHEN ${day_date} BETWEEN '2020-07-07' AND '2020-08-30' THEN 'Better With Time'
+        WHEN ${day_date} BETWEEN '2020-09-01' AND '2020-12-31' THEN 'Raise A Glass'
         WHEN ${account} = 'VNV Foundational SEM' THEN 'Foundational'
         WHEN ${account} = 'VNV Group SEM' THEN 'Group'
         ELSE 'Uncategorized'
@@ -112,18 +113,6 @@ view: vnv_sem_ga_view {
 
         ELSE 'Uncategorized'
         END;;
-  }
-
-
-  dimension: phase {
-    type: string
-    group_label: "Client Dimensions"
-    label: "Phase"
-    sql:
-    CASE
-      ${day_date} BETWEEN '2020-07-07' AND '2020-08-30' THEN 'Phase 2'
-      ${day_date} BETWEEN '2020-09-01' AND '2020-12-31' THEN 'Phase 23'
-  ;;
   }
 
 

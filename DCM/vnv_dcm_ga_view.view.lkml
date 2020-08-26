@@ -180,6 +180,7 @@ view: vnv_dcm_ga_view {
     label: "Campaign Name"
     sql:
       CASE
+        WHEN ${campaign} = 'VNV: 005626 RAG 1.0 Campaign' then 'Raise A Glass'
         WHEN ${campaign} = 'VNV FY20 Objective 4 (Group)' then 'Group'
         WHEN ${campaign} = 'VNV FY20 Objective 2 (Engage)' then 'Engage'
         WHEN ${campaign} = 'VNV FY20 Objective #3 (Impact)' then 'Impact'

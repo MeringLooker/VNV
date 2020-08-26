@@ -1,4 +1,4 @@
-view: pdt_recovery_sem {
+view: pdt_better_with_time_sem {
   derived_table: {
     explore_source: vnv_sem {
       column: campaign {field: vnv_sem_ga_view.vnv_campaign}
@@ -24,7 +24,7 @@ view: pdt_recovery_sem {
         value: ">0"
       }
     }
-    datagroup_trigger: vnv_recovery_datagroup
+    datagroup_trigger: vnv_better_with_time_datagroup
     distribution_style: all
   }
 

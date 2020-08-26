@@ -1,13 +1,13 @@
-view: pdt_recovery_campaign {
+view: pdt_better_with_time_campaign {
   derived_table: {
     sql:
-      select * from ${pdt_recovery_fb.SQL_TABLE_NAME}
+      select * from ${pdt_better_with_time_fb.SQL_TABLE_NAME}
       union
-      select * from ${pdt_recovery_yt.SQL_TABLE_NAME}
+      select * from ${pdt_better_with_time_yt.SQL_TABLE_NAME}
       union
-      select * from ${pdt_recovery_gdn.SQL_TABLE_NAME}
+      select * from ${pdt_better_with_time_gdn.SQL_TABLE_NAME}
       union
-      select * from ${pdt_recovery_sem.SQL_TABLE_NAME}
+      select * from ${pdt_better_with_time_sem.SQL_TABLE_NAME}
       ;;
     sql_trigger_value: SELECT FLOOR((EXTRACT(epoch from GETDATE()) - 60*60*1)/(60*60*24)) ;;
     distribution_style: all
