@@ -1,4 +1,4 @@
-view: pdt_better_with_time_campaign {
+view: pdt_recovery_campaign {
   derived_table: {
     sql:
       select * from ${pdt_better_with_time_fb.SQL_TABLE_NAME}

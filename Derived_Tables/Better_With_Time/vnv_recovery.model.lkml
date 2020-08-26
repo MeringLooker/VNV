@@ -11,7 +11,7 @@ datagroup: vnv_better_with_time_datagroup {
   max_cache_age: "24 hours"
 }
 
-explore: pdt_better_with_time_campaign {
+explore: pdt_recovery_campaign {
   #persist_with: vca_dream365_datagroup
   label: "FY21 Better With Time"
   view_label: "Better With Time"
