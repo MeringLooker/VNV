@@ -184,6 +184,7 @@ view: vnv_dcm_ga_view {
         WHEN ${campaign} = 'VNV FY20 Objective 2 (Engage)' then 'Engage'
         WHEN ${campaign} = 'VNV FY20 Objective #3 (Impact)' then 'Impact'
         WHEN ${campaign} = 'VNV FY20 Objective 5' then 'Local'
+        WHEN ${campaign} = 'VNV: 005626 RAG 1.0 Campaign ' then 'Recovery'
         WHEN ${campaign} = 'VNV FY18/19' AND ${site_dcm} = 'Viant' then 'Group'
         WHEN ${campaign} = 'VNV FY18/19' AND ${site_dcm} = 'Afar Media, LLC 1' then 'Impact'
         WHEN ${campaign} = 'VNV FY18/19' AND ${site_dcm} = 'Sojern' then 'Engage'

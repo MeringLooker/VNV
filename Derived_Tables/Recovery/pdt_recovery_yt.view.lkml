@@ -17,7 +17,7 @@ view: pdt_recovery_yt {
       column: total_session_duration { field: vnv_yt_ga_view.total_session_duration }
       filters: {
         field: vnv_yt_ga_view.vnv_campaign
-        value: "Recovery"
+        value: "Better With Time"
       }
     }
     datagroup_trigger: vnv_recovery_datagroup

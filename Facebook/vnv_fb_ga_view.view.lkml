@@ -77,7 +77,7 @@ view: vnv_fb_ga_view {
        when ${campaign_name} ilike '%FY20_VNV_Conversions%' then 'Foundational'
        when ${campaign_name} ilike '%FY20_VNV_Video%' then 'Foundational'
        when ${campaign_name} ilike 'FY20_VNV_Objective5%' then 'Local'
-       when ${campaign_name} ilike 'FY20_VNV_COVID19Recovery%' then 'Recovery'
+       when ${campaign_name} ilike 'FY20_VNV_COVID19Recovery%' then 'Better With Time'
        ELSE 'Uncategorized'
        END;;
   }
@@ -185,6 +185,17 @@ view: vnv_fb_ga_view {
         END
         ;;
   }
+
+dimension: phase {
+  type: string
+  group_label: "Client Dimensions"
+  label: "Phase"
+  sql:
+    CASE
+      WHEN ${campaign_name} ilike '%phase2%'the 'Phase 2'
+      WHEN ${campaign_name} ilike '%phase3%'the 'Phase 3'
+  ;;
+}
 
 
 ####### All dimensions go below ######

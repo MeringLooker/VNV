@@ -59,7 +59,7 @@ view: vnv_gdn_ga_view {
     group_label: "Client Dimensions"
     sql:
       CASE
-        WHEN ${campaign} = 'FY20_VNV_COVID19Recovery_Phase2_GDN' then 'Recovery'
+        WHEN ${campaign} = 'FY20_VNV_COVID19Recovery_Phase2_GDN' then 'Better With Time'
         WHEN ${account} = 'VNV Foundational GDN' THEN 'Foundational'
         WHEN ${account} = 'VNV Objective 3 GDN' THEN 'Impact'
         ELSE 'Uncategorized'
@@ -132,6 +132,17 @@ view: vnv_gdn_ga_view {
         ELSE 'Uncategorized'
         END
     ;;
+  }
+
+  dimension: phase {
+    type: string
+    group_label: "Client Dimensions"
+    label: "Phase"
+    sql:
+    CASE
+      WHEN ${campaign} ilike '%phase2%'the 'Phase 2'
+      WHEN ${campaign} ilike '%phase3%'the 'Phase 3'
+  ;;
   }
 
   ###### All Dimensions go Below #######

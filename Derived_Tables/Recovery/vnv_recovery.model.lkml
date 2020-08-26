@@ -13,8 +13,8 @@ datagroup: vnv_recovery_datagroup {
 
 explore: pdt_recovery_campaign {
   #persist_with: vca_dream365_datagroup
-  label: "FY21 Recovery"
-  view_label: "Recovery"
+  label: "FY21 Better With Time"
+  view_label: "Better With Time"
   group_label: "Visit Napa Valley"
 #   hidden: yes
 }

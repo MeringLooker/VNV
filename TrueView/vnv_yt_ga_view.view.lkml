@@ -58,7 +58,7 @@ view: vnv_yt_ga_view {
     sql:
       CASE
         WHEN ${campaign} = 'FY20_VNV_Foundational_TrueView' then 'Foundational'
-        WHEN ${campaign} = 'FY20_VNV_COVID19Recovery_Phase2_TrueView' then 'Recovery'
+        WHEN ${campaign} = 'FY20_VNV_COVID19Recovery_Phase2_TrueView' then 'Better With Time'
         ELSE 'Uncategorized'
         END;;
   }
@@ -85,6 +85,17 @@ view: vnv_yt_ga_view {
         else 'Uncategorized'
         END
     ;;
+  }
+
+  dimension: phase {
+    type: string
+    group_label: "Client Dimensions"
+    label: "Phase"
+    sql:
+    CASE
+      WHEN ${campaign} ilike '%phase2%'the 'Phase 2'
+      WHEN ${campaign} ilike '%phase3%'the 'Phase 3'
+  ;;
   }
 
 #### All Dimensions go below ####
