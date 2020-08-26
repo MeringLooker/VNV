@@ -14,5 +14,5 @@ explore: pdt_engage_campaign {
   label: "FY20 Engage"
   view_label: "Engage"
   group_label: "Visit Napa Valley"
-  hidden: no
+  hidden: yes
 }

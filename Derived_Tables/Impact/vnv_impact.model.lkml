@@ -16,5 +16,5 @@ explore: pdt_impact_campaign {
   label: "FY20 Impact"
   view_label: "Impact"
   group_label: "Visit Napa Valley"
-  hidden: no
+  hidden: yes
 }

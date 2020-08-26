@@ -17,5 +17,5 @@ explore: pdt_foundational_campaign {
   label: "FY20 Foundational"
   view_label: "Foundational"
   group_label: "Visit Napa Valley"
-  hidden: no
+  hidden: yes
 }

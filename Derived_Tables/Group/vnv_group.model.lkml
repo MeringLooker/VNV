@@ -16,5 +16,5 @@ explore: pdt_group_campaign {
   label: "FY20 Group"
   view_label: "Group"
   group_label: "Visit Napa Valley"
-  hidden: no
+  hidden: yes
 }
