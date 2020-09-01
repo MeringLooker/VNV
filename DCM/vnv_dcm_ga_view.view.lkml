@@ -185,7 +185,6 @@ view: vnv_dcm_ga_view {
         WHEN ${campaign} = 'VNV FY20 Objective 2 (Engage)' then 'Engage'
         WHEN ${campaign} = 'VNV FY20 Objective #3 (Impact)' then 'Impact'
         WHEN ${campaign} = 'VNV FY20 Objective 5' then 'Local'
-        WHEN ${campaign} = 'VNV: 005626 RAG 1.0 Campaign ' then 'Recovery'
         WHEN ${campaign} = 'VNV FY18/19' AND ${site_dcm} = 'Viant' then 'Group'
         WHEN ${campaign} = 'VNV FY18/19' AND ${site_dcm} = 'Afar Media, LLC 1' then 'Impact'
         WHEN ${campaign} = 'VNV FY18/19' AND ${site_dcm} = 'Sojern' then 'Engage'
@@ -208,6 +207,8 @@ view: vnv_dcm_ga_view {
         WHEN ${site_dcm} ILIKE '%Afar Media%' then 'AFAR'
         WHEN ${site_dcm} ILIKE '%Adara%' then 'Adara'
         WHEN ${site_dcm} = 'The Wall Street Journal Online' then 'Wall Street Journal'
+        WHEN ${site_dcm} = 'Clear Channel Outdoor' then 'Clear Channel'
+        WHEN ${site_dcm} = 'Pandora' then 'Pandora'
         ELSE ${site_dcm}
         END
         ;;
