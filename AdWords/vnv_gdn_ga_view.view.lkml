@@ -73,6 +73,8 @@ view: vnv_gdn_ga_view {
     group_label: "Client Dimensions"
     sql:
       CASE
+        WHEN ${campaign_id} = '10867367221' THEN 'Responsive Display'
+        WHEN ${campaign_id} = '10868153701' THEN 'Responsive Display'
         WHEN ${campaign_id} = '6555441529' THEN 'Responsive Display'
         WHEN ${campaign_id} = '10459516532' THEN 'Responsive Display'
         WHEN ${campaign_id} = '6555664518' THEN 'Static Display'
@@ -103,6 +105,9 @@ view: vnv_gdn_ga_view {
     group_label: "Client Dimensions"
     sql:
       CASE
+        WHEN ${ad_group} ilike '%AspirationalAudience%' then 'Travel Buffs'
+        WHEN ${ad_group} ilike '%Retargeting%' then 'Retargeting'
+        WHEN ${ad_group} ilike '%LuxuryAudience%' then 'Luxury Travel'
         WHEN ${ad_group_id} = '84007501372' then 'Custom Intent'
         WHEN ${ad_group_id} = '78380941643' then 'Custom Intent'
         WHEN ${ad_group_id} = '84007501332' then 'Retargeting - Web Visitors'
@@ -135,16 +140,16 @@ view: vnv_gdn_ga_view {
     ;;
   }
 
-  dimension: phase {
-    type: string
-    group_label: "Client Dimensions"
-    label: "Phase"
-    sql:
-    CASE
-      WHEN ${campaign} ilike '%phase2%'the 'Phase 2'
-      WHEN ${campaign} ilike '%phase3%'the 'Phase 3'
-  ;;
-  }
+  # dimension: phase {
+  #   type: string
+  #   group_label: "Client Dimensions"
+  #   label: "Phase"
+  #   sql:
+  #   CASE
+  #     WHEN ${campaign} ilike '%phase2%'the 'Phase 2'
+  #     WHEN ${campaign} ilike '%phase3%'the 'Phase 3'
+  # ;;
+  # }
 
   ###### All Dimensions go Below #######
 
