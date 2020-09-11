@@ -89,7 +89,8 @@ view: vnv_fb_ga_view {
     type: string
     sql:
       CASE
-      when ${campaign_name} ilike '%_VideoViews' then 'Facebook Video'
+      when ${campaign_name} ilike 'FY20_VNV_COVID19Recovery_Phase3_Conversions%' then 'Traffic Driving - Single Image'
+      when ${campaign_name} ilike 'FY20_VNV_COVID19Recovery_Phase3_VideoViews%' then 'Facebook Video'
       when ${campaign_name} ilike '%_InstagramStories' then 'Instagram Stories'
       when ${ad_name} ilike 'FY20_VNV_Conversions_TrafficDriving_Carousel%' then 'Traffic Driving - Carousel'
       when ${ad_name} ilike 'FY20_VNV_Conversions_TrafficDriving_SingleImage%' then 'Traffic Driving - Single Image'

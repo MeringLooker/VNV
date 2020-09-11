@@ -82,7 +82,11 @@ view: vnv_yt_ga_view {
     group_label: "AdWords Dimensions"
     sql:
       CASE
-        WHEN ${campaign} ILIKE 'FY20_VNV_COVID19Recovery%' then 'Better With Time'
+        WHEN ${campaign} = 'FY20_VNV_COVID19Recovery_Phase2_TrueView' then 'Better With Time'
+        WHEN ${ad_group} = 'FY20_VNV_COVID19Recovery_Phase2_TrueView_AspirationalAudience_Poolside' then 'Poolside'
+        WHEN ${ad_group} = 'FY20_VNV_COVID19Recovery_Phase2_TrueView_AspirationalAudience_WindingTrails' then 'Winding Trails'
+        WHEN ${ad_group} = 'FY20_VNV_COVID19Recovery_Phase2_TrueView_LuxuryAudience_Poolside' then 'Poolside'
+        WHEN ${ad_group} = 'FY20_VNV_COVID19Recovery_Phase2_TrueView_LuxuryAudience_WindingTrails' then 'Winding Trails'
         else 'Uncategorized'
         END
     ;;
