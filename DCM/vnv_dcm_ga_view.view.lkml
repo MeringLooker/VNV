@@ -45,6 +45,11 @@ view: vnv_dcm_ga_view {
     sql:
       CASE
 
+        when ${creative} ILIKE '%RaiseAGlass%' then 'Raise A Glass'
+        when ${placement} ILIKE 'Pandora_RAG1.0_AudioXP%' then 'Audio :30'
+        when ${placement} ILIKE 'Pandora_RAG1.0_DisplayEverywhere%' then 'Explore More'
+        when ${placement} ILIKE 'Pandora_RAG1.0_Video%' then 'Raise A Glass (Winding Trails)'
+
         when ${placement} ILIKE '%WSJDN_Obj #3_Global Network_RON_Added Value_728x90%' then 'Refresh_728x90'
         when ${placement} ILIKE '%WSJDN_Obj #3_Off Duty 50 Global Network_Run of Lifestyle_CA,NY_728x90%' then 'Refresh_728x90'
         when ${placement} ILIKE '%WSJDN_Obj #3_Global Bundle Package_ROS_Culture/Lifestyle_CA,NY_728x90%' then 'Refresh_728x90'
@@ -220,6 +225,11 @@ view: vnv_dcm_ga_view {
     group_label: "Client Dimensions"
     sql:
     CASE
+        when ${placement} ilike  'Pandora_RAG1.0_AudioXP%' then 'Audio XP'
+        when ${placement} ilike  'Pandora_RAG1.0_DisplayEverywhere%' then 'Audio XP'
+        when ${placement} ilike  'Pandora_RAG1.0_Video%' then 'Mobile Video'
+        when ${placement} ilike  'Clear Channel Outdoor_RAG1.0_Display%' then 'Digital Banners'
+
         when ${placement} ilike 'TripAdvisor_OBJ2_Consideration_TAAudience_US_Advertorial1x1' then 'Advertorial'
         when ${placement} ilike '%Consideration\\_CompetitveContent%' then 'Competitive Content Display'
         when ${placement} ilike '%Consideration\\_AudienceExtension%' then 'Audience Extension Display'
