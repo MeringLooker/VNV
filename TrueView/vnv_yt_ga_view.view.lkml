@@ -58,7 +58,7 @@ view: vnv_yt_ga_view {
     sql:
       CASE
         WHEN ${campaign} = 'FY20_VNV_Foundational_TrueView' then 'Foundational'
-        WHEN ${campaign} ilike '%Phase2%' then 'Better With Time'
+        WHEN ${campaign} ilike '%Phase2%' and ${day_date} > '2020-06-08' then 'Better With Time'
         WHEN ${campaign} ilike '%Phase3%' then 'Raise A Glass'
         ELSE 'Uncategorized'
         END;;
