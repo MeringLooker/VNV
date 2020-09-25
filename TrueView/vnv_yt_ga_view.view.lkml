@@ -71,7 +71,7 @@ view: vnv_yt_ga_view {
     group_label: "Client Dimensions"
     sql:
       CASE
-        WHEN ${campaign} = 'FY20_VNV_Foundational_TrueView' then 'Foundational'
+        WHEN ${account} = 'VNV Foundational TrueView' then 'Foundational'
         ELSE 'Uncategorized'
         END;;
   }
