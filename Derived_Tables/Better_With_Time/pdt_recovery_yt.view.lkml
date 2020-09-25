@@ -1,7 +1,7 @@
 view: pdt_better_with_time_yt {
   derived_table: {
     explore_source: vnv_yt {
-      column: campaign {field: vnv_yt_ga_view.vnv_campaign}
+      column: campaign {field: vnv_yt_ga_view.bwt_campaign}
       column: publisher {field: vnv_yt_ga_view.publisher}
       column: placement {field: vnv_yt_ga_view.vnv_placement}
       column: creative {field: vnv_yt_ga_view.creative_name}
@@ -16,7 +16,7 @@ view: pdt_better_with_time_yt {
       column: total_sessions { field: vnv_yt_ga_view.total_sessions }
       column: total_session_duration { field: vnv_yt_ga_view.total_session_duration }
       filters: {
-        field: vnv_yt_ga_view.vnv_campaign
+        field: vnv_yt_ga_view.bwt_campaign
         value: "Better With Time"
       }
     }

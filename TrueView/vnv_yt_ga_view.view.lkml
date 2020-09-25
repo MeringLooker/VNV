@@ -51,6 +51,20 @@ view: vnv_yt_ga_view {
     sql: 'United States' ;;
   }
 
+  # dimension: vnv_campaign {
+  #   label: "Campaign Name"
+  #   type: string
+  #   group_label: "Client Dimensions"
+  #   sql:
+  #     CASE
+  #       WHEN ${campaign} = 'FY20_VNV_Foundational_TrueView' then 'Foundational'
+  #       WHEN ${campaign} ilike '%Phase2%' and ${day_date} > '2020-06-08' then 'Better With Time'
+  #       WHEN ${campaign} ilike '%Phase3%' then 'Raise A Glass'
+  #       ELSE 'Uncategorized'
+  #       END;;
+  # }
+
+
   dimension: vnv_campaign {
     label: "Campaign Name"
     type: string
@@ -58,8 +72,28 @@ view: vnv_yt_ga_view {
     sql:
       CASE
         WHEN ${campaign} = 'FY20_VNV_Foundational_TrueView' then 'Foundational'
+        ELSE 'Uncategorized'
+        END;;
+  }
+
+  dimension: bwt_campaign {
+    label: "Campaign Name"
+    type: string
+    group_label: "Client Dimensions"
+    sql:
+      CASE
         WHEN ${campaign} ilike '%Phase2%' and ${day_date} > '2020-06-08' then 'Better With Time'
-        WHEN ${campaign} ilike '%Phase3%' then 'Raise A Glass'
+        ELSE 'Uncategorized'
+        END;;
+  }
+
+  dimension: rag_campaign {
+    label: "Campaign Name"
+    type: string
+    group_label: "Client Dimensions"
+    sql:
+      CASE
+        WHEN ${campaign} ilike '%Phase3%' and ${day_date} > '2020-09-01' then 'Raise A Glass'
         ELSE 'Uncategorized'
         END;;
   }

@@ -59,10 +59,30 @@ view: vnv_gdn_ga_view {
     group_label: "Client Dimensions"
     sql:
       CASE
-        WHEN ${campaign} = 'FY20_VNV_COVID19Recovery_Phase2_GDN' AND ${day_date} > '2020-07-05' then 'Better With Time'
-        WHEN ${campaign} ilike '%Phase3%' then 'Raise A Glass'
         WHEN ${account} = 'VNV Foundational GDN' THEN 'Foundational'
         WHEN ${account} = 'VNV Objective 3 GDN' THEN 'Impact'
+        ELSE 'Uncategorized'
+        END;;
+  }
+
+  dimension: bwt_campaign {
+    label: "Campaign Name"
+    type: string
+    group_label: "Client Dimensions"
+    sql:
+      CASE
+        WHEN ${campaign} ilike '%Phase2%' then 'Better With Time'
+        ELSE 'Uncategorized'
+        END;;
+  }
+
+  dimension: rag_campaign {
+    label: "Campaign Name"
+    type: string
+    group_label: "Client Dimensions"
+    sql:
+      CASE
+        WHEN ${campaign} ilike '%Phase3%' then 'Raise A Glass'
         ELSE 'Uncategorized'
         END;;
   }
