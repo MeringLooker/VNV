@@ -18,64 +18,7 @@ view: pdt_impact_afar_email {
       column: total_sessions { field: vnv_afar_fy20_email.total_sessions}
       column: total_session_duration { field: vnv_afar_fy20_email.total_session_duration}
     }
-    datagroup_trigger: vnv_impact_datagroup
+    datagroup_trigger: 24hour_cache
     distribution_style: all
-  }
-
-  dimension: publisher {
-    type: string
-  }
-
-  dimension: campaign {
-    type: string
-  }
-
-  dimension: market {
-    type: string
-  }
-
-  dimension: region {
-    type: string
-  }
-
-  dimension: audience {
-    type: string
-  }
-
-  dimension: creative_name {
-    type: string
-  }
-
-  dimension: date {
-    type: date
-  }
-
-  dimension: week {
-    type: date
-  }
-
-  dimension: month {
-    type: date
-  }
-
-  dimension: quarter {
-    type: date
-  }
-
-  dimension: total_impressions {
-    type: number
-  }
-
-  dimension: total_views {
-    type: number
-  }
-
-  dimension: total_completes {
-    type: number
-  }
-
-  dimension: total_cost {
-    type: number
-    value_format_name: usd
   }
 }

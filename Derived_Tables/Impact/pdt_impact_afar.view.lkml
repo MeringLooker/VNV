@@ -26,53 +26,7 @@ view: pdt_impact_afar {
         value: "AFAR"
       }
     }
-    datagroup_trigger: vnv_impact_datagroup
+    datagroup_trigger: 24hour_cache
     distribution_style: all
   }
-
-  dimension: publisher {
-    type: string
-  }
-
-  dimension: campaign {
-    type: string
-  }
-
-  dimension: date {
-    type: date
-  }
-
-  dimension: week {
-    type: date
-  }
-
-  dimension: month {
-    type: date
-  }
-
-  dimension: quarter {
-    type: date
-  }
-
-  dimension: total_impressions {
-    type: number
-  }
-
-  dimension: total_clicks {
-    type: number
-  }
-
-  dimension: total_cost {
-    type: number
-    value_format_name: usd
-  }
-
-  dimension: total_sessions {
-    type: number
-  }
-
-  dimension: total_session_duration {
-    type: number
-  }
-
 }

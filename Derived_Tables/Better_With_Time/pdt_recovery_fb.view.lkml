@@ -20,54 +20,7 @@ view: pdt_better_with_time_fb {
         value: "Better With Time"
       }
     }
-    datagroup_trigger: vnv_better_with_time_datagroup
+    datagroup_trigger: 24hour_cache
     distribution_style: all
-  }
-  dimension: campaign {
-    type: string
-  }
-
-  dimension: publisher {
-    type: string
-  }
-
-  dimension: date {
-    type: date
-  }
-
-  dimension: week {
-    type: date
-  }
-
-  dimension: month {
-    type: date
-  }
-
-  dimension: quarter {
-    type: date
-  }
-
-  dimension: total_impressions {
-    type: number
-  }
-
-  dimension: total_clicks {
-    type: number
-  }
-
-  dimension: total_views {
-    type: number
-  }
-
-  dimension: total_cost {
-    type: number
-  }
-
-  dimension: total_sessions {
-    type: number
-  }
-
-  dimension: total_session_duration {
-    type: number
   }
 }
