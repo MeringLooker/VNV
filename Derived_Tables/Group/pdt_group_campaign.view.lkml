@@ -7,8 +7,8 @@ view: pdt_group_campaign {
       union
       select * from ${pdt_group_linkedin.SQL_TABLE_NAME}
       ;;
-    sql_trigger_value: SELECT FLOOR((EXTRACT(epoch from GETDATE()) - 60*60*1)/(60*60*24)) ;;
-    distribution_style: all
+    # sql_trigger_value: SELECT FLOOR((EXTRACT(epoch from GETDATE()) - 60*60*1)/(60*60*24)) ;;
+    # distribution_style: all
   }
 
   ### Primary Key Added ###
