@@ -24,7 +24,7 @@ view: pdt_raise_a_glass_clear_channel {
         value: "Clear Channel"
       }
     }
-    datagroup_trigger: 24hour_cache
+    datagroup_trigger: vnv_default_datagroup
     distribution_style: all
   }
 }

@@ -10,7 +10,7 @@ include: "/Pinterest/**/*.view"
 include: "/TrueView/**/*.view"
 include: "/Derived_Tables/**/*.view"
 
-datagroup: 24hour_cache {
+datagroup: vnv_default_datagroup {
   sql_trigger: SELECT current_date;;
   max_cache_age: "24 hours"
 }

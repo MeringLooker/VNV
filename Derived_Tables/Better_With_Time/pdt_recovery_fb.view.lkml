@@ -20,7 +20,7 @@ view: pdt_better_with_time_fb {
         value: "Better With Time"
       }
     }
-    datagroup_trigger: 24hour_cache
+    datagroup_trigger: vnv_default_datagroup
     distribution_style: all
   }
 }

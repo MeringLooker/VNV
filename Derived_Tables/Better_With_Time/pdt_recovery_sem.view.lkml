@@ -24,7 +24,7 @@ view: pdt_better_with_time_sem {
         value: ">0"
       }
     }
-    datagroup_trigger: 24hour_cache
+    datagroup_trigger: vnv_default_datagroup
     distribution_style: all
   }
 }

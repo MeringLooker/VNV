@@ -16,7 +16,7 @@ view: pdt_engage_ta_social {
       column: total_sessions { field: vnv_fy20_engage_tripadvisor_social.total_sessions}
       column: total_session_duration { field: vnv_fy20_engage_tripadvisor_social.total_session_duration}
     }
-    datagroup_trigger: 24hour_cache
+    datagroup_trigger: vnv_default_datagroup
     distribution_style: all
   }
 }

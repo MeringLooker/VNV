@@ -18,7 +18,7 @@ view: pdt_impact_afar_social {
       column: total_sessions { field: vnv_afar_fy20_social.total_sessions}
       column: total_session_duration { field: vnv_afar_fy20_social.total_session_duration}
     }
-    datagroup_trigger: 24hour_cache
+    datagroup_trigger: vnv_default_datagroup
     distribution_style: all
   }
 }

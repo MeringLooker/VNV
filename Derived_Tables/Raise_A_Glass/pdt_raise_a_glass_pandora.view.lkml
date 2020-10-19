@@ -24,7 +24,7 @@ view: pdt_raise_a_glass_pandora {
         value: "Pandora"
       }
     }
-    datagroup_trigger: 24hour_cache
+    datagroup_trigger: vnv_default_datagroup
     distribution_style: all
   }
 }

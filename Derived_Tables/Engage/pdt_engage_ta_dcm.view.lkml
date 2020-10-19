@@ -24,7 +24,7 @@ view: pdt_engage_tripadvisor {
         value: "TripAdvisor"
       }
     }
-    datagroup_trigger: 24hour_cache
+    datagroup_trigger: vnv_default_datagroup
     distribution_style: all
   }
 }

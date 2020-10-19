@@ -22,7 +22,7 @@ view: pdt_foundational_pin {
         value: "Foundational"
       }
     }
-    datagroup_trigger: 24hour_cache
+    datagroup_trigger: vnv_default_datagroup
     distribution_style: all
   }
 }

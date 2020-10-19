@@ -26,7 +26,7 @@ view: pdt_group_viant {
         value: "Viant"
       }
     }
-    datagroup_trigger: 24hour_cache
+    datagroup_trigger: vnv_default_datagroup
     distribution_style: all
   }
 }

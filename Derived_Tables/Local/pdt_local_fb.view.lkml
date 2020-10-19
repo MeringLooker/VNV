@@ -21,7 +21,7 @@ view: pdt_local_fb {
         value: "Local"
       }
     }
-    datagroup_trigger: 24hour_cache
+    datagroup_trigger: vnv_default_datagroup
     distribution_style: all
   }
 }
