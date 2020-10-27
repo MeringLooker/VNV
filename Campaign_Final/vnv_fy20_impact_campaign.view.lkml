@@ -1,15 +1,5 @@
-view: pdt_group_campaign {
-  derived_table: {
-    sql:
-      select * from ${pdt_group_sem.SQL_TABLE_NAME}
-      union
-      select * from ${pdt_group_viant.SQL_TABLE_NAME}
-      union
-      select * from ${pdt_group_linkedin.SQL_TABLE_NAME}
-      ;;
-    sql_trigger_value: SELECT FLOOR((EXTRACT(epoch from GETDATE()) - 60*60*1)/(60*60*24)) ;;
-    distribution_style: all
-  }
+view: vnv_fy20_impact_campaign {
+  sql_table_name: public.vnv_fy20_impact_campaign ;;
 
   ### Primary Key Added ###
 
@@ -17,34 +7,39 @@ view: pdt_group_campaign {
     type: string
     hidden: yes
     primary_key: yes
-    sql: ${campaign}||'_'||${publisher}||'_'||${placement}||'_'||${creative_name}||'_'||${date};;
+    sql: ${publisher}||'_'||${campaign}||'_'||${placement}||'_'||${creative_name}||'_'||${ad_size}||'_'||${date} ;;
   }
 
   #### All dimensions go below ####
 
   dimension: campaign {
     type: string
-    hidden: yes
 #     drill_fields: []
     sql: ${TABLE}.campaign ;;
   }
 
   dimension: publisher {
     type: string
-    drill_fields: [placement, date, week, month]
+    drill_fields: [placement,date,week,month]
     sql: ${TABLE}.publisher ;;
   }
 
   dimension: placement {
     type: string
-    drill_fields: [date, week, month]
+    drill_fields: [date,week,month]
     sql: ${TABLE}.placement ;;
   }
 
   dimension: creative_name {
     type: string
-    drill_fields: [date, week, month]
+    drill_fields: [date,week,month]
     sql: ${TABLE}.creative_name ;;
+  }
+
+  dimension: ad_size {
+    type: string
+    drill_fields: [date,week,month]
+    sql: ${TABLE}.ad_size ;;
   }
 
   dimension: fiscal_year {
@@ -52,6 +47,10 @@ view: pdt_group_campaign {
     group_label: "Date Periods"
     sql:
       CASE
+      WHEN ${date} BETWEEN '2013-07-01' AND '2014-06-30' THEN 'FY 13/14'
+      WHEN ${date} BETWEEN '2014-07-01' AND '2015-06-30' THEN 'FY 14/15'
+      WHEN ${date} BETWEEN '2015-07-01' AND '2016-06-30' THEN 'FY 15/16'
+      WHEN ${date} BETWEEN '2016-07-01' AND '2017-06-30' THEN 'FY 16/17'
       WHEN ${date} BETWEEN '2017-07-01' AND '2018-06-30' THEN 'FY 17/18'
       WHEN ${date} BETWEEN '2018-07-01' AND '2019-06-30' THEN 'FY 18/19'
       WHEN ${date} BETWEEN '2019-07-01' AND '2020-06-30' THEN 'FY 19/20'
@@ -68,14 +67,15 @@ view: pdt_group_campaign {
 
   dimension: week {
     type: date_week
+    drill_fields: [publisher]
     group_label: "Date Periods"
     sql: ${TABLE}.week ;;
   }
 
   dimension: month {
     type: date_month
-    group_label: "Date Periods"
     drill_fields: [publisher]
+    group_label: "Date Periods"
     sql: ${TABLE}.month ;;
   }
 
@@ -97,6 +97,13 @@ view: pdt_group_campaign {
     sql: ${TABLE}.total_clicks ;;
   }
 
+  dimension: cost {
+    type: number
+    hidden: yes
+    sql:  ${TABLE}.total_cost ;;
+    value_format_name: usd
+  }
+
   dimension: views {
     type: number
     hidden: yes
@@ -107,13 +114,6 @@ view: pdt_group_campaign {
     type: number
     hidden: yes
     sql: ${TABLE}.total_completes ;;
-  }
-
-  dimension: cost {
-    type: number
-    hidden: yes
-    sql:  ${TABLE}.total_cost ;;
-    value_format_name: usd
   }
 
   dimension: sessions {
@@ -127,13 +127,6 @@ view: pdt_group_campaign {
     hidden: yes
     sql: ${TABLE}.total_session_duration ;;
   }
-
-  dimension: partner_referrals {
-    type: number
-    hidden: yes
-    sql: ${TABLE}.total_partner_referrals ;;
-  }
-
 
 ### All measures go below ###
 
@@ -155,6 +148,27 @@ view: pdt_group_campaign {
     label: "CTR"
     sql: 1.0*${total_clicks}/nullif(${total_impressions}, 0) ;;
     value_format_name: percent_2
+  }
+
+  measure: cost_per_thousand {
+    type: number
+    label: "CPM"
+    value_format_name: usd
+    sql: ${total_cost}/nullif(${total_impressions}/1000, 0) ;;
+  }
+
+  measure: cost_per_click {
+    type: number
+#     drill_fields: [publisher,layer,week,month,quarter]
+    label: "CPC"
+    value_format_name: usd
+    sql: ${total_cost}/nullif(${total_clicks}, 0) ;;
+  }
+
+  measure: total_sessions {
+    type: sum_distinct
+    sql_distinct_key: ${primary_key} ;;
+    sql: ${sessions} ;;
   }
 
   measure: total_views {
@@ -229,27 +243,6 @@ view: pdt_group_campaign {
     sql: ${video_cost}/nullif(${total_completes}, 0) ;;
   }
 
-  measure: cost_per_thousand {
-    type: number
-    label: "CPM"
-    value_format_name: usd
-    sql: ${total_cost}/nullif(${total_impressions}/1000, 0) ;;
-  }
-
-  measure: cost_per_click {
-    type: number
-#     drill_fields: [publisher,layer,week,month,quarter]
-    label: "CPC"
-    value_format_name: usd
-    sql: ${total_cost}/nullif(${total_clicks}, 0) ;;
-  }
-
-  measure: total_sessions {
-    type: sum_distinct
-    sql_distinct_key: ${primary_key} ;;
-    sql: ${sessions} ;;
-  }
-
   measure: cost_per_session {
     type: number
     label: "CPS"
@@ -271,23 +264,4 @@ view: pdt_group_campaign {
     sql: (${total_session_duration}/nullif(${total_sessions}, 0))::float/86400 ;;
     value_format: "m:ss"
   }
-
-  measure: total_partner_referrals {
-    type: sum_distinct
-    sql_distinct_key: ${primary_key} ;;
-    sql: ${partner_referrals} ;;
-  }
-
-  measure: referral_rate {
-    type: number
-    label: "Referral Rate"
-    sql: 1.0*${total_partner_referrals}/nullif(${total_sessions}, 0) ;;
-    value_format_name: percent_2
-  }
-
-
-  measure: count {
-    type: count
-  }
-
 }

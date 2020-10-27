@@ -1,15 +1,5 @@
-view: pdt_group_campaign {
-  derived_table: {
-    sql:
-      select * from ${pdt_group_sem.SQL_TABLE_NAME}
-      union
-      select * from ${pdt_group_viant.SQL_TABLE_NAME}
-      union
-      select * from ${pdt_group_linkedin.SQL_TABLE_NAME}
-      ;;
-    sql_trigger_value: SELECT FLOOR((EXTRACT(epoch from GETDATE()) - 60*60*1)/(60*60*24)) ;;
-    distribution_style: all
-  }
+view: vnv_fy20_engage_campaign {
+  sql_table_name: public.vnv_fy20_engage_campaign ;;
 
   ### Primary Key Added ###
 
@@ -17,33 +7,38 @@ view: pdt_group_campaign {
     type: string
     hidden: yes
     primary_key: yes
-    sql: ${campaign}||'_'||${publisher}||'_'||${placement}||'_'||${creative_name}||'_'||${date};;
+    sql: ${publisher}||'_'||${campaign}||'_'||${placement}||'_'||${ad_size}||'_'||${creative_name}||'_'||${date} ;;
   }
 
   #### All dimensions go below ####
 
   dimension: campaign {
     type: string
-    hidden: yes
 #     drill_fields: []
     sql: ${TABLE}.campaign ;;
   }
 
   dimension: publisher {
     type: string
-    drill_fields: [placement, date, week, month]
+    drill_fields: [placement,date,week,month]
     sql: ${TABLE}.publisher ;;
   }
 
   dimension: placement {
     type: string
-    drill_fields: [date, week, month]
+    drill_fields: [date,week,month]
     sql: ${TABLE}.placement ;;
+  }
+
+  dimension: ad_size {
+    type: string
+    drill_fields: [date,week,month]
+    sql: ${TABLE}.ad_size ;;
   }
 
   dimension: creative_name {
     type: string
-    drill_fields: [date, week, month]
+    drill_fields: [date,week,month]
     sql: ${TABLE}.creative_name ;;
   }
 
@@ -52,6 +47,10 @@ view: pdt_group_campaign {
     group_label: "Date Periods"
     sql:
       CASE
+      WHEN ${date} BETWEEN '2013-07-01' AND '2014-06-30' THEN 'FY 13/14'
+      WHEN ${date} BETWEEN '2014-07-01' AND '2015-06-30' THEN 'FY 14/15'
+      WHEN ${date} BETWEEN '2015-07-01' AND '2016-06-30' THEN 'FY 15/16'
+      WHEN ${date} BETWEEN '2016-07-01' AND '2017-06-30' THEN 'FY 16/17'
       WHEN ${date} BETWEEN '2017-07-01' AND '2018-06-30' THEN 'FY 17/18'
       WHEN ${date} BETWEEN '2018-07-01' AND '2019-06-30' THEN 'FY 18/19'
       WHEN ${date} BETWEEN '2019-07-01' AND '2020-06-30' THEN 'FY 19/20'
@@ -68,14 +67,15 @@ view: pdt_group_campaign {
 
   dimension: week {
     type: date_week
+    drill_fields: [publisher]
     group_label: "Date Periods"
     sql: ${TABLE}.week ;;
   }
 
   dimension: month {
     type: date_month
-    group_label: "Date Periods"
     drill_fields: [publisher]
+    group_label: "Date Periods"
     sql: ${TABLE}.month ;;
   }
 
@@ -97,18 +97,6 @@ view: pdt_group_campaign {
     sql: ${TABLE}.total_clicks ;;
   }
 
-  dimension: views {
-    type: number
-    hidden: yes
-    sql: ${TABLE}.total_views ;;
-  }
-
-  dimension: completes {
-    type: number
-    hidden: yes
-    sql: ${TABLE}.total_completes ;;
-  }
-
   dimension: cost {
     type: number
     hidden: yes
@@ -127,13 +115,6 @@ view: pdt_group_campaign {
     hidden: yes
     sql: ${TABLE}.total_session_duration ;;
   }
-
-  dimension: partner_referrals {
-    type: number
-    hidden: yes
-    sql: ${TABLE}.total_partner_referrals ;;
-  }
-
 
 ### All measures go below ###
 
@@ -157,76 +138,12 @@ view: pdt_group_campaign {
     value_format_name: percent_2
   }
 
-  measure: total_views {
-    type: sum_distinct
-    sql_distinct_key: ${primary_key} ;;
-    sql: ${views} ;;
-  }
-
-  measure: total_completes {
-    type: sum
-    label: "Video Completes"
-    value_format_name: decimal_0
-    sql: ${completes} ;;
-  }
-
-  measure: video_impressions {
-    type: sum
-    hidden: yes
-    sql:
-      case
-        when ${views} > 0 then ${impressions}
-        else null
-        end
-        ;;
-  }
-
-  measure: view_rate {
-    type: number
-    label: "View Rate"
-    sql: 1.0*${total_views}/nullif(${video_impressions}, 0) ;;
-    value_format_name: percent_2
-  }
-
-  measure: completion_rate {
-    type: number
-    label: "Completion Rate"
-    sql: 1.0*${total_completes}/nullif(${video_impressions}, 0) ;;
-    value_format_name: percent_2
-  }
-
   measure: total_cost {
     type: sum_distinct
     label: "Gross Cost"
     sql_distinct_key: ${primary_key} ;;
     value_format_name: usd
     sql: ${cost}*1.16747 ;;
-  }
-
-  measure: video_cost {
-    type: sum_distinct
-    sql_distinct_key: ${primary_key} ;;
-    hidden: yes
-    sql:
-      case
-        when ${views} > 0 then (${cost}*1.16747)
-        else null
-        end
-        ;;
-  }
-
-  measure: cost_per_view {
-    type: number
-    label: "CPV"
-    value_format_name: usd
-    sql: ${video_cost}/nullif(${total_views}, 0) ;;
-  }
-
-  measure: cost_per_complete {
-    type: number
-    label: "CPcV"
-    value_format_name: usd
-    sql: ${video_cost}/nullif(${total_completes}, 0) ;;
   }
 
   measure: cost_per_thousand {
@@ -271,23 +188,4 @@ view: pdt_group_campaign {
     sql: (${total_session_duration}/nullif(${total_sessions}, 0))::float/86400 ;;
     value_format: "m:ss"
   }
-
-  measure: total_partner_referrals {
-    type: sum_distinct
-    sql_distinct_key: ${primary_key} ;;
-    sql: ${partner_referrals} ;;
-  }
-
-  measure: referral_rate {
-    type: number
-    label: "Referral Rate"
-    sql: 1.0*${total_partner_referrals}/nullif(${total_sessions}, 0) ;;
-    value_format_name: percent_2
-  }
-
-
-  measure: count {
-    type: count
-  }
-
 }

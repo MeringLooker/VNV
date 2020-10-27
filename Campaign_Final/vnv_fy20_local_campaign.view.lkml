@@ -1,15 +1,5 @@
-view: pdt_group_campaign {
-  derived_table: {
-    sql:
-      select * from ${pdt_group_sem.SQL_TABLE_NAME}
-      union
-      select * from ${pdt_group_viant.SQL_TABLE_NAME}
-      union
-      select * from ${pdt_group_linkedin.SQL_TABLE_NAME}
-      ;;
-    sql_trigger_value: SELECT FLOOR((EXTRACT(epoch from GETDATE()) - 60*60*1)/(60*60*24)) ;;
-    distribution_style: all
-  }
+view: vnv_fy20_local_campaign {
+  sql_table_name: public.vnv_fy20_local_campaign ;;
 
   ### Primary Key Added ###
 
@@ -37,13 +27,13 @@ view: pdt_group_campaign {
 
   dimension: placement {
     type: string
-    drill_fields: [date, week, month]
+    drill_fields: [date,week,month]
     sql: ${TABLE}.placement ;;
   }
 
   dimension: creative_name {
     type: string
-    drill_fields: [date, week, month]
+    drill_fields: [date,week,month]
     sql: ${TABLE}.creative_name ;;
   }
 
@@ -128,13 +118,6 @@ view: pdt_group_campaign {
     sql: ${TABLE}.total_session_duration ;;
   }
 
-  dimension: partner_referrals {
-    type: number
-    hidden: yes
-    sql: ${TABLE}.total_partner_referrals ;;
-  }
-
-
 ### All measures go below ###
 
   measure: total_impressions {
@@ -164,35 +147,9 @@ view: pdt_group_campaign {
   }
 
   measure: total_completes {
-    type: sum
-    label: "Video Completes"
-    value_format_name: decimal_0
+    type: sum_distinct
+    sql_distinct_key: ${primary_key} ;;
     sql: ${completes} ;;
-  }
-
-  measure: video_impressions {
-    type: sum
-    hidden: yes
-    sql:
-      case
-        when ${views} > 0 then ${impressions}
-        else null
-        end
-        ;;
-  }
-
-  measure: view_rate {
-    type: number
-    label: "View Rate"
-    sql: 1.0*${total_views}/nullif(${video_impressions}, 0) ;;
-    value_format_name: percent_2
-  }
-
-  measure: completion_rate {
-    type: number
-    label: "Completion Rate"
-    sql: 1.0*${total_completes}/nullif(${video_impressions}, 0) ;;
-    value_format_name: percent_2
   }
 
   measure: total_cost {
@@ -201,32 +158,6 @@ view: pdt_group_campaign {
     sql_distinct_key: ${primary_key} ;;
     value_format_name: usd
     sql: ${cost}*1.16747 ;;
-  }
-
-  measure: video_cost {
-    type: sum_distinct
-    sql_distinct_key: ${primary_key} ;;
-    hidden: yes
-    sql:
-      case
-        when ${views} > 0 then (${cost}*1.16747)
-        else null
-        end
-        ;;
-  }
-
-  measure: cost_per_view {
-    type: number
-    label: "CPV"
-    value_format_name: usd
-    sql: ${video_cost}/nullif(${total_views}, 0) ;;
-  }
-
-  measure: cost_per_complete {
-    type: number
-    label: "CPcV"
-    value_format_name: usd
-    sql: ${video_cost}/nullif(${total_completes}, 0) ;;
   }
 
   measure: cost_per_thousand {
@@ -271,23 +202,4 @@ view: pdt_group_campaign {
     sql: (${total_session_duration}/nullif(${total_sessions}, 0))::float/86400 ;;
     value_format: "m:ss"
   }
-
-  measure: total_partner_referrals {
-    type: sum_distinct
-    sql_distinct_key: ${primary_key} ;;
-    sql: ${partner_referrals} ;;
-  }
-
-  measure: referral_rate {
-    type: number
-    label: "Referral Rate"
-    sql: 1.0*${total_partner_referrals}/nullif(${total_sessions}, 0) ;;
-    value_format_name: percent_2
-  }
-
-
-  measure: count {
-    type: count
-  }
-
 }

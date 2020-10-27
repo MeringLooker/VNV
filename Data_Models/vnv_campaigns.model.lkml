@@ -9,6 +9,7 @@ include: "/LinkedIn/**/*.view"
 include: "/Pinterest/**/*.view"
 include: "/TrueView/**/*.view"
 include: "/Derived_Tables/**/*.view"
+include: "/Campaign_Final/**/*.view"
 
 datagroup: vnv_default_datagroup {
   sql_trigger: SELECT current_date;;
@@ -44,7 +45,7 @@ explore: pdt_foundational_campaign {
 
 ## FY20 Engage ##
 
-explore: pdt_engage_campaign {
+explore: vnv_fy20_engage_campaign {
   label: "FY20 Engage"
   view_label: "Engage"
   group_label: "Visit Napa Valley"
@@ -62,7 +63,7 @@ explore: pdt_group_campaign {
 
 ## FY20 Impact ##
 
-explore: pdt_impact_campaign {
+explore: vnv_fy20_impact_campaign {
   label: "FY20 Impact"
   view_label: "Impact"
   group_label: "Visit Napa Valley"
@@ -71,7 +72,7 @@ explore: pdt_impact_campaign {
 
 ## FY20 Local ##
 
-explore: pdt_local_campaign {
+explore: vnv_fy20_local_campaign {
   label: "FY20 Local"
   view_label: "Local"
   group_label: "Visit Napa Valley"
