@@ -1,10 +1,11 @@
 view: pdt_raise_a_glass_yt {
   derived_table: {
     explore_source: vnv_yt {
-      column: campaign {field: vnv_yt_ga_view.rag_campaign}
+      column: campaign {field: vnv_yt_ga_view.vnv_campaign}
       column: publisher {field: vnv_yt_ga_view.publisher}
       column: placement {field: vnv_yt_ga_view.vnv_placement}
       column: creative {field: vnv_yt_ga_view.creative_name}
+      column: ad_size {field: vnv_yt_ga_view.ad_size}
       column: date {field: vnv_yt_ga_view.day_date}
       column: week {field: vnv_yt_ga_view.day_week}
       column: month {field: vnv_yt_ga_view.day_month}
@@ -16,8 +17,8 @@ view: pdt_raise_a_glass_yt {
       column: total_sessions { field: vnv_yt_ga_view.total_sessions }
       column: total_session_duration { field: vnv_yt_ga_view.total_session_duration }
       filters: {
-        field: vnv_yt_ga_view.rag_campaign
-        value: "Raise A Glass"
+        field: vnv_yt_ga_view.vnv_campaign
+        value: "FY21 Raise A Glass"
       }
     }
     datagroup_trigger: vnv_default_datagroup

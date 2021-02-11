@@ -59,30 +59,11 @@ view: vnv_gdn_ga_view {
     group_label: "Client Dimensions"
     sql:
       CASE
+        WHEN ${campaign} ilike '%Phase2%' then 'FY21 Better With Time'
+        WHEN ${campaign} ilike '%Phase3%' then 'FY21 Raise A Glass'
         WHEN ${account} = 'VNV Foundational GDN' THEN 'Foundational'
         WHEN ${account} = 'VNV Objective 3 GDN' THEN 'Impact'
-        ELSE 'Uncategorized'
-        END;;
-  }
 
-  dimension: bwt_campaign {
-    label: "Campaign Name"
-    type: string
-    group_label: "Client Dimensions"
-    sql:
-      CASE
-        WHEN ${campaign} ilike '%Phase2%' then 'Better With Time'
-        ELSE 'Uncategorized'
-        END;;
-  }
-
-  dimension: rag_campaign {
-    label: "Campaign Name"
-    type: string
-    group_label: "Client Dimensions"
-    sql:
-      CASE
-        WHEN ${campaign} ilike '%Phase3%' then 'Raise A Glass'
         ELSE 'Uncategorized'
         END;;
   }
@@ -93,8 +74,10 @@ view: vnv_gdn_ga_view {
     group_label: "Client Dimensions"
     sql:
       CASE
-        WHEN ${campaign_id} = '10867367221' THEN 'Responsive Display'
-        WHEN ${campaign_id} = '10868153701' THEN 'Responsive Display'
+        when ${ad_group} ilike 'FY20_VNV_COVID19Recovery_Phase3_GDN_Retargeting%' then 'Responsive Display - Retargeting'
+        when ${ad_group} ilike 'FY20_VNV_COVID19Recovery_Phase3_GDN_LuxuryAudience%' then 'Responsive Display - Luxury Target'
+        when ${ad_group} ilike 'FY20_VNV_COVID19Recovery_Phase3_GDN_AspirationalAudience%' then 'Responsive Display - Aspirational Target'
+
         WHEN ${campaign_id} = '6555441529' THEN 'Responsive Display'
         WHEN ${campaign_id} = '10459516532' THEN 'Responsive Display'
         WHEN ${campaign_id} = '6555664518' THEN 'Static Display'
@@ -110,6 +93,9 @@ view: vnv_gdn_ga_view {
     group_label: "AdWords Dimensions"
     sql:
       CASE
+        WHEN ${campaign_id} = '10867367221' THEN 'Responsive Display'
+        WHEN ${campaign_id} = '10868153701' THEN 'Responsive Display'
+
         WHEN ${campaign_id} = '6555441529' THEN 'Responsive Display'
         WHEN ${campaign_id} = '10459516532' THEN 'Responsive Display'
         WHEN ${campaign_id} = '6555664518' THEN 'Static Display'
@@ -140,51 +126,28 @@ view: vnv_gdn_ga_view {
         END;;
   }
 
-  #### Need to map gdn creative
-
   dimension: creative_name {
-    hidden: yes
+    hidden: no
     type:  string
     group_label: "Client Dimensions"
     sql:
       CASE
 
-        WHEN ${ad_group} =  'FY20_VNV_COVID19Recovery_Phase3_GDN_AspirationalAudience_General1' then  'General 1'
-        WHEN ${ad_group} =  'FY20_VNV_COVID19Recovery_Phase3_GDN_AspirationalAudience_General2' then  'General 2'
-        WHEN ${ad_group} =  'FY20_VNV_COVID19Recovery_Phase3_GDN_AspirationalAudience_Culinary1'  then  'Culinary 1'
-        WHEN ${ad_group} =  'FY20_VNV_COVID19Recovery_Phase3_GDN_AspirationalAudience_Culinary2'  then  'Culinary 2'
-        WHEN ${ad_group} =  'FY20_VNV_COVID19Recovery_Phase3_GDN_AspirationalAudience_OutdoorWellness1' then  'Outdoor Wellness 1'
-        WHEN ${ad_group} =  'FY20_VNV_COVID19Recovery_Phase3_GDN_AspirationalAudience_OutdoorWellness2' then  'Outdoor Wellness 2'
-        WHEN ${ad_group} =  'FY20_VNV_COVID19Recovery_Phase3_GDN_AspirationalAudience_Resort1'  then  'Resorts 1'
-        WHEN ${ad_group} =  'FY20_VNV_COVID19Recovery_Phase3_GDN_AspirationalAudience_Resort2'  then  'Resorts 2'
-        WHEN ${ad_group} =  'FY20_VNV_COVID19Recovery_Phase3_GDN_AspirationalAudience_Towns1' then  'Towns 1'
-        WHEN ${ad_group} =  'FY20_VNV_COVID19Recovery_Phase3_GDN_AspirationalAudience_Towns2' then  'Towns 2'
-        WHEN ${ad_group} =  'FY20_VNV_COVID19Recovery_Phase3_GDN_AspirationalAudience_Wineries1'  then  'Wineries 1'
-        WHEN ${ad_group} =  'FY20_VNV_COVID19Recovery_Phase3_GDN_AspirationalAudience_Wineries2'  then  'Wineries 2'
-        WHEN ${ad_group} =  'FY20_VNV_COVID19Recovery_Phase3_GDN_Retargeting_General1'  then  'General 1'
-        WHEN ${ad_group} =  'FY20_VNV_COVID19Recovery_Phase3_GDN_Retargeting_General2'  then  'General 2'
-        WHEN ${ad_group} =  'FY20_VNV_COVID19Recovery_Phase3_GDN_Retargeting_Culinary1' then  'Culinary 1'
-        WHEN ${ad_group} =  'FY20_VNV_COVID19Recovery_Phase3_GDN_Retargeting_Culinary2' then  'Culinary 2'
-        WHEN ${ad_group} =  'FY20_VNV_COVID19Recovery_Phase3_GDN_Retargeting_OutdoorWellness1'  then  'Outdoor Wellness 1'
-        WHEN ${ad_group} =  'FY20_VNV_COVID19Recovery_Phase3_GDN_Retargeting_OutdoorWellness2'  then  'Outdoor Wellness 2'
-        WHEN ${ad_group} =  'FY20_VNV_COVID19Recovery_Phase3_GDN_Retargeting_Resort1' then  'Resorts 1'
-        WHEN ${ad_group} =  'FY20_VNV_COVID19Recovery_Phase3_GDN_Retargeting_Resort2' then  'Resorts 2'
-        WHEN ${ad_group} =  'FY20_VNV_COVID19Recovery_Phase3_GDN_Retargeting_Towns1'  then  'Towns 1'
-        WHEN ${ad_group} =  'FY20_VNV_COVID19Recovery_Phase3_GDN_Retargeting_Towns2'  then  'Towns 2'
-        WHEN ${ad_group} =  'FY20_VNV_COVID19Recovery_Phase3_GDN_Retargeting_Wineries1' then  'Wineries 1'
-        WHEN ${ad_group} =  'FY20_VNV_COVID19Recovery_Phase3_GDN_Retargeting_Wineries2' then  'Wineries 2'
-        WHEN ${ad_group} =  'FY20_VNV_COVID19Recovery_Phase3_GDN_LuxuryAudience_General1' then  'General 1'
-        WHEN ${ad_group} =  'FY20_VNV_COVID19Recovery_Phase3_GDN_LuxuryAudience_General2' then  'General 2'
-        WHEN ${ad_group} =  'FY20_VNV_COVID19Recovery_Phase3_GDN_LuxuryAudience_Culinary1'  then  'Culinary 1'
-        WHEN ${ad_group} =  'FY20_VNV_COVID19Recovery_Phase3_GDN_LuxuryAudience_Culinary2'  then  'Culinary 2'
-        WHEN ${ad_group} =  'FY20_VNV_COVID19Recovery_Phase3_GDN_LuxuryAudience_OutdoorWellness1' then  'Outdoor Wellness 1'
-        WHEN ${ad_group} =  'FY20_VNV_COVID19Recovery_Phase3_GDN_LuxuryAudience_OutdoorWellness2' then  'Outdoor Wellness 2'
-        WHEN ${ad_group} =  'FY20_VNV_COVID19Recovery_Phase3_GDN_LuxuryAudience_Resort1'  then  'Resorts 1'
-        WHEN ${ad_group} =  'FY20_VNV_COVID19Recovery_Phase3_GDN_LuxuryAudience_Resort2'  then  'Resorts 2'
-        WHEN ${ad_group} =  'FY20_VNV_COVID19Recovery_Phase3_GDN_LuxuryAudience_Towns1' then  'Towns 1'
-        WHEN ${ad_group} =  'FY20_VNV_COVID19Recovery_Phase3_GDN_LuxuryAudience_Towns2' then  'Towns 2'
-        WHEN ${ad_group} =  'FY20_VNV_COVID19Recovery_Phase3_GDN_LuxuryAudience_Wineries1'  then  'Wineries 1'
-        WHEN ${ad_group} =  'FY20_VNV_COVID19Recovery_Phase3_GDN_LuxuryAudience_Wineries2'  then  'Wineries 2'
+        WHEN ${ad_group} ilike 'FY20_VNV_COVID19Recovery_Phase3_GDN_%_General1' then  'General v1'
+        WHEN ${ad_group} ilike 'FY20_VNV_COVID19Recovery_Phase3_GDN_%_General2' then  'General v2'
+        WHEN ${ad_group} ilike 'FY20_VNV_COVID19Recovery_Phase3_GDN_%_Culinary1'  then  'Culinary v1'
+        WHEN ${ad_group} ilike 'FY20_VNV_COVID19Recovery_Phase3_GDN_%_Culinary2'  then  'Culinary v2'
+        WHEN ${ad_group} ilike 'FY20_VNV_COVID19Recovery_Phase3_GDN_%_OutdoorWellness1' then  'Outdoor Wellness v1'
+        WHEN ${ad_group} ilike 'FY20_VNV_COVID19Recovery_Phase3_GDN_%_OutdoorWellness2' then  'Outdoor Wellness v2'
+        WHEN ${ad_group} ilike 'FY20_VNV_COVID19Recovery_Phase3_GDN_%_Resort1'  then  'Resorts v1'
+        WHEN ${ad_group} ilike 'FY20_VNV_COVID19Recovery_Phase3_GDN_%_Resort2'  then  'Resorts v2'
+        WHEN ${ad_group} ilike 'FY20_VNV_COVID19Recovery_Phase3_GDN_%_Towns1' then  'Towns v1'
+        WHEN ${ad_group} ilike 'FY20_VNV_COVID19Recovery_Phase3_GDN_%_Towns2' then  'Towns v2'
+        WHEN ${ad_group} ilike 'FY20_VNV_COVID19Recovery_Phase3_GDN_%_Wineries1'  then  'Wineries v1'
+        WHEN ${ad_group} ilike 'FY20_VNV_COVID19Recovery_Phase3_GDN_%_Wineries2'  then  'Wineries v2'
+        WHEN ${ad_group} ilike 'FY20_VNV_COVID19Recovery_Phase3_GDN_%_FireRecovery'  then  'Fire Recovery'
+        WHEN ${ad_group} ilike 'FY20_VNV_COVID19Recovery_Phase3_GDN_%_Brand'  then  'Brand'
+        WHEN ${ad_group} ilike 'FY20_VNV_COVID19Recovery_Phase3_GDN_%_Hotel'  then  'Hotel'
 
         WHEN ${ad_group} = 'FY20_VNV_COVID19Recovery_Phase2_GDN_BeingTogether' then 'Being Together'
         WHEN ${ad_group} = 'FY20_VNV_COVID19Recovery_Phase2_GDN_Relaxation' then 'Relaxation'

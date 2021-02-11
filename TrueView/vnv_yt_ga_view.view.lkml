@@ -51,19 +51,11 @@ view: vnv_yt_ga_view {
     sql: 'United States' ;;
   }
 
-  # dimension: vnv_campaign {
-  #   label: "Campaign Name"
-  #   type: string
-  #   group_label: "Client Dimensions"
-  #   sql:
-  #     CASE
-  #       WHEN ${campaign} = 'FY20_VNV_Foundational_TrueView' then 'Foundational'
-  #       WHEN ${campaign} ilike '%Phase2%' and ${day_date} > '2020-06-08' then 'Better With Time'
-  #       WHEN ${campaign} ilike '%Phase3%' then 'Raise A Glass'
-  #       ELSE 'Uncategorized'
-  #       END;;
-  # }
-
+  dimension: ad_size {
+    type: string
+    hidden: yes
+    sql: 'Video' ;;
+  }
 
   dimension: vnv_campaign {
     label: "Campaign Name"
@@ -71,29 +63,9 @@ view: vnv_yt_ga_view {
     group_label: "Client Dimensions"
     sql:
       CASE
+        WHEN ${campaign} ilike '%Phase2%' then 'FY21 Better With Time'
+        WHEN ${campaign} ilike '%Phase3%' then 'FY21 Raise A Glass'
         WHEN ${account} = 'VNV Foundational TrueView' then 'Foundational'
-        ELSE 'Uncategorized'
-        END;;
-  }
-
-  dimension: bwt_campaign {
-    label: "Campaign Name"
-    type: string
-    group_label: "Client Dimensions"
-    sql:
-      CASE
-        WHEN ${campaign} ilike '%Phase2%' and ${day_date} > '2020-06-08' then 'Better With Time'
-        ELSE 'Uncategorized'
-        END;;
-  }
-
-  dimension: rag_campaign {
-    label: "Campaign Name"
-    type: string
-    group_label: "Client Dimensions"
-    sql:
-      CASE
-        WHEN ${campaign} ilike '%Phase3%' and ${day_date} > '2020-09-01' then 'Raise A Glass'
         ELSE 'Uncategorized'
         END;;
   }
@@ -104,23 +76,22 @@ view: vnv_yt_ga_view {
     group_label: "Client Dimensions"
     sql:
       CASE
-        WHEN ${campaign} = 'FY20_VNV_Foundational_TrueView' then 'Skipabble Pre-Roll Video'
-        WHEN ${campaign} ILIKE 'FY20_VNV_COVID19Recovery%' then 'Skipabble Pre-Roll Video'
+        WHEN ${campaign} = 'FY20_VNV_Foundational_TrueView' then 'YouTube Skipabble Pre-Roll Video'
+        WHEN ${campaign} ILIKE 'FY20_VNV_COVID19Recovery%' then 'YouTube Skipabble Pre-Roll Video'
         ELSE 'Uncategorized'
         END;;
   }
 
   dimension: creative_name {
-    hidden: yes
     type:  string
-    group_label: "AdWords Dimensions"
+    group_label: "Client Dimensions"
     sql:
       CASE
-        WHEN ${campaign} = 'FY20_VNV_COVID19Recovery_Phase2_TrueView' then 'Better With Time'
-        WHEN ${ad_group} = 'FY20_VNV_COVID19Recovery_Phase2_TrueView_AspirationalAudience_Poolside' then 'Poolside'
-        WHEN ${ad_group} = 'FY20_VNV_COVID19Recovery_Phase2_TrueView_AspirationalAudience_WindingTrails' then 'Winding Trails'
-        WHEN ${ad_group} = 'FY20_VNV_COVID19Recovery_Phase2_TrueView_LuxuryAudience_Poolside' then 'Poolside'
-        WHEN ${ad_group} = 'FY20_VNV_COVID19Recovery_Phase2_TrueView_LuxuryAudience_WindingTrails' then 'Winding Trails'
+        WHEN ${campaign} = 'FY20_VNV_COVID19Recovery_Phase2_TrueView' then 'Better With Time (:30)'
+        WHEN ${ad_group} = 'FY20_VNV_COVID19Recovery_Phase2_TrueView_AspirationalAudience_Poolside' then 'Poolside (:15)'
+        WHEN ${ad_group} = 'FY20_VNV_COVID19Recovery_Phase2_TrueView_AspirationalAudience_WindingTrails' then 'Winding Trails (:15)'
+        WHEN ${ad_group} = 'FY20_VNV_COVID19Recovery_Phase2_TrueView_LuxuryAudience_Poolside' then 'Poolside (:15)'
+        WHEN ${ad_group} = 'FY20_VNV_COVID19Recovery_Phase2_TrueView_LuxuryAudience_WindingTrails' then 'Winding Trails (:15)'
         else 'Uncategorized'
         END
     ;;

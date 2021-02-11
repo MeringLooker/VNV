@@ -44,6 +44,14 @@ view: vnv_sem_ga_view {
     sql: 'Text Ad' ;;
   }
 
+  dimension: ad_size {
+    type: string
+    hidden: yes
+    label: "Creative Name"
+    group_label: "Client Dimensions"
+    sql: 'Text Ad' ;;
+  }
+
   dimension: publisher {
     type: string
     label: "Publisher"
@@ -64,30 +72,10 @@ view: vnv_sem_ga_view {
     group_label: "Client Dimensions"
     sql:
       CASE
+        WHEN ${day_date} BETWEEN '2020-07-07' AND '2020-08-30' THEN 'FY21 Better With Time'
+        WHEN ${day_date} BETWEEN '2020-09-01' AND '2020-12-31' THEN 'FY21 Raise A Glass'
         WHEN ${account} = 'VNV Foundational SEM' THEN 'Foundational'
         WHEN ${account} = 'VNV Group SEM' THEN 'Group'
-        ELSE 'Uncategorized'
-        END;;
-  }
-
-  dimension: bwt_campaign {
-    label: "Campaign Name"
-    type: string
-    group_label: "Client Dimensions"
-    sql:
-      CASE
-        WHEN ${day_date} BETWEEN '2020-07-07' AND '2020-08-30' THEN 'Better With Time'
-        ELSE 'Uncategorized'
-        END;;
-  }
-
-  dimension: rag_campaign {
-    label: "Campaign Name"
-    type: string
-    group_label: "Client Dimensions"
-    sql:
-      CASE
-        WHEN ${day_date} BETWEEN '2020-09-01' AND '2020-12-31' THEN 'Raise A Glass'
         ELSE 'Uncategorized'
         END;;
   }

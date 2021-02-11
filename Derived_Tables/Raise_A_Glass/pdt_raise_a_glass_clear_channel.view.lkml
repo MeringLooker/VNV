@@ -5,6 +5,7 @@ view: pdt_raise_a_glass_clear_channel {
       column: publisher {field: vnv_dcm_ga_view.publisher}
       column: placement {field: vnv_dcm_ga_view.vnv_placement}
       column: creative {field: vnv_dcm_ga_view.creative_name}
+      column: ad_size {field: vnv_dcm_ga_view.ad_size}
       column: date {field: vnv_dcm_ga_view.date_date}
       column: week {field: vnv_dcm_ga_view.date_week}
       column: month {field: vnv_dcm_ga_view.date_month}
@@ -17,7 +18,7 @@ view: pdt_raise_a_glass_clear_channel {
       column: total_session_duration {field: vnv_dcm_ga_view.total_session_duration}
       filters: {
         field: vnv_dcm_ga_view.vnv_campaign
-        value: "Raise A Glass"
+        value: "FY21 Raise A Glass"
       }
       filters: {
         field: vnv_dcm_ga_view.publisher

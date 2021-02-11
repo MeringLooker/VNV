@@ -17,7 +17,7 @@ view: pdt_better_with_time_fb {
       column: total_session_duration {field: vnv_fb_ga_view.total_session_duration}
       filters: {
         field: vnv_fb_ga_view.vnv_campaign
-        value: "Better With Time"
+        value: "FY21 Better With Time"
       }
     }
     datagroup_trigger: vnv_default_datagroup

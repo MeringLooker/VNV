@@ -45,10 +45,12 @@ view: vnv_dcm_ga_view {
     sql:
       CASE
 
-        when ${creative} ILIKE '%RaiseAGlass%' then 'Raise A Glass'
+        when ${creative} ILIKE '%RaiseAGlass_728x90%' then 'RaiseAGlass_728x90'
+        when ${creative} ILIKE '%RaiseAGlass_320x50%' then 'RaiseAGlass_320x50'
+        when ${creative} ILIKE '%RaiseAGlass_300x250%' then 'RaiseAGlass_300x250'
         when ${placement} ILIKE 'Pandora_RAG1.0_AudioXP%' then 'Audio :30'
-        when ${placement} ILIKE 'Pandora_RAG1.0_DisplayEverywhere%' then 'Explore More'
-        when ${placement} ILIKE 'Pandora_RAG1.0_Video%' then 'Winding Trails'
+        when ${placement} ILIKE 'Pandora_RAG1.0_DisplayEverywhere%' then 'ExploreMore_300x250'
+        when ${placement} ILIKE 'Pandora_RAG1.0_Video%' then 'Winding Trails (:15)'
 
         when ${placement} ILIKE '%WSJDN_Obj #3_Global Network_RON_Added Value_728x90%' then 'Refresh_728x90'
         when ${placement} ILIKE '%WSJDN_Obj #3_Off Duty 50 Global Network_Run of Lifestyle_CA,NY_728x90%' then 'Refresh_728x90'
@@ -141,7 +143,9 @@ view: vnv_dcm_ga_view {
     label: "Ad Size"
     sql:
       CASE
-
+        when ${placement} ilike  'Pandora_RAG1.0_AudioXP%' then 'Audio'
+        when ${placement} ilike  'Pandora_RAG1.0_DisplayEverywhere%' then '300x250'
+        when ${placement} ilike  'Pandora_RAG1.0_Video%' then 'Video'
         when ${placement} ILIKE '%970x250%' then '970x250'
         when ${placement} ilike '%300x600%' then '300x600'
         when ${placement} ilike '%300x250%' then '300x250'
@@ -183,7 +187,7 @@ view: vnv_dcm_ga_view {
     label: "Campaign Name"
     sql:
       CASE
-        WHEN ${campaign} = 'VNV: 005626 RAG 1.0 Campaign' and ${creative} <> '(not set)' then 'Raise A Glass'
+        WHEN ${campaign} = 'VNV: 005626 RAG 1.0 Campaign' and ${creative} <> '(not set)' then 'FY21 Raise A Glass'
         WHEN ${campaign} = 'VNV FY20 Objective 4 (Group)' then 'Group'
         WHEN ${campaign} = 'VNV FY20 Objective 2 (Engage)' then 'Engage'
         WHEN ${campaign} = 'VNV FY20 Objective #3 (Impact)' then 'Impact'
@@ -223,10 +227,10 @@ view: vnv_dcm_ga_view {
     group_label: "Client Dimensions"
     sql:
     CASE
-        when ${placement} ilike  'Pandora_RAG1.0_AudioXP%' then 'Audio XP'
-        when ${placement} ilike  'Pandora_RAG1.0_DisplayEverywhere%' then 'Audio XP'
-        when ${placement} ilike  'Pandora_RAG1.0_Video%' then 'Mobile Video'
-        when ${placement} ilike  'Clear Channel Outdoor_RAG1.0_Display%' then 'Digital Banners'
+        when ${placement} ilike  'Pandora_RAG1.0_AudioXP%' then 'Pandora Audio XP'
+        when ${placement} ilike  'Pandora_RAG1.0_DisplayEverywhere%' then 'Pandora Audio XP'
+        when ${placement} ilike  'Pandora_RAG1.0_Video%' then 'Pandora Mobile Video'
+        when ${placement} ilike  'Clear Channel Outdoor_RAG1.0_Display%' then 'OOH Display Retargeting'
 
         when ${placement} ilike 'TripAdvisor_OBJ2_Consideration_TAAudience_US_Advertorial1x1' then 'Advertorial'
         when ${placement} ilike '%Consideration\\_CompetitveContent%' then 'Competitive Content Display'
