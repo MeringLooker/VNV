@@ -73,7 +73,7 @@ view: vnv_sem_ga_view {
     sql:
       CASE
         WHEN ${day_date} BETWEEN '2020-07-07' AND '2020-08-30' THEN 'FY21 Better With Time'
-        WHEN ${day_date} BETWEEN '2020-09-01' AND '2020-12-31' THEN 'FY21 Raise A Glass'
+        WHEN ${day_date} BETWEEN '2020-09-01' AND '2021-07-01' THEN 'FY21 Raise A Glass'
         WHEN ${account} = 'VNV Foundational SEM' THEN 'Foundational'
         WHEN ${account} = 'VNV Group SEM' THEN 'Group'
         ELSE 'Uncategorized'

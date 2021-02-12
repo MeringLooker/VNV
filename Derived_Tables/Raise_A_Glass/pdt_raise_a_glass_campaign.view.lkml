@@ -43,7 +43,7 @@ view: pdt_raise_a_glass_campaign {
 
   dimension: placement {
     type: string
-    drill_fields: [date,week,month]
+    drill_fields: [creative,date,week,month]
     sql: ${TABLE}.placement ;;
   }
 
@@ -81,20 +81,20 @@ view: pdt_raise_a_glass_campaign {
   dimension: week {
     type: date_week
     group_label: "Date Periods"
-    sql: ${TABLE}.week ;;
+    sql: ${TABLE}.date ;;
   }
 
   dimension: month {
     type: date_month
     group_label: "Date Periods"
     drill_fields: [publisher]
-    sql: ${TABLE}.month ;;
+    sql: ${TABLE}.date ;;
   }
 
   dimension: quarter {
     type: date_quarter
     group_label: "Date Periods"
-    sql: ${TABLE}.quarter ;;
+    sql: ${TABLE}.date ;;
   }
 
   dimension: impressions {
@@ -113,6 +113,12 @@ view: pdt_raise_a_glass_campaign {
     type: number
     hidden: yes
     sql: ${TABLE}.total_views ;;
+  }
+
+  dimension: completes {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.total_completes ;;
   }
 
   dimension: cost {
@@ -143,8 +149,8 @@ view: pdt_raise_a_glass_campaign {
   }
 
   measure: total_clicks {
-    type: sum_distinct
-    sql_distinct_key: ${primary_key} ;;
+    type: sum
+    # sql_distinct_key: ${primary_key} ;;
     sql: ${clicks} ;;
   }
 
@@ -157,14 +163,20 @@ view: pdt_raise_a_glass_campaign {
   }
 
   measure: total_views {
-    type: sum_distinct
-    sql_distinct_key: ${primary_key} ;;
+    type: sum
+    # sql_distinct_key: ${primary_key} ;;
     sql: ${views} ;;
   }
 
+  measure: total_completes {
+    type: sum
+    # sql_distinct_key: ${primary_key} ;;
+    sql: ${completes} ;;
+  }
+
   measure: total_cost {
-    type: sum_distinct
-    sql_distinct_key: ${primary_key} ;;
+    type: sum
+    # sql_distinct_key: ${primary_key} ;;
     value_format_name: usd
     sql: ${cost} ;;
   }
@@ -185,8 +197,8 @@ view: pdt_raise_a_glass_campaign {
   }
 
   measure: total_sessions {
-    type: sum_distinct
-    sql_distinct_key: ${primary_key} ;;
+    type: sum
+    # sql_distinct_key: ${primary_key} ;;
     sql: ${sessions} ;;
   }
 
@@ -198,8 +210,8 @@ view: pdt_raise_a_glass_campaign {
   }
 
   measure: total_session_duration {
-    type: sum_distinct
-    sql_distinct_key: ${primary_key} ;;
+    type: sum
+    # sql_distinct_key: ${primary_key} ;;
     sql: ${session_duration} ;;
   }
 
@@ -212,9 +224,9 @@ view: pdt_raise_a_glass_campaign {
   }
 
   measure: video_impressions {
-    type: sum_distinct
+    type: sum
     hidden: yes
-    sql_distinct_key: ${primary_key} ;;
+    # sql_distinct_key: ${primary_key} ;;
     sql:
       case
         when ${views} > 0 then ${impressions}
@@ -230,28 +242,36 @@ view: pdt_raise_a_glass_campaign {
     value_format_name: percent_2
   }
 
-  measure: count {
-    type: count
+  measure: completion_rate {
+    type: number
+    label: "Completion Rate"
+    sql: 1.0*${total_completes}/nullif(${video_impressions}, 0) ;;
+    value_format_name: percent_2
   }
 
-}
+  measure: video_cost {
+    type: sum
+    hidden: yes
+    # sql_distinct_key: ${primary_key} ;;
+    sql:
+      case
+        when ${views} > 0 then (${cost}*1.17647)
+        else null
+        end
+        ;;
+  }
 
-#   dimension: lifetime_orders {
-#     description: "The total number of orders for each user"
-#     type: number
-#     sql: ${TABLE}.lifetime_orders ;;
-#   }
-#
-#   dimension_group: most_recent_purchase {
-#     description: "The date when each user last ordered"
-#     type: time
-#     timeframes: [date, week, month, year]
-#     sql: ${TABLE}.most_recent_purchase_at ;;
-#   }
-#
-#   measure: total_lifetime_orders {
-#     description: "Use this for counting lifetime orders across many users"
-#     type: sum
-#     sql: ${lifetime_orders} ;;
-#   }
-# }
+  measure: cost_per_view {
+    type: number
+    label: "CPV"
+    value_format_name: usd
+    sql: ${video_cost}/nullif(${total_views}, 0) ;;
+  }
+
+  measure: cost_per_complete {
+    type: number
+    label: "CPcV"
+    value_format_name: usd
+    sql: ${video_cost}/nullif(${total_completes}, 0) ;;
+  }
+ }

@@ -571,6 +571,12 @@ view: vnv_dcm_ga_view {
     sql: 0 ;;
   }
 
+  dimension: completes {
+    type: number
+    hidden: yes
+    sql: 0 ;;
+  }
+
   dimension: view_guide_online {
     type: number
     hidden: yes
@@ -703,6 +709,13 @@ view: vnv_dcm_ga_view {
     type: sum_distinct
     sql_distinct_key: ${ga_join_id} ;;
     sql: ${views} ;;
+  }
+
+  measure: total_completes {
+    hidden: yes
+    type: sum_distinct
+    sql_distinct_key: ${ga_join_id} ;;
+    sql: ${completes} ;;
   }
 
   ### Google Analytics Metrics ####

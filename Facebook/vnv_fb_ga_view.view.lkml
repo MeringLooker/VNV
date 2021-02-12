@@ -79,6 +79,7 @@ view: vnv_fb_ga_view {
        when ${campaign_name} ilike 'FY20_VNV_Objective5%' then 'Local'
        when ${campaign_name} ilike 'FY20_VNV_COVID19Recovery_Phase2%' then 'FY21 Better With Time'
        when ${campaign_name} ilike 'FY20_VNV_COVID19Recovery_Phase3%' then 'FY21 Raise A Glass'
+        when ${campaign_name} ilike 'FY21_VNV_COVID19Recovery_Phase4%' then 'FY21 Raise A Glass'
        when ${campaign_name} ilike 'FY21_UpValley%' then 'FY21 Up Valley'
        ELSE 'Uncategorized'
        END;;
@@ -98,6 +99,15 @@ view: vnv_fb_ga_view {
       when ${adset_name} ilike 'FY20_VNV_COVID19Recovery_Phase3_VideoViewsLuxuryAudience%' then 'Facebook Video - Luxury Target'
       when ${adset_name} ilike 'FY20_VNV_COVID19Recovery_Phase3_VideoViews_LookalikeAudience%' then 'Facebook Video - Site Lookalikes'
       when ${adset_name} ilike 'FY20_VNV_COVID19Recovery_Phase3_VideoViews_Retargeting%' then 'Facebook Video - Retargeting'
+
+      when ${adset_name} ilike 'FY21_VNV_COVID19Recovery_Phase4_Conversions_AspirationalAudience%' then 'Traffic-Driving Single Image - Aspirational Target'
+      when ${adset_name} ilike 'FY21_VNV_COVID19Recovery_Phase4_Conversions_LuxuryAudience%' then 'Traffic-Driving Single Image - Luxury Target'
+      when ${adset_name} ilike 'FY21_VNV_COVID19Recovery_Phase4_Conversions_LookalikeAudience%' then 'Traffic-Driving Single Image - Site Lookalikes'
+      when ${adset_name} ilike 'FY21_VNV_COVID19Recovery_Phase4_Conversions_Retargeting%' then 'Traffic-Driving Single Image - Retargeting'
+      when ${adset_name} ilike 'FY21_VNV_COVID19Recovery_Phase4_VideoViews_AspirationalAudience%' then 'Facebook Video - Aspirational Target'
+      when ${adset_name} ilike 'FY21_VNV_COVID19Recovery_Phase4_VideoViews_LuxuryAudience%' then 'Facebook Video - Luxury Target'
+      when ${adset_name} ilike 'FY21_VNV_COVID19Recovery_Phase4_VideoViews_LookalikeAudience%' then 'Facebook Video - Site Lookalikes'
+      when ${adset_name} ilike 'FY21_VNV_COVID19Recovery_Phase4_VideoViews_Retargeting%' then 'Facebook Video - Retargeting'
 
       when ${campaign_name} ilike '%_InstagramStories' then 'Instagram Stories'
       when ${ad_name} ilike 'FY20_VNV_Conversions_TrafficDriving_Carousel%' then 'Traffic Driving - Carousel'
@@ -138,6 +148,26 @@ view: vnv_fb_ga_view {
         WHEN ${ad_name} ilike 'FY20_VNV_COVID19Recovery_Phase3_Conversions_%_Hotel2%'  then  'Hotel: Plan Your Trip Single Image'
         WHEN ${ad_name} ilike 'FY20_VNV_COVID19Recovery_Phase3_Conversions_%_Hotel4%'  then  'Hotel: Few Clicks Away Single Image'
         WHEN ${ad_name} ilike 'FY20_VNV_COVID19Recovery_Phase3_Conversions_%_Hotel1%'  then  'Hotel: View Special Offers Single Image'
+
+        WHEN ${ad_name} ilike 'FY21_VNV_COVID19Recovery_Phase4_VideoViews_%_WanderingTrails%'  then  'Wandering Trails (:15)'
+        WHEN ${ad_name} ilike 'FY21_VNV_COVID19Recovery_Phase4_VideoViews_%_RollingHills%'  then  'Rolling Hills (:15)'
+        WHEN ${ad_name} ilike 'FY21_VNV_COVID19Recovery_Phase4_VideoViews_%_30Video%'  then  'Raise A Glass (:30)'
+
+        WHEN ${ad_name} ilike 'FY21_VNV_COVID19Recovery_Phase4_Conversions_%_OutdoorWellness%' then  'Outdoor Wellness Single Image'
+        WHEN ${ad_name} ilike 'FY21_VNV_COVID19Recovery_Phase4_Conversions_%_ResortBookTrip%'  then  'Resort Book Trip Single Image'
+        WHEN ${ad_name} ilike 'FY21_VNV_COVID19Recovery_Phase4_Conversions_%_Towns%' then  'Towns Single Image'
+        WHEN ${ad_name} ilike 'FY21_VNV_COVID19Recovery_Phase4_Conversions_%_Wineries%'  then  'Wineries Single Image'
+        WHEN ${ad_name} ilike 'FY21_VNV_COVID19Recovery_Phase4_Conversions_%_General%'  then  'General Single Image'
+        WHEN ${ad_name} ilike 'FY21_VNV_COVID19Recovery_Phase4_Conversions_%_Culinary%'  then  'Culinary Single Image'
+
+        WHEN ${ad_name} ilike 'FY20_VNV_COVID19Recovery_Phase4_Conversions_%_Brand1%'  then  'Brand: Upgrade Your Stay Single Image'
+        WHEN ${ad_name} ilike 'FY20_VNV_COVID19Recovery_Phase4_Conversions_%_Brand2%'  then  'Brand: Plan Your Trip Single Image'
+        WHEN ${ad_name} ilike 'FY20_VNV_COVID19Recovery_Phase4_Conversions_%_Brand3%'  then  'Brand: Few Clicks Away Single Image'
+        WHEN ${ad_name} ilike 'FY21_VNV_COVID19Recovery_Phase4_Conversions_%_Brand4%'  then  'Brand: View Special Offers Single Image'
+        WHEN ${ad_name} ilike 'FY20_VNV_COVID19Recovery_Phase4_Conversions_%_Hotel3%'  then  'Hotel: Upgrade Your Stay Single Image'
+        WHEN ${ad_name} ilike 'FY20_VNV_COVID19Recovery_Phase4_Conversions_%_Hotel2%'  then  'Hotel: Plan Your Trip Single Image'
+        WHEN ${ad_name} ilike 'FY20_VNV_COVID19Recovery_Phase4_Conversions_%_Hotel4%'  then  'Hotel: Few Clicks Away Single Image'
+        WHEN ${ad_name} ilike 'FY20_VNV_COVID19Recovery_Phase4_Conversions_%_Hotel1%'  then  'Hotel: View Special Offers Single Image'
 
         WHEN ${ad_name} ilike '%carousel_legendary' then 'Legendary Carousel'
         WHEN ${ad_name} ilike '%carousel_lodging' then 'Lodging Carousel'
@@ -203,6 +233,8 @@ view: vnv_fb_ga_view {
       CASE
         when ${adset_name} ilike 'FY20_VNV_COVID19Recovery_Phase3_Conversions%' then 'Single Image'
         when ${adset_name} ilike 'FY20_VNV_COVID19Recovery_Phase3_VideoViews%' then 'Video'
+        when ${adset_name} ilike 'FY21_VNV_COVID19Recovery_Phase4_Conversions%' then 'Single Image'
+        when ${adset_name} ilike 'FY21_VNV_COVID19Recovery_Phase4_VideoViews%' then 'Video'
         when ${ad_name} ilike '%Carousel%' then 'Carousel'
         when ${ad_name} ilike '%SingleImage%' then 'Landscape Image'
         when ${ad_name} = 'FY20_Objective3_RTGWebVisitors_Legendary' then 'Carousel'
@@ -222,8 +254,11 @@ dimension: phase {
   label: "Phase"
   sql:
     CASE
-      WHEN ${campaign_name} ilike '%phase2%'the 'Phase 2'
-      WHEN ${campaign_name} ilike '%phase3%'the 'Phase 3'
+      WHEN ${campaign_name} ilike '%phase2%' then 'Phase 2'
+      WHEN ${campaign_name} ilike '%phase3%' then 'Phase 3'
+      WHEN ${campaign_name} ilike '%phase4%' then 'Phase 4'
+      else 'Uncategorized'
+      end
   ;;
 }
 

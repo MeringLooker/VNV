@@ -65,6 +65,7 @@ view: vnv_yt_ga_view {
       CASE
         WHEN ${campaign} ilike '%Phase2%' then 'FY21 Better With Time'
         WHEN ${campaign} ilike '%Phase3%' then 'FY21 Raise A Glass'
+        WHEN ${campaign} ilike '%Phase4%' then 'FY21 Raise A Glass'
         WHEN ${account} = 'VNV Foundational TrueView' then 'Foundational'
         ELSE 'Uncategorized'
         END;;
@@ -92,6 +93,11 @@ view: vnv_yt_ga_view {
         WHEN ${ad_group} = 'FY20_VNV_COVID19Recovery_Phase2_TrueView_AspirationalAudience_WindingTrails' then 'Winding Trails (:15)'
         WHEN ${ad_group} = 'FY20_VNV_COVID19Recovery_Phase2_TrueView_LuxuryAudience_Poolside' then 'Poolside (:15)'
         WHEN ${ad_group} = 'FY20_VNV_COVID19Recovery_Phase2_TrueView_LuxuryAudience_WindingTrails' then 'Winding Trails (:15)'
+
+        when ${ad_group} ilike '%WanderingTrails%' then 'Wandering Trails (:15)'
+        when ${ad_group} ilike '%RollingHills%' then 'Rolling Hills (:15)'
+        when ${ad_group} ilike '%30Video%' then 'Raise A Glass (:30)'
+
         else 'Uncategorized'
         END
     ;;
@@ -103,8 +109,10 @@ view: vnv_yt_ga_view {
     label: "Phase"
     sql:
     CASE
-      WHEN ${campaign} ilike '%phase2%'the 'Phase 2'
-      WHEN ${campaign} ilike '%phase3%'the 'Phase 3'
+      WHEN ${campaign} ilike '%phase2%' then 'Phase 2'
+      WHEN ${campaign} ilike '%phase3%' then 'Phase 3'
+      else 'Uncategorized'
+      end
   ;;
   }
 
