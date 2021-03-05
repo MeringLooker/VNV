@@ -45,9 +45,20 @@ view: vnv_dcm_ga_view {
     sql:
       CASE
 
+        when ${ad_id} = '486955941' then 'Rolling Hills (:15)'
+        when ${ad_id} = '486792376' then 'Rolling Hills (:15)'
+        when ${ad_id} = '486667346' then 'Wandering Trails (:15)'
+        when ${ad_id} = '486664442' then 'Wandering Trails (:15)'
+        when ${ad_id} = '486956814' then 'Raise A Glass (:30)'
+        when ${ad_id} = '486664448' then 'Raise A Glass (:30)'
+        when ${ad_id} = '487874611' then 'AdTheorent_RichMedia'
+        when ${ad_id} = '488463956' then 'AdTheorent_RichMedia'
+
         when ${creative} ILIKE '%RaiseAGlass_728x90%' then 'RaiseAGlass_728x90'
         when ${creative} ILIKE '%RaiseAGlass_320x50%' then 'RaiseAGlass_320x50'
         when ${creative} ILIKE '%RaiseAGlass_300x250%' then 'RaiseAGlass_300x250'
+        when ${creative} ILIKE '%RaiseAGlass_AdTheorent_300x600%' then 'RaiseAGlass_300x600'
+        when ${creative} ILIKE '%RaiseAGlass_AdTheorent_160x600%' then 'RaiseAGlass_160x600'
         when ${placement} ILIKE 'Pandora_RAG1.0_AudioXP%' then 'Audio :30'
         when ${placement} ILIKE 'Pandora_RAG1.0_DisplayEverywhere%' then 'ExploreMore_300x250'
         when ${placement} ILIKE 'Pandora_RAG1.0_Video%' then 'Winding Trails (:15)'
@@ -143,6 +154,9 @@ view: vnv_dcm_ga_view {
     label: "Ad Size"
     sql:
       CASE
+        when ${placement} ilike 'AdTheorent_Video_Awareness_%' then 'Video'
+        when ${ad_id} = '487874611' then 'Rich Media Unit'
+        when ${ad_id} = '488463956' then 'Rich Media Unit'
         when ${placement} ilike  'Pandora_RAG1.0_AudioXP%' then 'Audio'
         when ${placement} ilike  'Pandora_RAG1.0_DisplayEverywhere%' then '300x250'
         when ${placement} ilike  'Pandora_RAG1.0_Video%' then 'Video'
@@ -188,6 +202,7 @@ view: vnv_dcm_ga_view {
     sql:
       CASE
         WHEN ${campaign} = 'VNV: 005626 RAG 1.0 Campaign' and ${creative} <> '(not set)' then 'FY21 Raise A Glass'
+        WHEN ${campaign} = 'VNV: 005688 Raise A Glass 2.0 Campaign' then 'FY21 Raise A Glass'
         WHEN ${campaign} = 'VNV FY20 Objective 4 (Group)' then 'Group'
         WHEN ${campaign} = 'VNV FY20 Objective 2 (Engage)' then 'Engage'
         WHEN ${campaign} = 'VNV FY20 Objective #3 (Impact)' then 'Impact'
@@ -216,6 +231,7 @@ view: vnv_dcm_ga_view {
         WHEN ${site_dcm} = 'The Wall Street Journal Online' then 'Wall Street Journal'
         WHEN ${site_dcm} = 'Clear Channel Outdoor' then 'Clear Channel'
         WHEN ${site_dcm} = 'Pandora' then 'Pandora'
+        WHEN ${site_dcm} = 'Adtheorant' then 'AdTheorent'
         ELSE ${site_dcm}
         END
         ;;
@@ -227,6 +243,14 @@ view: vnv_dcm_ga_view {
     group_label: "Client Dimensions"
     sql:
     CASE
+        when ${placement} ilike 'AdTheorent_Video_Awareness_Travel&CulinaryEnthusiasts_SacSFLA_CTV%' then 'Cross-Device Video - CTV'
+        when ${placement} ilike 'AdTheorent_Video_Awareness_Lux&PremiumTravelers+GourmetRestaurants_SacSFLA_Video%' then 'Cross-Device Video'
+        when ${placement} ilike 'AdTheorent_MobileRichMedia_Lux&PremiumTravelers+GourmentRestaurants_SacSFLA_RichMediaTablet_1x1%' then 'Rich Media Unit - Mobile'
+        when ${placement} ilike 'AdTheorent_MobileRichMedia_Lux&PremiumTravelers+GourmentRestaurants_SacSFLA_RichMediaSmartPhone_1x1%' then 'Rich Media Unit - Tablet'
+        when ${placement} ilike 'AdTheorent_MobileRichMedia_Lux&PremiumTravelers+GourmentRestaurants_SacSFLA_RichMediaSmartPhone_1x1%' then 'Rich Media Unit - Tablet'
+        when ${placement} ilike 'AdTheorent_CrossDeviceDisplay_Consideration_Travel&CulinaryEnthusiasts_SacSFLA_Display%' then 'Cross-Device Display'
+        when ${placement} ilike 'AdTheorent_CrossDeviceDisplay_Consideration_Lux&PremionTravelers+GourmetRestaurants_SacSFLA_AddedValueDisplay%' then 'Cross-Device Display - AV'
+
         when ${placement} ilike  'Pandora_RAG1.0_AudioXP%' then 'Pandora Audio XP'
         when ${placement} ilike  'Pandora_RAG1.0_DisplayEverywhere%' then 'Pandora Audio XP'
         when ${placement} ilike  'Pandora_RAG1.0_Video%' then 'Pandora Mobile Video'

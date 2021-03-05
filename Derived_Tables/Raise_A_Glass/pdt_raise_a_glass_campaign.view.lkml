@@ -12,6 +12,8 @@ view: pdt_raise_a_glass_campaign {
       select * from ${pdt_raise_a_glass_clear_channel.SQL_TABLE_NAME}
        union
       select * from ${pdt_raise_a_glass_pandora.SQL_TABLE_NAME}
+        union
+      select * from ${pdt_raise_a_glass_adtheorent.SQL_TABLE_NAME}
       ;;
     sql_trigger_value: SELECT FLOOR((EXTRACT(epoch from GETDATE()) - 60*60*8)/(60*60*24)) ;;
     distribution_style: all

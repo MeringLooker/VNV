@@ -44,4 +44,11 @@ explore: vnv_dcm {
     sql_on: ${vnv_dcm_ga_view.passback_join_ad} = ${vnv_fy20_group_viant.passback_join_ad} ;;
     relationship: many_to_one
   }
+
+  join: vnv_fy21_rag_2_adtheorant_dcm {
+    view_label: "FY21 RAG 2.0 Passback"
+    type: inner
+    sql_on: ${vnv_dcm_ga_view.passback_join_ad} = ${vnv_fy21_rag_2_adtheorant_dcm.dcm_join_id} ;;
+    relationship: many_to_one
+  }
 }
