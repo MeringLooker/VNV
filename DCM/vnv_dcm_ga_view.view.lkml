@@ -637,6 +637,25 @@ view: vnv_dcm_ga_view {
     sql: ${TABLE}.tos_above_45s ;;
   }
 
+  dimension: video_views {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.video_views ;;
+  }
+
+  dimension: video_plays {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.video_plays ;;
+  }
+
+  dimension: video_completes {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.video_completes ;;
+  }
+
+
 
 ######### All measures go below ########
 
@@ -729,17 +748,30 @@ view: vnv_dcm_ga_view {
   }
 
   measure: total_views {
-    hidden: yes
+    hidden: no
+    group_label: "3rd Party Measures"
+    label: "Video Views"
     type: sum_distinct
     sql_distinct_key: ${ga_join_id} ;;
-    sql: ${views} ;;
+    sql: ${video_views} ;;
+  }
+
+  measure: total_plays {
+    hidden: no
+    group_label: "3rd Party Measures"
+    label: "Video Plays"
+    type: sum_distinct
+    sql_distinct_key: ${ga_join_id} ;;
+    sql: ${video_plays} ;;
   }
 
   measure: total_completes {
-    hidden: yes
+    hidden: no
+    group_label: "3rd Party Measures"
+    label: "Video Completes"
     type: sum_distinct
     sql_distinct_key: ${ga_join_id} ;;
-    sql: ${completes} ;;
+    sql: ${video_completes} ;;
   }
 
   ### Google Analytics Metrics ####
