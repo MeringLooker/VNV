@@ -88,6 +88,7 @@ view: vnv_yt_ga_view {
     group_label: "Client Dimensions"
     sql:
       CASE
+        when ${campaign} ilike 'FY20_VNV_Foundational_Trueview' then 'Uncateogrized (Multiple)'
         WHEN ${campaign} = 'FY20_VNV_COVID19Recovery_Phase2_TrueView' then 'Better With Time (:30)'
         WHEN ${ad_group} = 'FY20_VNV_COVID19Recovery_Phase2_TrueView_AspirationalAudience_Poolside' then 'Poolside (:15)'
         WHEN ${ad_group} = 'FY20_VNV_COVID19Recovery_Phase2_TrueView_AspirationalAudience_WindingTrails' then 'Winding Trails (:15)'

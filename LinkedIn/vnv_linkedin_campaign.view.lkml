@@ -67,7 +67,17 @@ view: vnv_linkedin_campaign {
     label: "Creative Name"
     group_label: "Client Dimensions"
     type: string
-    sql: 'Uncategorized' ;;
+    sql:
+          CASE
+        WHEN ${campaign_name} = 'VNV_Groups_Groups' then 'Uncategorized (Multiple)'
+        WHEN ${campaign_name} = 'VNV_FY20_GroupMeetings_Skills' then 'Uncategorized (Skills)'
+        WHEN ${campaign_name} = 'VNV_FY20_GroupMeetings_Jobs' then 'Uncategorized (Jobs)'
+        WHEN ${campaign_name} = 'VNV_FY20_GroupMeetings_Groups' then 'Uncategorized (Groups)'
+        WHEN ${campaign_name} = 'FY1819_Groups_Skills' then 'Uncategorized'
+        WHEN ${campaign_name} = 'FY1819_Groups_Jobs' then 'Uncategorized'
+        ELSE 'Uncategorized'
+        END
+        ;;
   }
 
 

@@ -99,6 +99,9 @@ view: vnv_fb_ga_view {
       when ${adset_name} ilike 'FY20_VNV_COVID19Recovery_Phase3_VideoViewsLuxuryAudience%' then 'Facebook Video - Luxury Target'
       when ${adset_name} ilike 'FY20_VNV_COVID19Recovery_Phase3_VideoViews_LookalikeAudience%' then 'Facebook Video - Site Lookalikes'
       when ${adset_name} ilike 'FY20_VNV_COVID19Recovery_Phase3_VideoViews_Retargeting%' then 'Facebook Video - Retargeting'
+      when ${adset_name} ilike 'FY20_VNV_COVID19Recovery_Phase2_VideoViews_Retargeting' then 'Facebook Video - Retargeting'
+      when ${adset_name} ilike 'FY20_VNV_COVID19Recovery_Phase2_VideoViews_TravelerAudience' then 'Facebook Video - Travel Audience'
+      when ${campaign_name} ilike 'FY20_VNV_VideoViews' then 'Facebook Video'
 
       when ${adset_name} ilike 'FY21_VNV_COVID19Recovery_Phase4_Conversions_AspirationalAudience%' then 'Traffic-Driving Single Image - Aspirational Target'
       when ${adset_name} ilike 'FY21_VNV_COVID19Recovery_Phase4_Conversions_LuxuryAudience%' then 'Traffic-Driving Single Image - Luxury Target'

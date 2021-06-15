@@ -27,7 +27,7 @@ explore: pdt_raise_a_glass_campaign {
 
 ## FY21 Better With Time ##
 
-explore: pdt_recovery_campaign {
+explore: vnv_fy21_bwt_campaign {
   hidden: no
   label: "FY21 Better With Time"
   view_label: "Better With Time"
@@ -36,7 +36,7 @@ explore: pdt_recovery_campaign {
 
 ## FY20/21 Foundational ##
 
-explore: pdt_foundational_campaign {
+explore: vnv_fy20_foundational_campaign {
   label: "FY20/21 Foundational"
   view_label: "Foundational"
   group_label: "Visit Napa Valley"
@@ -54,7 +54,7 @@ explore: vnv_fy20_engage_campaign {
 
 ## FY20 Group ##
 
-explore: pdt_group_campaign {
+explore: vnv_fy20_group_campaign {
   label: "FY20 Group"
   view_label: "Group"
   group_label: "Visit Napa Valley"

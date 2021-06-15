@@ -139,6 +139,7 @@ view: vnv_gdn_ga_view {
     group_label: "Client Dimensions"
     sql:
       CASE
+        when ${campaign} ilike 'FY20_VNV_Foundational_GDN' then 'Uncateogrized (Multiple)'
 
         WHEN ${ad_group} ilike 'FY20_VNV_COVID19Recovery_Phase%_GDN_%_General1' then  'General v1'
         WHEN ${ad_group} ilike 'FY20_VNV_COVID19Recovery_Phase%_GDN_%_General2' then  'General v2'
