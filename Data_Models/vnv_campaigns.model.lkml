@@ -34,6 +34,15 @@ explore: vnv_fy21_bwt_campaign {
   group_label: "Visit Napa Valley"
 }
 
+## FY21 Group ##
+
+explore: pdt_fy21_group_campaign {
+  label: "FY21 Group"
+  view_label: "Group"
+  group_label: "Visit Napa Valley"
+  hidden: no
+}
+
 ## FY20/21 Foundational ##
 
 explore: vnv_fy20_foundational_campaign {

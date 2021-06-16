@@ -5,6 +5,7 @@ view: pdt_fy21_group_sem {
       column: publisher { field: vnv_sem_ga_view.publisher }
       column: placement { field: vnv_sem_ga_view.vnv_placement}
       column: creative_name { field: vnv_sem_ga_view.creative_name}
+      column: ad_size { field: vnv_sem_ga_view.ad_size}
       column: date { field: vnv_sem_ga_view.day_date }
       column: total_impressions { field: vnv_sem_ga_view.total_impressions }
       column: total_clicks { field: vnv_sem_ga_view.total_clicks }
@@ -16,7 +17,15 @@ view: pdt_fy21_group_sem {
       column: total_partner_referrals { field: vnv_sem_ga_view.total_partner_referral }
       filters: {
         field: vnv_sem_ga_view.vnv_campaign
-        value: "Group"
+        value: "FY21 Group"
+      }
+      filters: {
+        field: vnv_sem_ga_view.total_impressions
+        value: ">0"
+      }
+      filters: {
+        field: vnv_sem_ga_view.day_date
+        value: "2021/05/01 to 2021/07/01"
       }
     }
     datagroup_trigger: vnv_default_datagroup

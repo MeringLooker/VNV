@@ -72,6 +72,7 @@ view: vnv_sem_ga_view {
     group_label: "Client Dimensions"
     sql:
       CASE
+        WHEN ${account} = 'VNV Group SEM' and ${day_date} BETWEEN '2020-07-01' AND '2021-07-01' THEN 'FY21 Group'
         WHEN ${account} = 'VNV Group SEM' THEN 'Group'
         WHEN ${day_date} BETWEEN '2020-07-07' AND '2020-08-30' THEN 'FY21 Better With Time'
         WHEN ${day_date} BETWEEN '2020-09-01' AND '2021-07-01' THEN 'FY21 Raise A Glass'
